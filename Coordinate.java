@@ -4,7 +4,9 @@ public class Coordinate {
 	private int yCoord;
 	private char status;
 	public Coordinate(int newX,int newY,char newStatus) {
-		
+		this.setStatus(newStatus);
+		this.setX(newX);
+		this.setY(newY);
 	}
 	public Coordinate(Coordinate Copy) {
 		this.xCoord = Copy.xCoord;
@@ -56,4 +58,33 @@ public class Coordinate {
 			return false;
 		}
 	}
+	public String toString() {
+		return "Coordinate: ("+this.xCoord+","+this.yCoord+")"+" Status:"+ this.status;
+	}
+	public static void main(String[] args) {
+		Coordinate newcoord = new Coordinate(1,1,'e');
+		System.out.println(newcoord.toString());
+		Coordinate coord2 = new Coordinate(newcoord);
+		coord2.setStatus('w');
+		System.out.println(newcoord.toString());
+		System.out.println(coord2.toString());
+		coord2.setX(2);
+		System.out.println(newcoord.xCollision(coord2));
+		coord2.setX(3);
+		System.out.println(newcoord.xCollision(coord2));
+		System.out.println(newcoord.statusCheck('e'));
+		System.out.println(newcoord.statusCheck('w'));
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
