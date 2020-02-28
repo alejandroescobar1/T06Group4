@@ -41,10 +41,6 @@ public class Player {
 	{
 		return (this.playerName);
 	}
-
-
-
-
 	//will call this method if lives<0
 	public void dead()
 	{
@@ -55,32 +51,46 @@ public class Player {
 //		return action;
 	}
 ///////////////////////////////UPDATE COORDINATE////////////////////////
+	Maze mazeInstance = new Maze(6,6);
 	public void updatePlayerPosition (String direction){
 		int currentPlayerXCoord = player.getX();
 		int currentPlayerYCoord = player.getY();
-		int newPlayerXCoord;
-		int newPlayerYCoord;
+		int newPlayerXCoord = currentPlayerXCoord;
+		int newPlayerYCoord = currentPlayerYCoord;
 		if (direction.equals("w")) {
 			newPlayerYCoord = currentPlayerYCoord - 1;
-			// if check is valid
+			if (mazeInstance.up[currentPlayerXCoord][currentPlayerYCoord] == false) {
 				player.setY(newPlayerYCoord);
+			}
 		}
 		else if (direction.equals("a")) {
 			newPlayerXCoord = currentPlayerXCoord - 1;
-			// if check is valid
+			if (mazeInstance.right[currentPlayerXCoord-1][currentPlayerYCoord] == false) {
 				player.setX(newPlayerXCoord);
+			}
 		}
 		else if (direction.equals("s")) {
 			newPlayerYCoord = currentPlayerYCoord + 1;
-			// if check is valid
+			if (mazeInstance.down[currentPlayerXCoord][currentPlayerYCoord] == false) {
 				player.setY(newPlayerYCoord);
+			}
 		}
 		else if (direction.equals("d")) {
 			newPlayerXCoord = currentPlayerXCoord + 1;
-			// if check is valid
+			if (mazeInstance.right[currentPlayerXCoord][currentPlayerYCoord] == false) {
 				player.setX(newPlayerXCoord);
+			}
+		}
+		if (newPlayerXCoord == 5 && newPlayerYCoord == 5) {
+			win();
 		}
 		
+	}
+	
+	public boolean win() {
+		System.out.println("Congradulations! You win!");
+		boolean ifWin = true;
+		return ifWin;
 	}
 	
 	public void printLocation(){
@@ -101,41 +111,5 @@ public class Player {
 				this.printLocation();
 			}
 		}
-	}
-
-//	public void move(int life)
-	{
-	//	this.direction = currentDirection;
-
-
-
-	/*	if (updateLives(life) == 0)
-		{
-			dead();
-		}
-		*/
-	//	if (updateLives(life) < 0)
-	//	{
-	//		if (direction == 'w')
-	//		{
-				//move up with the number of steps
-				//ycoord minus 1
-	//		}
-	//		if (direction == 'd')
-		//	{
-				//move right with the number of steps
-				//xcoord add 1
-	//		}
-	//		if (direction == 's')
-		//	{
-				//move down with the number of steps
-				//xcoord minus t1
-	//		}
-		//	if (direction == 'a')
-		//	{
-				//move left with the number of steps
-				//xcoord add  1
-		//	}
-	//	}
 	}
 }
