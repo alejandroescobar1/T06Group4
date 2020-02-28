@@ -26,7 +26,7 @@ public class Excutable {
 		if (p1.checkWin() == true) {
 			timer.stop();
 			Score playerScore = new Score(0,0, timer.getSecondPassed());
-			System.out.println("Sucess! You finish in " + timer.getSecondPassed() +" with the score " + playerScore.getScore());
+			System.out.println("Sucess! You finish in " + timer.getSecondPassed() +" seconds with the score " + playerScore.getScore());
 		}
 		
 		
