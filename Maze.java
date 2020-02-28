@@ -7,7 +7,7 @@ public class Maze {
 
 	 public static char[][] CoordinateList2D;
 	 
-	 
+
 	 public static boolean[][] down;
 	 public static boolean[][] up;
 	 public static boolean[][] right;
@@ -103,11 +103,6 @@ public class Maze {
 			down[4][4] = false;
 			up[5][4] = false;
 			CoordinateList2D[0][0] = 'P';
-			
-			
-			
-			
-			
 		 //GenerateWalls();
 
 		 }
@@ -232,9 +227,6 @@ public class Maze {
 					 Row=Row+" |";
 						 }
 				 else {Row=Row+"  ";}
-
-
-				
 			 }
 			 System.out.println(TopWell);
 			 System.out.println(Row);
@@ -289,7 +281,5 @@ public class Maze {
 				
 				}
 			}*/
-		 
 	 }
-
 }

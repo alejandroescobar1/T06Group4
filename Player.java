@@ -60,15 +60,14 @@ public class Player {
 		int newPlayerYCoord = currentPlayerYCoord;
 		if (direction.equals("w")) {
 			newPlayerYCoord = currentPlayerYCoord - 1;
-			if (mazeInstance.up[currentPlayerYCoord][currentPlayerXCoord] == false) {
+			if (mazeInstance.down[currentPlayerYCoord-1][currentPlayerXCoord] == false) {
 				player.setY(newPlayerYCoord);
-				
 			}
 			else {System.out.println("Invalid Move. Please enter again. ");}
 		}
 		else if (direction.equals("a")) {
 			newPlayerXCoord = currentPlayerXCoord - 1;
-			if (mazeInstance.right[currentPlayerYCoord-1][currentPlayerXCoord] == false) {
+			if (mazeInstance.right[currentPlayerYCoord][currentPlayerXCoord-1] == false) {
 				player.setX(newPlayerXCoord);
 			}
 			else {System.out.println("Invalid Move. Please enter again. ");}
@@ -82,27 +81,46 @@ public class Player {
 		}
 		else if (direction.equals("d")) {
 			newPlayerXCoord = currentPlayerXCoord + 1;
-			if (mazeInstance.right[currentPlayerYCoord][currentPlayerXCoord] == false) {
+			if (mazeInstance.right[currentPlayerYCoord][currentPlayerXCoord] == false) { 
 				player.setX(newPlayerXCoord);
 			}
 			else {System.out.println("Invalid Move. Please enter again. ");}
 		}
 		mazeInstance.CoordinateList2D[currentPlayerYCoord][currentPlayerXCoord] = 'E';
 		mazeInstance.CoordinateList2D[newPlayerYCoord][newPlayerXCoord] = 'P';
-	}
-	
-	public boolean checkWin() {
-		boolean win = false;
-		
-		if (player.getX() == 5 && player.getY() == 5) {
-			win = true;
+/*		if (newPlayerYCoord < 0 || newPlayerYCoord >5) {
+			player.setY(currentPlayerYCoord);
+			System.out.println("Invalid Move. Please enter again. ");
+		}
+		if (newPlayerXCoord < 0 || newPlayerXCoord >5) {
+			player.setX(currentPlayerXCoord);
+			System.out.println("Invalid Move. Please enter again. ");
+		}
+		*/
+		if (newPlayerXCoord == 5 && newPlayerYCoord == 5) {
+			win(0);
 		}
 		
-		return win;
+	}
+	
+	public boolean win(int bool) {
+		boolean ifWin = false;
+		if (bool == 0) {
+			System.out.println("Congratulations! You win!");
+			Time timer = new Time();
+			timer.stop(); //the timer will stop when the player lose the game
+			int secondsPassed = timer.getSecondPassed();
+			Score playerScore = new Score(0, 0, secondsPassed);
+			System.out.println("You're score is " + playerScore.getScore());
+			System.exit(0);
+			
+		}
+		
+		return ifWin;
 	}
 	
 	public void printLocation(){
-		System.out.println("Player is at " + player.getY() + ", " + player.getX());
+		System.out.println("Player is at " + player.getX() + ", " + player.getY());
 	}
 	
 	public void getDirection(){
