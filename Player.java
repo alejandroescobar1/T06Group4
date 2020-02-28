@@ -1,12 +1,10 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class Player {
 	private int lives = 3;
 	private String playerName= "Dave";
-	private char direction;
-	private int steps;
+	private Coordinate player = new Coordinate(0,0,'p');
 
 	public void setLives(int newLives)
 	{
@@ -31,13 +29,12 @@ public class Player {
 		String inputName1 = null;
 		System.out.print("Enter user name: ");
 		Scanner scan = new Scanner(System.in);
-		inputName1 = scan.next();
+		inputName1 = scan.nextLine();
 		if (inputName1 != null)
 		{
 			if(inputName1.isEmpty() == false) 
 			this.playerName = inputName1;
-			scan.close();
-					}
+		}
 	}
 
 	public String getPlayerName()
@@ -45,15 +42,6 @@ public class Player {
 		return (this.playerName);
 	}
 
-	public void setDirection(char newDirection)
-	{
-		this.direction = newDirection;
-	}
-
-	public char getDirection()
-	{
-		return (this.direction);
-	}
 
 
 
@@ -67,30 +55,52 @@ public class Player {
 //		return action;
 	}
 ///////////////////////////////UPDATE COORDINATE////////////////////////
-	public ArrayList<Integer> updatePlayerPosition (int XCoord, int YCoord, char direction){
-		int playerXCoord = XCoord;
-		int playerYCoord = YCoord;
-		int playerXCoordChange = 0; 
-		int playerYCoordChange = 0;
-		if (direction == 'w') {
-			playerYCoordChange = -1;
+	public void updatePlayerPosition (String direction){
+		int currentPlayerXCoord = player.getX();
+		int currentPlayerYCoord = player.getY();
+		int newPlayerXCoord;
+		int newPlayerYCoord;
+		if (direction.equals("w")) {
+			newPlayerYCoord = currentPlayerYCoord - 1;
+			// if check is valid
+				player.setY(newPlayerYCoord);
 		}
-		else if (direction == 'a') {
-			playerXCoordChange = -1;
+		else if (direction.equals("a")) {
+			newPlayerXCoord = currentPlayerXCoord - 1;
+			// if check is valid
+				player.setX(newPlayerXCoord);
 		}
-		else if (direction == 's') {
-			playerYCoordChange = 1;
+		else if (direction.equals("s")) {
+			newPlayerYCoord = currentPlayerYCoord + 1;
+			// if check is valid
+				player.setY(newPlayerYCoord);
 		}
-		else if (direction == 'd') {
-			playerXCoordChange = 1;
+		else if (direction.equals("d")) {
+			newPlayerXCoord = currentPlayerXCoord + 1;
+			// if check is valid
+				player.setX(newPlayerXCoord);
 		}
-		int newPlayerXCoord = playerXCoord + playerXCoordChange;
-		int newPlayerYCoord = playerYCoord + playerYCoordChange;
-		ArrayList<Integer> playerCoordArrayList = new ArrayList<Integer>();
-		playerCoordArrayList.add(newPlayerXCoord);
-		playerCoordArrayList.add(newPlayerYCoord);
-		return playerCoordArrayList;
 		
+	}
+	
+	public void printLocation(){
+		System.out.println("Player is at " + player.getX() + ", " + player.getY());
+	}
+	
+	public void getDirection(){
+		String directionInput = null;
+		Boolean valid = false;
+		System.out.print("Please enter direction (a = left, w = up, d = right, s = down): ");
+		Scanner scan = new Scanner(System.in);
+		directionInput = scan.nextLine();
+
+		while (valid == false) {
+			if (directionInput.equals("a") || directionInput.equals("s") || directionInput.equals("w") || directionInput.equals("d")) {
+				this.updatePlayerPosition(directionInput);
+				valid = true;
+				this.printLocation();
+			}
+		}
 	}
 
 //	public void move(int life)
