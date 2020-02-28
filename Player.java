@@ -96,27 +96,16 @@ public class Player {
 			player.setX(currentPlayerXCoord);
 			System.out.println("Invalid Move. Please enter again. ");
 		}
-		*/
-		if (newPlayerXCoord == 5 && newPlayerYCoord == 5) {
-			win(0);
-		}
-		
 	}
 	
-	public boolean win(int bool) {
-		boolean ifWin = false;
-		if (bool == 0) {
-			System.out.println("Congratulations! You win!");
-			Time timer = new Time();
-			timer.stop(); //the timer will stop when the player lose the game
-			int secondsPassed = timer.getSecondPassed();
-			Score playerScore = new Score(0, 0, secondsPassed);
-			System.out.println("You're score is " + playerScore.getScore());
-			System.exit(0);
-			
+	public boolean checkWin() {
+		boolean win = false;
+		
+		if (player.getX() == 5 && player.getY() == 5) {
+			win = true;
 		}
 		
-		return ifWin;
+		return win;
 	}
 	
 	public void printLocation(){
@@ -134,7 +123,6 @@ public class Player {
 			if (directionInput.equals("a") || directionInput.equals("s") || directionInput.equals("w") || directionInput.equals("d")) {
 				this.updatePlayerPosition(directionInput);
 				valid = true;
-				//this.printLocation();
 			}
 		}
 	}
