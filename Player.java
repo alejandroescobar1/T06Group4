@@ -89,21 +89,16 @@ public class Player {
 		}
 		mazeInstance.CoordinateList2D[currentPlayerYCoord][currentPlayerXCoord] = 'E';
 		mazeInstance.CoordinateList2D[newPlayerYCoord][newPlayerXCoord] = 'P';
-		if (newPlayerXCoord == 5 && newPlayerYCoord == 5) {
-			win(0);
-		}
-		
 	}
 	
-	public boolean win(int bool) {
-		boolean ifWin = false;
-		if (bool == 0) {
-			System.out.println("Congratulations! You win!");
-			System.exit(0);
-			
+	public boolean checkWin() {
+		boolean win = false;
+		
+		if (player.getX() == 5 && player.getY() == 5) {
+			win = true;
 		}
 		
-		return ifWin;
+		return win;
 	}
 	
 	public void printLocation(){
