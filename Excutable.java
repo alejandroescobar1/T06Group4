@@ -1,4 +1,4 @@
-
+import javax.swing.Timer;
 
 public class Excutable {
 	static Player p1 = new Player();
@@ -11,10 +11,11 @@ public class Excutable {
 		p1.setPlayerName();
 		
 		
-		
+		Time timer = new Time();
+		timer.start();
 		//print maze
 		
-		while (win != true) {
+		while (p1.checkWin() != true) {
 			//Print player location
 			p1.printLocation();
 			
@@ -22,6 +23,12 @@ public class Excutable {
 			// Prompt for direction
 			p1.getDirection();
 			
+		}
+		
+		if (p1.checkWin() == true) {
+			timer.stop();
+			Score playerScore = new Score(0,0, timer.getSecondPassed());
+			System.out.println("Sucess! You finish in " + timer.getSecondPassed() +" with the score " + playerScore.getScore());
 		}
 		
 		
