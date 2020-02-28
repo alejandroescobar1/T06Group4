@@ -8,12 +8,13 @@ public class Maze {
 	 private static char[][] CoordinateList2D;
 	 
 	 
-	 private boolean[][] down;
-	 private boolean[][] up;
-	 private boolean[][] right;
-	 private boolean[][] left;
-	 private boolean[][] visited;
+	 public static boolean[][] down;
+	 public static boolean[][] up;
+	 public static boolean[][] right;
+	 public static boolean[][] left;
+	 public static boolean[][] visited;
 
+	 private static String[][] LetterWitWalls;
 	 
 	 public Maze(int length, int width) {
 		 this.CoordinateList=new ArrayList<Coordinate> ();
@@ -26,7 +27,7 @@ public class Maze {
 		 //randomly generate wall i.e. change 'e' to 'w' but have to be sure the wall doesn't form
 		 //a closed path, i.e. at least one of direction should be opened(for entering)
 			for (int i=0;i<CoordinateList.size();i++) {
-				 CoordinateList.get(i).setLetter((char)(i+65));
+				 CoordinateList.get(i).setLetter('A');
 			}
 		 down = new boolean[length][width];
 		 up = new boolean[length][width];
@@ -47,13 +48,70 @@ public class Maze {
 			for (int row=0;row<width;row++) {
 			for (int col =0;col<length;col++) {
 				CoordinateList2D[row][col]=CoordinateList.get(row*length+col).getLetter();}}
+			right[0][0] = false;
+			right[0][1] = false;
+			down[0][1] = false;
+			up[1][1] = false;
+			right[1][0] = false;
+			down[1][0] = false;
+			up[2][0] = false;
+			down[2][0] = false; 
+			up[3][0] = false;
+			right[3][0] = false;
+			down[3][1] = false;
+			up[4][1] = false;
+			right[4][0] = false; 
+			down[4][0] = false; 
+			up[5][0] = false;
+			right[5][0]= false;
+			right[5][1] = false;
+			up[5][2] = false;
+			down[4][2] = false;
+			right[4][2] = false;
+			down[4][3] = false; 
+			up[5][3] = false;
+			right[1][1] = false;
+			right[1][2] = false;
+			down[1][2] = false;
+			up[2][2] = false; 
+			right[2][1] = false;
+			down[2][2] = false;
+			up[3][2] = false;
+			right[3][2] = false;
+			right[0][2] = false; 
+			right[0][3] = false;
+			down[0][3] = false;
+			up[1][3] = false;
+			right[1][3] = false;
+			right[1][4] = false;
+			up[1][5] = false;
+			down[0][5] = false;
+			down[1][5] = false;
+			up[2][5] = false;
+			down[2][5] = false;
+			up[3][5] = false;
+			right[3][4] = false;
+			up[3][4] = false;
+			down[2][4] = false;
+			right[2][3] = false;
+			right[4][4] = false;
+			down[4][5] = false;
+			up[5][5] = false;
+			down[3][5] = false;
+			up[4][5] = false;
+			right[4][4] = false;
+			down[4][4] = false;
+			up[5][4] = false;
 			
-		 GenerateWalls();
+			
+			
+			
+			
+			
+		 //GenerateWalls();
 
 		 }
-	 public boolean SameSet() {
-		 
-	 }
+
 	 public void GenerateWalls()
 	 {
 				//generate a random integer between 1-size of maze( directions)
@@ -132,26 +190,109 @@ public class Maze {
 
 	 public static void main(String[] args) 
 	    { 
-		 	Maze newMaze = new Maze(5,5);
+		 	Maze newMaze = new Maze(6,6);
 		 	//test - to print out status of each coordinates
 			for (int i=0;i<newMaze.CoordinateList.size();i++) {
 				System.out.println(newMaze.CoordinateList.get(i).toString());
-				
+			
+			
 
 			}
-			for (int row=0;row<5;row++) {
+			/*for (int row=0;row<5;row++) {
 			for (int col =0;col<5;col++) {
 		        if((((col+1) % 5) == 0) ){
 		        	System.out.println(CoordinateList2D[row][col]);	
 		        }
 		        else{System.out.print(CoordinateList2D[row][col]);}
 		        
-			}
+			}*/
+			newMaze.PrintMaze(6,6);
 			
 			}	
-			
+	    //} 
+	 
+	 //Print out the actual wall shapes(-,|,|,-) 
+	 public static void PrintMaze(int length, int width) {
 
-	  
-	    } 
+		 for(int i=0;i<width;i++) {
+			 String BottomWell ="";
+			 String Row ="|";
+			 String TopWell ="";
+			 for (int x=0;x<width;x++) {
+				 if (up[i][x]==true) {
+					 TopWell=TopWell+" ---";}
+					 else {
+						 TopWell=TopWell+"    ";
+					 		}
+				 Row=Row+ " " +CoordinateList2D[i][x];
+				
+				 
+				 if (right[i][x]==true){
+					
+					 Row=Row+" |";
+						 }
+				 else {Row=Row+"  ";}
+
+
+				if (down[i][x]==true) {
+					BottomWell=BottomWell+" ---";}
+						 else {
+							 BottomWell=BottomWell+"    ";
+						 		}
+			 }
+			 System.out.println(TopWell);
+			 System.out.println(Row);
+			 
+			 System.out.println(BottomWell);
+		 }
+
+		 /*
+		 LetterWitWalls=new String [length][width];
+			for (int row=0;row<width;row++) {
+			for (int col =0;col<length;col++) {
+				//make sure it switch row every count of length(e.g.5)
+				
+				//first part-go by row increase
+				//draw up up wall
+				if (up[row][col]==true){
+						
+					System.out.println("__");
+					}
+				else {
+					System.out.println(" ");
+					}
+				
+				//go down 1 row with println and draw Letter with left and right wall/space append to it
+				String LetterWithWall = "";
+				if (left[row][col]==true) {
+					LetterWithWall+="|";
+				}
+				else {
+					LetterWithWall+=" ";
+				}
+				LetterWithWall+=CoordinateList2D[row][col];
+				if (right[row][col]==true) {
+					LetterWithWall+="|";
+				}
+				else {
+					LetterWithWall+=" ";
+				}				
+				System.out.println(LetterWithWall);
+				//
+				
+				//draw  up wall
+				if (down[row][col]==true){
+					System.out.println("__");
+					}
+				else {
+					System.out.println(" ");
+					}
+				
+				
+				
+				}
+			}*/
+		 
+	 }
 
 }
