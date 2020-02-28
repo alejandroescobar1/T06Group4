@@ -33,7 +33,7 @@ public class Executable {
 			timer.stop(); //the timer will stop when the player lose the game
 			int secondsPassed = timer.getSecondPassed();
 			Score playerScore = new Score(0, 0, secondsPassed);
-			System.out.println("You're score is " + playerScore.getScore());
+			System.out.println("Success! Your score is " + playerScore.getScore());
 		
 			
 			
