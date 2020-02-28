@@ -15,6 +15,10 @@ public class Time {
     	timer.scheduleAtFixedRate(task, 0, 1000);
     }
     
+    public int getSecondPassed(){
+        return secondPassed;
+    }
+   
     public void stop() {
     	timer.cancel();
     }
