@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,11 +13,6 @@ public class Time {
     
     public void start() {
     	timer.scheduleAtFixedRate(task, 0, 1000);
-    }
-    
-    public int getSecondPassed()
-    {
-    	return secondPassed;
     }
     
     public void stop() {

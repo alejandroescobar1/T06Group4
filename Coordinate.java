@@ -1,4 +1,3 @@
-
 public class Coordinate {
 	private int xCoord;
 	private int yCoord;

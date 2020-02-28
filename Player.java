@@ -52,6 +52,7 @@ public class Player {
 	}
 ///////////////////////////////UPDATE COORDINATE////////////////////////
 	Maze mazeInstance = new Maze(6,6);
+	
 	public void updatePlayerPosition (String direction){
 		int currentPlayerXCoord = player.getX();
 		int currentPlayerYCoord = player.getY();
@@ -59,42 +60,54 @@ public class Player {
 		int newPlayerYCoord = currentPlayerYCoord;
 		if (direction.equals("w")) {
 			newPlayerYCoord = currentPlayerYCoord - 1;
-			if (mazeInstance.up[currentPlayerXCoord][currentPlayerYCoord] == false) {
+			if (mazeInstance.up[currentPlayerYCoord][currentPlayerXCoord] == false) {
 				player.setY(newPlayerYCoord);
+				
 			}
+			else {System.out.println("Invalid Move. Please enter again. ");}
 		}
 		else if (direction.equals("a")) {
 			newPlayerXCoord = currentPlayerXCoord - 1;
-			if (mazeInstance.right[currentPlayerXCoord-1][currentPlayerYCoord] == false) {
+			if (mazeInstance.right[currentPlayerYCoord-1][currentPlayerXCoord] == false) {
 				player.setX(newPlayerXCoord);
 			}
+			else {System.out.println("Invalid Move. Please enter again. ");}
 		}
 		else if (direction.equals("s")) {
 			newPlayerYCoord = currentPlayerYCoord + 1;
-			if (mazeInstance.down[currentPlayerXCoord][currentPlayerYCoord] == false) {
+			if (mazeInstance.down[currentPlayerYCoord][currentPlayerXCoord] == false) {
 				player.setY(newPlayerYCoord);
 			}
+			else {System.out.println("Invalid Move. Please enter again. ");}
 		}
 		else if (direction.equals("d")) {
 			newPlayerXCoord = currentPlayerXCoord + 1;
-			if (mazeInstance.right[currentPlayerXCoord][currentPlayerYCoord] == false) {
+			if (mazeInstance.right[currentPlayerYCoord][currentPlayerXCoord] == false) {
 				player.setX(newPlayerXCoord);
 			}
+			else {System.out.println("Invalid Move. Please enter again. ");}
 		}
+		mazeInstance.CoordinateList2D[currentPlayerYCoord][currentPlayerXCoord] = 'E';
+		mazeInstance.CoordinateList2D[newPlayerYCoord][newPlayerXCoord] = 'P';
 		if (newPlayerXCoord == 5 && newPlayerYCoord == 5) {
-			win();
+			win(0);
 		}
 		
 	}
 	
-	public boolean win() {
-		System.out.println("Congradulations! You win!");
-		boolean ifWin = true;
+	public boolean win(int bool) {
+		boolean ifWin = false;
+		if (bool == 0) {
+			System.out.println("Congratulations! You win!");
+			System.exit(0);
+			
+		}
+		
 		return ifWin;
 	}
 	
 	public void printLocation(){
-		System.out.println("Player is at " + player.getX() + ", " + player.getY());
+		System.out.println("Player is at " + player.getY() + ", " + player.getX());
 	}
 	
 	public void getDirection(){
@@ -108,7 +121,7 @@ public class Player {
 			if (directionInput.equals("a") || directionInput.equals("s") || directionInput.equals("w") || directionInput.equals("d")) {
 				this.updatePlayerPosition(directionInput);
 				valid = true;
-				this.printLocation();
+				//this.printLocation();
 			}
 		}
 	}

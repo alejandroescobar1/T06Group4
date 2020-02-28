@@ -5,7 +5,7 @@ public class Maze {
 	 private int width;
 	 private  ArrayList<Coordinate> CoordinateList;
 
-	 private static char[][] CoordinateList2D;
+	 public static char[][] CoordinateList2D;
 	 
 	 
 	 public static boolean[][] down;
@@ -27,7 +27,7 @@ public class Maze {
 		 //randomly generate wall i.e. change 'e' to 'w' but have to be sure the wall doesn't form
 		 //a closed path, i.e. at least one of direction should be opened(for entering)
 			for (int i=0;i<CoordinateList.size();i++) {
-				 CoordinateList.get(i).setLetter('A');
+				 CoordinateList.get(i).setLetter('E');
 			}
 		 down = new boolean[length][width];
 		 up = new boolean[length][width];
@@ -102,7 +102,7 @@ public class Maze {
 			right[4][4] = false;
 			down[4][4] = false;
 			up[5][4] = false;
-			
+			CoordinateList2D[0][0] = 'P';
 			
 			
 			
@@ -213,7 +213,7 @@ public class Maze {
 	 
 	 //Print out the actual wall shapes(-,|,|,-) 
 	 public static void PrintMaze(int length, int width) {
-
+		
 		 for(int i=0;i<width;i++) {
 			 String BottomWell ="";
 			 String Row ="|";
@@ -234,17 +234,14 @@ public class Maze {
 				 else {Row=Row+"  ";}
 
 
-				if (down[i][x]==true) {
-					BottomWell=BottomWell+" ---";}
-						 else {
-							 BottomWell=BottomWell+"    ";
-						 		}
+				
 			 }
 			 System.out.println(TopWell);
 			 System.out.println(Row);
 			 
-			 System.out.println(BottomWell);
+			 //System.out.println(BottomWell);
 		 }
+		 System.out.println(" --- --- --- --- ---     ");
 
 		 /*
 		 LetterWitWalls=new String [length][width];
