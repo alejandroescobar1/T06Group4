@@ -3,20 +3,34 @@ public class Excutable {
 
 	public static void main(String[] args) {
 		Maze maze1 = new Maze(6,6); 
-		boolean win = false;
+		Boolean win = false;
 	
 		Player p1 = new Player();
 		p1.setPlayerName();
-		// Start Timer
+		
+		
 		Time timer = new Time();
 		timer.start();
-		while (win != true) {
+		//print maze
+		
+		while (p1.checkWin() != true) {
 			//Print player location
 			p1.printLocation();
-			//print maze
+			
 			maze1.PrintMaze(6,6);
 			// Prompt for direction
 			p1.getDirection();
+			
 		}
+		
+		if (p1.checkWin() == true) {
+			timer.stop();
+			Score playerScore = new Score(0,0, timer.getSecondPassed());
+			System.out.println("Sucess! You finish in " + timer.getSecondPassed() +" with the score " + playerScore.getScore());
+		}
+		
+		
+		
 	}
+
 }
