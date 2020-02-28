@@ -8,7 +8,6 @@ public class Player {
 	private char direction;
 	private int steps;
 
-
 	public void setLives(int newLives)
 	{
 		this.lives = newLives;
@@ -58,20 +57,48 @@ public class Player {
 	{
 
 		System.out.println("Game Over!");
+//		String action = getAction();
+//		action = "EXIT";
+//		return action;
+	}
+///////////////////////////////UPDATE COORDINATE////////////////////////
+	public ArrayList<Integer> updatePlayerPosition (int XCoord, int YCoord, char direction){
+		int playerXCoord = XCoord;
+		int playerYCoord = YCoord;
+		int playerXCoordChange = 0; 
+		int playerYCoordChange = 0;
+		if (direction == 'w') {
+			playerYCoordChange = -1;
+		}
+		else if (direction == 'a') {
+			playerXCoordChange = -1;
+		}
+		else if (direction == 's') {
+			playerYCoordChange = 1;
+		}
+		else if (direction == 'd') {
+			playerXCoordChange = 1;
+		}
+		int newPlayerXCoord = playerXCoord + playerXCoordChange;
+		int newPlayerYCoord = playerYCoord + playerYCoordChange;
+		ArrayList<Integer> playerCoordArrayList = new ArrayList<Integer>();
+		playerCoordArrayList.add(newPlayerXCoord);
+		playerCoordArrayList.add(newPlayerYCoord);
+		return playerCoordArrayList;
+		
 	}
 
-
-	public void move(int life)
+//	public void move(int life)
 	{
 	//	this.direction = currentDirection;
 
 
 
-		if (updateLives(life) == 0)
+	/*	if (updateLives(life) == 0)
 		{
 			dead();
 		}
-
+		*/
 	//	if (updateLives(life) < 0)
 	//	{
 	//		if (direction == 'w')
@@ -96,11 +123,4 @@ public class Player {
 		//	}
 	//	}
 	}
-
-
-
-
-
-
-
 }
