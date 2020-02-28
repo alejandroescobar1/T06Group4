@@ -1,9 +1,10 @@
 ///////DO NOT USE THIS FILE//////
 
 public class Executable {
+	static Player p1 = new Player();
 
 	public static void main(String[] args) {
-		Maze maze1 = new Maze(); //Create a maze object
+		Maze maze1 = new Maze(6,6); //Create a maze object
 		Boolean win = false;
 		
 		
