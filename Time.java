@@ -11,6 +11,10 @@ public class Time {
     	}
     };
     
+    public int getSecondPassed() {
+		return this.secondPassed;
+	}
+
     public void start() {
     	timer.scheduleAtFixedRate(task, 0, 1000);
     }
@@ -40,4 +44,6 @@ public class Time {
         }
        
     }
+
+
 }

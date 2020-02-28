@@ -58,56 +58,81 @@ public class Player {
 		int currentPlayerYCoord = player.getY();
 		int newPlayerXCoord = currentPlayerXCoord;
 		int newPlayerYCoord = currentPlayerYCoord;
+		boolean invalid=false;
 		if (direction.equals("w")) {
 			newPlayerYCoord = currentPlayerYCoord - 1;
 			if (mazeInstance.up[currentPlayerYCoord][currentPlayerXCoord] == false) {
 				player.setY(newPlayerYCoord);
-				
 			}
-			else {System.out.println("Invalid Move. Please enter again. ");}
+			else {
+				System.out.println("Invalid Move. Please enter again. "); 
+				invalid = true;
+				}
 		}
 		else if (direction.equals("a")) {
 			newPlayerXCoord = currentPlayerXCoord - 1;
-			if (mazeInstance.right[currentPlayerYCoord-1][currentPlayerXCoord] == false) {
+			if (mazeInstance.right[currentPlayerYCoord][currentPlayerXCoord-1] == false) {
 				player.setX(newPlayerXCoord);
 			}
-			else {System.out.println("Invalid Move. Please enter again. ");}
+			else {
+				System.out.println("Invalid Move. Please enter again. "); 
+				invalid = true;
+				}
 		}
 		else if (direction.equals("s")) {
 			newPlayerYCoord = currentPlayerYCoord + 1;
 			if (mazeInstance.down[currentPlayerYCoord][currentPlayerXCoord] == false) {
 				player.setY(newPlayerYCoord);
 			}
-			else {System.out.println("Invalid Move. Please enter again. ");}
+			else {
+				System.out.println("Invalid Move. Please enter again. "); 
+				invalid = true;
+				}
 		}
 		else if (direction.equals("d")) {
 			newPlayerXCoord = currentPlayerXCoord + 1;
-			if (mazeInstance.right[currentPlayerYCoord][currentPlayerXCoord] == false) {
+			if (mazeInstance.right[currentPlayerYCoord][currentPlayerXCoord] == false) { 
 				player.setX(newPlayerXCoord);
 			}
-			else {System.out.println("Invalid Move. Please enter again. ");}
+			else {
+				System.out.println("Invalid Move. Please enter again. "); 
+				invalid = true;
+				}
 		}
-		mazeInstance.CoordinateList2D[currentPlayerYCoord][currentPlayerXCoord] = 'E';
-		mazeInstance.CoordinateList2D[newPlayerYCoord][newPlayerXCoord] = 'P';
-		if (newPlayerXCoord == 5 && newPlayerYCoord == 5) {
-			win(0);
+		if (invalid == false) {
+			mazeInstance.CoordinateList2D[currentPlayerYCoord][currentPlayerXCoord] = 'E';
+			mazeInstance.CoordinateList2D[newPlayerYCoord][newPlayerXCoord] = 'P';
+		}
+		else {
+			mazeInstance.CoordinateList2D[currentPlayerYCoord][currentPlayerXCoord] = 'P';
+		}
+/*		if (newPlayerYCoord < 0 || newPlayerYCoord >5) {
+			player.setY(currentPlayerYCoord);
+			System.out.println("Invalid Move. Please enter again. ");
+		}
+		if (newPlayerXCoord < 0 || newPlayerXCoord >5) {
+			player.setX(currentPlayerXCoord);
+			System.out.println("Invalid Move. Please enter again. ");
+		}
+		*/
+		
+	}
+	public boolean checkWin() {
+		boolean win = false;
+		
+		if (player.getX() == 5 && player.getY() == 5) {
+			win = true;
 		}
 		
+		return win;
 	}
 	
-	public boolean win(int bool) {
-		boolean ifWin = false;
-		if (bool == 0) {
-			System.out.println("Congratulations! You win!");
-			System.exit(0);
 			
-		}
+			
 		
-		return ifWin;
-	}
 	
 	public void printLocation(){
-		System.out.println("Player is at " + player.getY() + ", " + player.getX());
+		System.out.println("Player is at " + player.getX() + ", " + player.getY());
 	}
 	
 	public void getDirection(){
