@@ -26,13 +26,17 @@ public class Player {
 
 	//////////////////////////////////////////////////////////////////////
 	// This code allows the user to name the avatar's name. The default name is Dave
-	public void setPlayerName(String inputName)
+	public void setPlayerName()
 	{
-		if (inputName != null)
+		String inputName1 = null;
+		Scanner scan = new Scanner(System.in);
+		inputName1 = scan.next();
+		if (inputName1 != null)
 		{
-			if(inputName.isEmpty() == false)
-			this.playerName = inputName;
-		}
+			if(inputName1.isEmpty() == false) 
+			this.playerName = inputName1;
+			scan.close();
+					}
 	}
 
 	public String getPlayerName()
