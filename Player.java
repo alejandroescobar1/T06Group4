@@ -29,6 +29,7 @@ public class Player {
 	public void setPlayerName()
 	{
 		String inputName1 = null;
+		System.out.print("Enter user name: ");
 		Scanner scan = new Scanner(System.in);
 		inputName1 = scan.next();
 		if (inputName1 != null)
