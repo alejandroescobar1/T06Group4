@@ -65,7 +65,7 @@ public class MazeGUI extends Application {
 		grid.add(Width, 1, 1);
 		//grid.setGridLinesVisible(true);
 		
-		final Canvas canvas = new Canvas(456, 456);
+		final Canvas canvas = new Canvas(700, 700);
 		gc=canvas.getGraphicsContext2D();
 		grid.add(canvas, 0, 3, 2, 1);
 		
@@ -107,9 +107,8 @@ public class MazeGUI extends Application {
 
 	
 	public void PrintMazeGUI(ArrayList<Coordinate> list) 
-	{	//gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+	{
 		gc.restore();
-		
 		gc.save();
 		gc.scale(20,20);
 		gc.setLineWidth(1);
@@ -145,7 +144,8 @@ public class MazeGUI extends Application {
 					top = top +" ---";
 					
 					// add 10 to both horizontal start and end point to begin with since otherwise the left outter wall gets chunked off 
-					gc.strokeLine(j+10,i+10, j+11, i+10);
+					if (i!=0||j!=0)
+					{gc.strokeLine(j+10,i+10, j+11, i+10);}
 					
 					
 					}
@@ -158,6 +158,7 @@ public class MazeGUI extends Application {
 					// add 10 to both horizontal start and end point to begin with since otherwise the left outter wall gets chunked off 
 					gc.strokeLine(j+11,i+10, j+11, i+11);
 					//gc.strokeText("|",i+1,j+1);
+					//the below code draws the left side of wall
 					gc.strokeLine(10,i+10, 10, i+11);
 				 }
 				else {row= row+"  ";}
@@ -167,6 +168,7 @@ public class MazeGUI extends Application {
 			}
 		
 		System.out.println(" --- --- --- --- --- --- --- --- --- --- --- --- --- ---     ");
-		for (int i = 0; i < length; i++)
+		//the below loop draws the bottom side of wall
+		for (int i = 0; i < length-1; i++)
 		{gc.strokeLine(i+10,width+10, i+10.9, width+10);}
 	}}
