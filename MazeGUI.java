@@ -146,8 +146,6 @@ public class MazeGUI extends Application {
 					// add 10 to both horizontal start and end point to begin with since otherwise the left outter wall gets chunked off 
 					if (i!=0||j!=0)
 					{gc.strokeLine(j+10,i+10, j+11, i+10);}
-					
-					
 					}
 				 else {
 					 top = top +"    ";
