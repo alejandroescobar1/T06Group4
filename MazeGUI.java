@@ -66,7 +66,6 @@ public class MazeGUI extends Application {
 		//grid.setGridLinesVisible(true);
 		
 		final Canvas canvas = new Canvas(456, 456);
-
 		gc=canvas.getGraphicsContext2D();
 		grid.add(canvas, 0, 3, 2, 1);
 		
@@ -74,9 +73,11 @@ public class MazeGUI extends Application {
 			@Override
 			public void handle(KeyEvent change) {
 				if (Length.getText().isEmpty()==false && Width.getText().isEmpty()==false&&Integer.parseInt(Length.getText())==Integer.parseInt(Width.getText()))
-				{newMaze = new Maze(Integer.parseInt(Length.getText()), Integer.parseInt(Width.getText()));
+				{
+				gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 				length=Integer.parseInt(Length.getText());
 				width=Integer.parseInt(Width.getText());
+				newMaze = new Maze(Integer.parseInt(Length.getText()), Integer.parseInt(Width.getText()));
 				newMaze.GenerateWalls();
 				PrintMazeGUI(newMaze.CoordinateList);}
 			}
@@ -106,14 +107,13 @@ public class MazeGUI extends Application {
 
 	
 	public void PrintMazeGUI(ArrayList<Coordinate> list) 
-	{
-		gc.save();
-		gc.scale(12,12);
-		//gc.clearRect(0, 0, model.getWidth()*10, model.getHeight()*10);
-		gc.setLineWidth( 1 );
-		gc.setStroke(Color.BLACK);
-	
+	{	//gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		gc.restore();
 		
+		gc.save();
+		gc.scale(20,20);
+		gc.setLineWidth(1);
+
 		///// put into ordered list
 		Coordinate[][] ordered = new Coordinate[length][width];
 		for (int i = 0; i < length; i++){
@@ -129,20 +129,9 @@ public class MazeGUI extends Application {
 		
 		///print ordered list to gui
 		//first print walls
-		gc.setStroke(Color.GREEN);
-		
+		gc.setStroke(Color.BLACK);
 		gc.setLineWidth(0.3);
-		
-		
-		//draw a vertical line 3rd arg(horizaontal end point) being same as 1st and 4th arg(vertical end point)  add 1 from 2nd
-		//gc.strokeLine(1,1, 1, 2);
 
-		//draw a horizontal line 3rd arg(horizaontal end point) add 1 from 1st; and 4th arg(vertical end point)  stay same
-		//gc.strokeLine(3,3, 4, 3);
-		//gc.strokeOval(1,1, 1, 1);
-		
-		
-		
 		for (int i = 0; i < length; i++){
 			String row ="|";
 			String top ="";
@@ -156,7 +145,7 @@ public class MazeGUI extends Application {
 					top = top +" ---";
 					
 					// add 10 to both horizontal start and end point to begin with since otherwise the left outter wall gets chunked off 
-					gc.strokeLine(j+10,i+10, j+10.9, i+10);
+					gc.strokeLine(j+10,i+10, j+11, i+10);
 					
 					
 					}
@@ -167,17 +156,14 @@ public class MazeGUI extends Application {
 				if (ordered[i][j].getRight() == true) {
 					row = row+" |";
 					// add 10 to both horizontal start and end point to begin with since otherwise the left outter wall gets chunked off 
-					gc.strokeLine(j+11,i+10, j+11, i+10.9);
+					gc.strokeLine(j+11,i+10, j+11, i+11);
 					//gc.strokeText("|",i+1,j+1);
-					gc.strokeLine(10,i+10, 10, i+10.9);
+					gc.strokeLine(10,i+10, 10, i+11);
 				 }
 				else {row= row+"  ";}
 				}
-		
 			System.out.println(top);
 			System.out.println(row);
-			//for (int charac=0;i<row.length();charac++)
-				//{System.out.println(row.charAt(charac));}
 			}
 		
 		System.out.println(" --- --- --- --- --- --- --- --- --- --- --- --- --- ---     ");
