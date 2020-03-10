@@ -73,7 +73,7 @@ public class MazeGUI extends Application {
 		//!!!
 		
 		Scene scene = new Scene(grid);
-		scene.getStylesheets().add(MazeGUI.class.getResource("MazeGUI.css").toExternalForm());
+		//scene.getStylesheets().add(MazeGUI.class.getResource("MazeGUI.css").toExternalForm());
 		
 		stage.setScene(scene);
 		stage.sizeToScene();
@@ -140,7 +140,9 @@ public class MazeGUI extends Application {
 					top = top +" ---";
 					
 					// add 10 to both horizontal start and end point to begin with since otherwise the left outter wall gets chunked off 
-					gc.strokeLine(i+10,j+10, i+10.9, j+10);
+					gc.strokeLine(j+10,i+10, j+10.9, i+10);
+					
+					
 					}
 				 else {
 					 top = top +"    ";
@@ -149,18 +151,20 @@ public class MazeGUI extends Application {
 				if (ordered[i][j].getRight() == true) {
 					row = row+" |";
 					// add 10 to both horizontal start and end point to begin with since otherwise the left outter wall gets chunked off 
-					gc.strokeLine(i+10,j+10, i+10, j+10.9);
+					gc.strokeLine(j+11,i+10, j+11, i+10.9);
 					//gc.strokeText("|",i+1,j+1);
-					
+					gc.strokeLine(10,i+10, 10, i+10.9);
 				 }
 				else {row= row+"  ";}
 				}
 		
 			System.out.println(top);
 			System.out.println(row);
-			
-			
+			//for (int charac=0;i<row.length();charac++)
+				//{System.out.println(row.charAt(charac));}
 			}
+		
 		System.out.println(" --- --- --- --- --- --- --- --- --- --- --- --- --- ---     ");
-
+		for (int i = 0; i < length; i++)
+		{gc.strokeLine(i+10,width+10, i+10.9, width+10);}
 	}}
