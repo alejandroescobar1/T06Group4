@@ -27,6 +27,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.input.KeyEvent;
+
 
 public class MazeGUI extends Application {
 	Maze newMaze;
@@ -38,50 +40,64 @@ public class MazeGUI extends Application {
 	
 	public void start(Stage stage) throws Exception
 	{	//create a new maze instance
-		newMaze= new Maze(5, 5);
-		length=5;
-		width=5;
+		//length=6;
+		//width=6;
+		//newMaze= new Maze(length, width);
 		//do wall randomization
-		newMaze.GenerateWalls();
+		//newMaze.GenerateWalls();
 		
 		//output the wall strutures using a method that  
-		stage.setTitle("Maze!");
+		stage.setTitle("MazeGUI");
 		
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25,25,25,25));
 
-		Label xStartLabel = new Label("X:");
-		final TextField xStart = new TextField();
-		grid.add(xStartLabel, 0, 0);
-		grid.add(xStart, 1, 0);
+		Label LengthLabel = new Label("Length:");
+		final TextField Length = new TextField();
+		grid.add(LengthLabel, 0, 0);
+		grid.add(Length, 1, 0);
 		
-		Label yStartLabel = new Label("Y:");
-		final TextField yStart = new TextField();
-		grid.add(yStartLabel, 0, 1);
-		grid.add(yStart, 1, 1);
+		Label WidthLabel = new Label("Width:");
+		final TextField Width = new TextField();
+		grid.add(WidthLabel, 0, 1);
+		grid.add(Width, 1, 1);
 		//grid.setGridLinesVisible(true);
 		
 		final Canvas canvas = new Canvas(456, 456);
 
-		gc = canvas.getGraphicsContext2D();
+		gc=canvas.getGraphicsContext2D();
 		grid.add(canvas, 0, 3, 2, 1);
 		
-		//!!!
-		PrintMazeGUI(newMaze.CoordinateList);
-		//!!!
+	    EventHandler<KeyEvent> dimensionEntered = new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent change) {
+				if (Length.getText().isEmpty()==false && Width.getText().isEmpty()==false&&Integer.parseInt(Length.getText())==Integer.parseInt(Width.getText()))
+				{newMaze = new Maze(Integer.parseInt(Length.getText()), Integer.parseInt(Width.getText()));
+				length=Integer.parseInt(Length.getText());
+				width=Integer.parseInt(Width.getText());
+				newMaze.GenerateWalls();
+				PrintMazeGUI(newMaze.CoordinateList);}
+			}
+	    };
 		
+	   // Length.setOnKeyPressed(dimensionEntered);
+	    Length.setOnKeyTyped(dimensionEntered);
+	    //Width.setOnKeyPressed(dimensionEntered);
+	    Width.setOnKeyTyped(dimensionEntered);
+		//!!!
+		//PrintMazeGUI(newMaze.CoordinateList);
+		//!!!
+
 		Scene scene = new Scene(grid);
 		//scene.getStylesheets().add(MazeGUI.class.getResource("MazeGUI.css").toExternalForm());
 		
 		stage.setScene(scene);
 		stage.sizeToScene();
 		stage.show();
-	    //xStart.setOnKeyPressed(textChanged);
-	    //yStart.setOnKeyPressed(textChanged);
-		//gc = canvas.getGraphicsContext2D();
-		//newMaze.PrintMazeGUI(newMaze.CoordinateList);
+
+		
 	}
 	
 	public static void main(String[] args) {
