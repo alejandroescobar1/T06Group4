@@ -133,40 +133,52 @@ public class MazeGUI extends Application {
 
 		for (int i = 0; i < length; i++){
 			String row ="|";
-			String top ="";
+            String top ="";
+            double size = new Double(ordered.length);
+            double scale = 31/size;
 			//gc.strokeText("",1,1);
 			//gc.strokeText("|",10,10);
 			
 			//gc.fillText("|",10,10,0.3);
 			for (int j = 0;j<width;j++) {
-	
 				if (ordered[i][j].getUp() == true) {
 					top = top +" ---";
 					
 					// add 10 to both horizontal start and end point to begin with since otherwise the left outter wall gets chunked off 
 					if (i!=0||j!=0)
-					{gc.strokeLine(j+10,i+10, j+11, i+10);}
+                    {double scalej = (j*scale)+1;
+                        double scalei = (i*scale)+1;
+                        gc.strokeLine(scalej,scalei, scalej+scale, scalei);
+                        if (scalej+scale<32.0){gc.strokeLine(scalej,32,scalej+scale,32);}
+                    }
 					}
 				 else {
 					 top = top +"    ";
 				}
 				row = row + " " + ordered[i][j].getLetter();
 				if (ordered[i][j].getRight() == true) {
+                    double scalej = (j*scale)+1;
+                    double scalei = (i*scale)+1;
 					row = row+" |";
 					// add 10 to both horizontal start and end point to begin with since otherwise the left outter wall gets chunked off 
-					gc.strokeLine(j+11,i+10, j+11, i+11);
+					gc.strokeLine(scalej+scale,scalei, scalej+scale, scalei +scale);
 					//gc.strokeText("|",i+1,j+1);
 					//the below code draws the left side of wall
-					gc.strokeLine(10,i+10, 10, i+11);
+					gc.strokeLine(1,scalei, 1, scalei+scale);
 				 }
 				else {row= row+"  ";}
-				}
+                }
+            
 			System.out.println(top);
-			System.out.println(row);
+            System.out.println(row);
+            System.out.println(scale);
+            System.out.println(ordered.length);
 			}
-		
-		System.out.println(" --- --- --- --- --- --- --- --- --- --- --- --- --- ---     ");
+            
+        System.out.println(" --- --- --- --- --- --- --- --- --- --- --- --- --- ---     ");
+        
 		//the below loop draws the bottom side of wall
-		for (int i = 0; i < length-1; i++)
-		{gc.strokeLine(i+10,width+10, i+10.9, width+10);}
+		//for (int i = 0; i < length-1; i++){
+        //gc.strokeLine(i+10,width+10, i+10.9, width+10);
+        //}
 	}}
