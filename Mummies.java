@@ -4,7 +4,8 @@ import java.util.Random;
 
 public class Mummies {
 	Maze mazeInstance = new Maze(6,6);
-	private Coordinate mummy1 = new Coordinate(mazeInstance.length,mazeInstance.width,'m', (char) 0, false, false, false, false);
+	Coordinate[][] ordered = mazeInstance.order(mazeInstance.CoordinateList);
+	private Coordinate mummy1 = new Coordinate(mazeInstance.length-1,mazeInstance.width-1,'m', 'M', false, false, false, false);
 	private Coordinate playerCord = new Coordinate(0,0,'p', (char) 0, false, false, false, false);
 	private Player playerInstance = new Player();
 	
@@ -26,58 +27,52 @@ public class Mummies {
 		
 		if (mumDirection.equals("w")) {
 			newMummyYCoord = currentMummyYCoord - 1;
-			if (mazeInstance.up[currentMummyYCoord][currentMummyXCoord] == false) {
+			if (ordered[currentMummyYCoord][currentMummyXCoord].getUp() == false) {
 				mummy1.setY(newMummyYCoord);
 			}
 			else {
-				System.out.println("Invalid Move. Please enter again. "); 
 				invalid = true;
 				}
 		}
 		else if (mumDirection.equals("a")) {
 			newMummyXCoord = currentMummyXCoord - 1;
-			if (mazeInstance.right[currentMummyYCoord][currentMummyXCoord-1] == false) {
+			if (ordered[currentMummyYCoord][currentMummyXCoord].getLeft() == false) {
 				mummy1.setX(newMummyXCoord);
 			}
 			else {
-				System.out.println("Invalid Move. Please enter again. "); 
 				invalid = true;
 				}
 		}
 		else if (mumDirection.equals("s")) {
 			newMummyYCoord = currentMummyYCoord + 1;
-			if (mazeInstance.down[currentMummyYCoord][currentMummyXCoord] == false) {
+			if (ordered[currentMummyYCoord][currentMummyXCoord].getDown() == false) {
 				mummy1.setY(newMummyYCoord);
 			}
 			else {
-				System.out.println("Invalid Move. Please enter again. "); 
 				invalid = true;
 				}
 		}
 		else if (mumDirection.equals("d")) {
 			newMummyXCoord = currentMummyXCoord + 1;
-			if (mazeInstance.right[currentMummyYCoord][currentMummyXCoord] == false) { 
+			if (ordered[currentMummyYCoord][currentMummyXCoord].getRight() == false) { 
 				mummy1.setX(newMummyXCoord);
 			}
 			else {
-				System.out.println("Invalid Move. Please enter again. "); 
 				invalid = true;
 				}
 		}
 		if (invalid == false) {
-			mazeInstance.CoordinateList2D[currentMummyYCoord][currentMummyXCoord] = 'E';
-			mazeInstance.CoordinateList2D[newMummyYCoord][newMummyXCoord] = 'M';
+			ordered[currentMummyYCoord][currentMummyXCoord].setStatus('e');
+			ordered[newMummyYCoord][newMummyXCoord].setStatus('m');
 		}
 		else {
-			mazeInstance.CoordinateList2D[currentMummyYCoord][currentMummyXCoord] = 'M';
+			ordered[currentMummyYCoord][currentMummyXCoord].setStatus('m');
 		}
 		if (newMummyYCoord < 0 || newMummyYCoord > mazeInstance.length) {
 			playerCord.setY(currentMummyYCoord);
-			System.out.println("Invalid Move. Please enter again. ");
 		}
 		if (currentMummyXCoord < 0 || currentMummyXCoord > mazeInstance.width) {
 			playerCord.setX(currentMummyXCoord);
-			System.out.println("Invalid Move. Please enter again. ");
 		}
 		checkCollision();
 		
@@ -95,7 +90,7 @@ public class Mummies {
 		System.out.println("Mummy 1 is at " + mummy1.getX() + ", " + mummy1.getY());
 	}
 	
-	public void randomMummyDirection(){
+	public String randomMummyDirection(){
 		Random mummDirNum = new Random();
 		String mumDirection = null;
 		int directionInput = mummDirNum.nextInt(4);
@@ -108,8 +103,9 @@ public class Mummies {
 		else if (directionInput == 2) {
 			mumDirection = "s";
 		}
-		else if (directionInput == 3) {
+		else {
 			mumDirection = "d";
 		}
+		return mumDirection;
 	}
 }

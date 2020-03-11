@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Player {
 	private int lives = 3;
 	private String playerName= "Dave";
-	private Coordinate player = new Coordinate(0,0,'p', (char) 0, false, false, false, false);
+	private Coordinate player = new Coordinate(0,0,'p', 'P', false, false, false, false);
 
 	public void setLives(int newLives)
 	{
@@ -53,7 +53,7 @@ public class Player {
 	}
 ///////////////////////////////UPDATE COORDINATE////////////////////////
 	Maze mazeInstance = new Maze(6,6);
-	
+	Coordinate[][] ordered = mazeInstance.order(mazeInstance.CoordinateList);
 	public void updatePlayerPosition (String direction){
 		int currentPlayerXCoord = player.getX();
 		int currentPlayerYCoord = player.getY();
@@ -62,7 +62,7 @@ public class Player {
 		boolean invalid=false;
 		if (direction.equals("w")) {
 			newPlayerYCoord = currentPlayerYCoord - 1;
-			if (mazeInstance.up[currentPlayerYCoord][currentPlayerXCoord] == false) {
+			if (ordered[currentPlayerYCoord][currentPlayerXCoord].getUp() == false) {
 				player.setY(newPlayerYCoord);
 			}
 			else {
@@ -72,7 +72,7 @@ public class Player {
 		}
 		else if (direction.equals("a")) {
 			newPlayerXCoord = currentPlayerXCoord - 1;
-			if (mazeInstance.right[currentPlayerYCoord][currentPlayerXCoord-1] == false) {
+			if (ordered[currentPlayerYCoord][currentPlayerXCoord].getLeft() == false) {
 				player.setX(newPlayerXCoord);
 			}
 			else {
@@ -82,7 +82,7 @@ public class Player {
 		}
 		else if (direction.equals("s")) {
 			newPlayerYCoord = currentPlayerYCoord + 1;
-			if (mazeInstance.down[currentPlayerYCoord][currentPlayerXCoord] == false) {
+			if (ordered[currentPlayerYCoord][currentPlayerXCoord].getDown() == false) {
 				player.setY(newPlayerYCoord);
 			}
 			else {
@@ -92,7 +92,7 @@ public class Player {
 		}
 		else if (direction.equals("d")) {
 			newPlayerXCoord = currentPlayerXCoord + 1;
-			if (mazeInstance.right[currentPlayerYCoord][currentPlayerXCoord] == false) { 
+			if (ordered[currentPlayerYCoord][currentPlayerXCoord].getRight() == false) { 
 				player.setX(newPlayerXCoord);
 			}
 			else {
@@ -101,11 +101,11 @@ public class Player {
 				}
 		}
 		if (invalid == false) {
-			mazeInstance.CoordinateList2D[currentPlayerYCoord][currentPlayerXCoord] = 'E';
-			mazeInstance.CoordinateList2D[newPlayerYCoord][newPlayerXCoord] = 'P';
+			ordered[currentPlayerYCoord][currentPlayerXCoord].setStatus('e'); 
+			ordered[newPlayerYCoord][newPlayerXCoord].setStatus('p');
 		}
 		else {
-			mazeInstance.CoordinateList2D[currentPlayerYCoord][currentPlayerXCoord] = 'P';
+			ordered[currentPlayerYCoord][currentPlayerXCoord].setStatus('p');
 		}
 		if (newPlayerYCoord < 0 || newPlayerYCoord > mazeInstance.length) {
 			player.setY(currentPlayerYCoord);
@@ -126,7 +126,12 @@ public class Player {
 		
 		return win;
 	}
-	
+	public void checkCollection(int itemX, int itemY) {
+		boolean collection = false;
+		if(player.getX() == itemX && player.getY() == itemY) {
+			collection = true;
+		}
+	}
 	public void printLocation(){
 		System.out.println("Player is at " + player.getX() + ", " + player.getY());
 	}

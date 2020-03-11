@@ -5,6 +5,7 @@ public class Excutable {
 
 	public static void main(String[] args) {
 		Maze maze1 = new Maze(6,6); 
+		maze1.GenerateWalls();
 		boolean win = false;
 	
 		Player p1 = new Player();
@@ -26,7 +27,7 @@ public class Excutable {
 			p1.printLocation();
 			m1.printLocation();
 			//print maze
-			maze1.PrintMaze(6,6);
+			maze1.PrintMaze(maze1.CoordinateList);
 			// Prompt for direction
 			p1.getDirection();
 			String numDirection = m1.randomMummyDirection();
