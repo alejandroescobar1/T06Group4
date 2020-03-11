@@ -1,10 +1,11 @@
+package application;
 import java.util.Scanner;
 
 
 public class Player {
 	private int lives = 3;
 	private String playerName= "Dave";
-	private Coordinate player = new Coordinate(0,0,'p');
+	private Coordinate player = new Coordinate(0,0,'p', (char) 0, false, false, false, false);
 
 	public void setLives(int newLives)
 	{
@@ -106,15 +107,14 @@ public class Player {
 		else {
 			mazeInstance.CoordinateList2D[currentPlayerYCoord][currentPlayerXCoord] = 'P';
 		}
-/*		if (newPlayerYCoord < 0 || newPlayerYCoord >5) {
+		if (newPlayerYCoord < 0 || newPlayerYCoord > mazeInstance.length) {
 			player.setY(currentPlayerYCoord);
 			System.out.println("Invalid Move. Please enter again. ");
 		}
-		if (newPlayerXCoord < 0 || newPlayerXCoord >5) {
+		if (newPlayerXCoord < 0 || newPlayerXCoord > mazeInstance.width) {
 			player.setX(currentPlayerXCoord);
 			System.out.println("Invalid Move. Please enter again. ");
 		}
-		*/
 		
 	}
 	public boolean checkWin() {
@@ -126,10 +126,6 @@ public class Player {
 		
 		return win;
 	}
-	
-			
-			
-		
 	
 	public void printLocation(){
 		System.out.println("Player is at " + player.getX() + ", " + player.getY());

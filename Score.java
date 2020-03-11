@@ -1,20 +1,36 @@
+package application;
+
 public class Score {
 	private int numGem =  0;
 	private int numMummy = 0;
+	private int numKilled = 0;
+	private int numPosItem = 0;
+	private int numNegItem = 0;
 	private int secondPassed = 0;
 	
-	public Score(int numGem, int numMymmy, int secondPassed) {
+	public Score(int numGem, int numMummy, int numKilled, int numPosItem, int numNegItem, int secondPassed) {
 		this.numGem = numGem;
-		this.numMummy = numMymmy;
+		this.numMummy = numMummy;
+		this.numKilled = numKilled;
+		this.numPosItem = numPosItem;
+		this.numNegItem = numNegItem;
 		this.secondPassed = secondPassed;
 	}
 	
 	private int gemScore() {
 		return numGem * 100; //100 points for each gem
 	}
-	
 	private int mummyScore() {
 		return numMummy * 300; //300 points for each mummy killed
+	}
+	private int killedScore() {
+		return numKilled * -300; //-300 points for each time killed by mummy
+	}
+	private int posItemScore() {
+		return numPosItem * 300; //-300 points for each time killed by mummy
+	}
+	private int negItemScore() {
+		return numNegItem * -300; //-300 points for each time killed by mummy
 	}
 	
 	private int timeScore() {
@@ -26,6 +42,6 @@ public class Score {
 	}
 	
 	public int getScore() {
-		return gemScore() + mummyScore() + timeScore();
+		return gemScore() + mummyScore() + killedScore() + posItemScore() + negItemScore() + timeScore();
 	}
 }
