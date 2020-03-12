@@ -5,8 +5,13 @@ import java.util.Scanner;
 public class Player {
 	private int lives = 3;
 	private String playerName= "Dave";
-	private Coordinate player = new Coordinate(0,0,'p', 'P', false, false, false, false);
-
+	private double playerX = 0;
+	private double playerY = 0;
+	private Maze maze;
+	
+	public Player(Maze newMaze) {
+		this.maze = newMaze;
+	}
 	public void setLives(int newLives)
 	{
 		this.lives = newLives;
@@ -52,18 +57,18 @@ public class Player {
 //		return action;
 	}
 ///////////////////////////////UPDATE COORDINATE////////////////////////
-	Maze mazeInstance = new Maze(6,6);
-	Coordinate[][] ordered = mazeInstance.order(mazeInstance.CoordinateList);
+	
 	public void updatePlayerPosition (String direction){
-		int currentPlayerXCoord = player.getX();
-		int currentPlayerYCoord = player.getY();
+		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
+		int currentPlayerXCoord = (int)this.getX();
+		int currentPlayerYCoord = (int)this.getY();
 		int newPlayerXCoord = currentPlayerXCoord;
 		int newPlayerYCoord = currentPlayerYCoord;
 		boolean invalid=false;
 		if (direction.equals("w")) {
 			newPlayerYCoord = currentPlayerYCoord - 1;
-			if (ordered[currentPlayerYCoord][currentPlayerXCoord].getUp() == false) {
-				player.setY(newPlayerYCoord);
+			if (ordered[currentPlayerYCoord][currentPlayerXCoord].checkWall(2) == false) {
+				this.setY(newPlayerYCoord);
 			}
 			else {
 				System.out.println("Invalid Move. Please enter again. "); 
@@ -72,8 +77,8 @@ public class Player {
 		}
 		else if (direction.equals("a")) {
 			newPlayerXCoord = currentPlayerXCoord - 1;
-			if (ordered[currentPlayerYCoord][currentPlayerXCoord].getLeft() == false) {
-				player.setX(newPlayerXCoord);
+			if (ordered[currentPlayerYCoord][currentPlayerXCoord].checkWall(3) == false) {
+				this.setX(newPlayerXCoord);
 			}
 			else {
 				System.out.println("Invalid Move. Please enter again. "); 
@@ -82,8 +87,8 @@ public class Player {
 		}
 		else if (direction.equals("s")) {
 			newPlayerYCoord = currentPlayerYCoord + 1;
-			if (ordered[currentPlayerYCoord][currentPlayerXCoord].getDown() == false) {
-				player.setY(newPlayerYCoord);
+			if (ordered[currentPlayerYCoord][currentPlayerXCoord].checkWall(0) == false) {
+				this.setY(newPlayerYCoord);
 			}
 			else {
 				System.out.println("Invalid Move. Please enter again. "); 
@@ -92,8 +97,8 @@ public class Player {
 		}
 		else if (direction.equals("d")) {
 			newPlayerXCoord = currentPlayerXCoord + 1;
-			if (ordered[currentPlayerYCoord][currentPlayerXCoord].getRight() == false) { 
-				player.setX(newPlayerXCoord);
+			if (ordered[currentPlayerYCoord][currentPlayerXCoord].checkWall(1) == false) { 
+				this.setX(newPlayerXCoord);
 			}
 			else {
 				System.out.println("Invalid Move. Please enter again. "); 
@@ -107,12 +112,12 @@ public class Player {
 		else {
 			ordered[currentPlayerYCoord][currentPlayerXCoord].setStatus('p');
 		}
-		if (newPlayerYCoord < 0 || newPlayerYCoord > mazeInstance.length) {
-			player.setY(currentPlayerYCoord);
+		if (newPlayerYCoord < 0 || newPlayerYCoord >= Maze.length) {
+			this.setY(currentPlayerYCoord);
 			System.out.println("Invalid Move. Please enter again. ");
 		}
-		if (newPlayerXCoord < 0 || newPlayerXCoord > mazeInstance.width) {
-			player.setX(currentPlayerXCoord);
+		if (newPlayerXCoord < 0 || newPlayerXCoord >= Maze.width) {
+			this.setX(currentPlayerXCoord);
 			System.out.println("Invalid Move. Please enter again. ");
 		}
 		
@@ -120,7 +125,7 @@ public class Player {
 	public boolean checkWin() {
 		boolean win = false;
 		
-		if (player.getX() == 5 && player.getY() == 5) {
+		if (this.getX() == Maze.width && this.getY() == Maze.length) {
 			win = true;
 		}
 		
@@ -128,13 +133,29 @@ public class Player {
 	}
 	public void checkCollection(int itemX, int itemY) {
 		boolean collection = false;
-		if(player.getX() == itemX && player.getY() == itemY) {
+		if(this.getX() == itemX && this.getY() == itemY) {
 			collection = true;
 		}
 	}
 	public void printLocation(){
-		System.out.println("Player is at " + player.getX() + ", " + player.getY());
+		System.out.println("Player is at " + this.getX() + ", " + this.getY());
 	}
+	
+	public double getX() {
+		return this.playerX;
+	}
+
+	public double getY() {
+		return this.playerY;
+	}
+	public void setX(double newX) {
+		this.playerX = newX;
+	}
+	
+	public void setY(double newY) {
+		this.playerY = newY;
+	}
+	
 	
 	public void getDirection(){
 		String directionInput = null;
