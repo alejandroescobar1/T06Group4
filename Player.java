@@ -1,4 +1,5 @@
 package application;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javafx.scene.image.Image;
@@ -16,10 +17,16 @@ public class Player {
 	private double playerX = 0;
 	private double playerY = 0;
 	protected Maze maze;
+
 	
 	public Player(Maze newMaze) {
 		this.maze = newMaze;
 	}
+	
+	public void setMaze(Maze maze) {
+		this.maze = maze;
+	}
+	
 	public void setLives(int newLives)
 	{
 		this.lives = newLives;
@@ -166,34 +173,47 @@ public class Player {
 	}
 	
 	public void goDown() {
-		if (playerY + 1 < maze.length) {	
-			playerImg.setImage(ugandaD);
-			playerImg.relocate(playerImg.getLayoutX(), playerImg.getLayoutY() + playerImg.getBoundsInLocal().getHeight());
-			this.playerY+= 1;
+		if (playerY + 1 < maze.length) {
+			Coordinate[][] ordered = maze.order(maze.CoordinateList);
+			if(ordered[(int) playerY][(int) playerX].checkWall(0) == false) {
+				playerImg.setImage(ugandaD);
+				playerImg.relocate(playerImg.getLayoutX(), playerImg.getLayoutY() + playerImg.getBoundsInLocal().getHeight());
+				this.playerY+= 1;
+			}
 		}
 	}
 	
 	public void goUp() {
 		if (playerY - 1 >= 0) {
-			playerImg.setImage(ugandaU);
-			playerImg.relocate(playerImg.getLayoutX(), playerImg.getLayoutY() - playerImg.getBoundsInLocal().getHeight());
-			this.playerY-= 1;
+			Coordinate[][] ordered = maze.order(maze.CoordinateList);
+			if(ordered[(int) playerY][(int) playerX].checkWall(2) == false) {
+				playerImg.setImage(ugandaU);
+				playerImg.relocate(playerImg.getLayoutX(), playerImg.getLayoutY() - playerImg.getBoundsInLocal().getHeight());
+				this.playerY-= 1;
+			}
 		}
 	}
 	
 	public void goLeft() {
 		if (playerX - 1 >= 0) {
-			playerImg.setImage(ugandaL);
-			this.playerX-= 1;
-			playerImg.relocate(playerImg.getLayoutX() - playerImg.getBoundsInLocal().getWidth(), playerImg.getLayoutY());
+			Coordinate[][] ordered = maze.order(maze.CoordinateList);
+			if(ordered[(int) playerY][(int) playerX].checkWall(3) == false) {
+				playerImg.setImage(ugandaL);
+				this.playerX-= 1;
+				playerImg.relocate(playerImg.getLayoutX() - playerImg.getBoundsInLocal().getWidth(), playerImg.getLayoutY());
+				checkWin();
+			}
 		}
 	}
 	
 	public void goRight() {
 		if (playerX + 1 < maze.width) {
-			playerImg.setImage(ugandaR);
-			playerImg.relocate(playerImg.getLayoutX()+ playerImg.getBoundsInLocal().getWidth(), playerImg.getLayoutY());
-			this.playerX+= 1;
+			Coordinate[][] ordered = maze.order(maze.CoordinateList);
+			if(ordered[(int) playerY][(int) playerX].checkWall(1) == false) {
+				playerImg.setImage(ugandaR);
+				playerImg.relocate(playerImg.getLayoutX()+ playerImg.getBoundsInLocal().getWidth(), playerImg.getLayoutY());
+				this.playerX+= 1;
+			}
 		}
 	}
 	
