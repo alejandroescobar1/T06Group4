@@ -65,9 +65,10 @@ public class Player {
 		int newPlayerXCoord = currentPlayerXCoord;
 		int newPlayerYCoord = currentPlayerYCoord;
 		boolean invalid=false;
+		
 		if (direction.equals("w")) {
 			newPlayerYCoord = currentPlayerYCoord - 1;
-			if (ordered[currentPlayerYCoord][currentPlayerXCoord].checkWall(2) == false) {
+			if (ordered[currentPlayerYCoord][currentPlayerXCoord].checkWall(2) == false && newPlayerYCoord < Maze.length && newPlayerYCoord >= 0) {
 				this.setY(newPlayerYCoord);
 			}
 			else {
@@ -77,7 +78,7 @@ public class Player {
 		}
 		else if (direction.equals("a")) {
 			newPlayerXCoord = currentPlayerXCoord - 1;
-			if (ordered[currentPlayerYCoord][currentPlayerXCoord].checkWall(3) == false) {
+			if (ordered[currentPlayerYCoord][currentPlayerXCoord].checkWall(3) == false && newPlayerXCoord < Maze.width && newPlayerXCoord >= 0) {
 				this.setX(newPlayerXCoord);
 			}
 			else {
@@ -87,7 +88,7 @@ public class Player {
 		}
 		else if (direction.equals("s")) {
 			newPlayerYCoord = currentPlayerYCoord + 1;
-			if (ordered[currentPlayerYCoord][currentPlayerXCoord].checkWall(0) == false) {
+			if (ordered[currentPlayerYCoord][currentPlayerXCoord].checkWall(0) == false && newPlayerYCoord < Maze.length && newPlayerYCoord >= 0) {
 				this.setY(newPlayerYCoord);
 			}
 			else {
@@ -97,7 +98,7 @@ public class Player {
 		}
 		else if (direction.equals("d")) {
 			newPlayerXCoord = currentPlayerXCoord + 1;
-			if (ordered[currentPlayerYCoord][currentPlayerXCoord].checkWall(1) == false) { 
+			if (ordered[currentPlayerYCoord][currentPlayerXCoord].checkWall(1) == false && newPlayerXCoord < Maze.width && newPlayerXCoord >= 0) { 
 				this.setX(newPlayerXCoord);
 			}
 			else {
