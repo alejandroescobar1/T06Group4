@@ -19,8 +19,8 @@ public class Maze {
 	 public Maze(int length, int width) {
 		 this.CoordinateList=new ArrayList<Coordinate> ();
 		 this.CoordinateList2D2 = new ArrayList<ArrayList<Coordinate>>();
-		 this.length=length;
-		 this.width=width;
+		 Maze.length=length;
+		 Maze.width=width;
 		 char newLetter = 65;
 		 for(int i=0;i<(length);i++) {
 			 for(int j=0;j<(width);j++) {
@@ -284,16 +284,27 @@ public class Maze {
 				 else {
 					 top = top +"    ";
 				}
-				row = row + " " + ordered[i][j].getLetter();
+				row = row + " " + ordered[i][j].getStatus();
 				if (ordered[i][j].getRight() == true) {
 					row = row+" |";
 				 }
-				else { row= row+"  ";}
+				else { row= row + "  ";}
 				}
 			System.out.println(top);
 			System.out.println(row);
 			}
-		System.out.println(" --- --- --- --- --- --- --- --- --- --- --- --- --- ---     ");
+		for (int n = 1; n<length; n++) {
+			if (n == length-1){
+				System.out.println(" ---");
+			}
+        	else if (n == length) {
+        		System.out.println(" ---     ");
+        	}
+        	
+        	else {
+        		System.out.print(" ---");
+        	}
+        }
 		}
 	
 

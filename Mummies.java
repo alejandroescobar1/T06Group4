@@ -1,34 +1,33 @@
 package application;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Mummies {
-	Maze mazeInstance = new Maze(6,6);
-	Coordinate[][] ordered = mazeInstance.order(mazeInstance.CoordinateList);
-	private Coordinate mummy1 = new Coordinate(mazeInstance.length-1,mazeInstance.width-1,'m', 'M', false, false, false, false);
-	private Coordinate playerCord = new Coordinate(0,0,'p', (char) 0, false, false, false, false);
-	private Player playerInstance = new Player();
+	private Maze maze;
+	private Player playerInstance;
+	private double mummyX = Maze.width-1;
+	private double mummyY = Maze.length-1;
 	
-
-	//////////////////////////////////////////////////////////////////////
-	//will call this method if lives<0
-	public void dead()
-	{
-		System.out.println("Game Over!");
+	public Mummies(Maze newMaze, Player playerInstance) {
+		this.maze = newMaze;
+		this.playerInstance = playerInstance;
 	}
+	
 ///////////////////////////////UPDATE COORDINATE////////////////////////
 	
 	public void updateMummyPosition (String mumDirection){
-		int currentMummyXCoord = mummy1.getX();
-		int currentMummyYCoord = mummy1.getY();
+		Coordinate[][] ordered = Maze.order(this.maze.CoordinateList);
+		int currentMummyXCoord = (int) this.getX();
+		int currentMummyYCoord = (int) this.getY();
 		int newMummyXCoord = currentMummyXCoord;
 		int newMummyYCoord = currentMummyYCoord;
 		boolean invalid=false;
 		
 		if (mumDirection.equals("w")) {
 			newMummyYCoord = currentMummyYCoord - 1;
-			if (ordered[currentMummyYCoord][currentMummyXCoord].getUp() == false) {
-				mummy1.setY(newMummyYCoord);
+			if (ordered[currentMummyYCoord][currentMummyXCoord].checkWall(2) == false && newMummyYCoord < Maze.length && newMummyYCoord >= 0) {
+				this.setY(newMummyYCoord);
 			}
 			else {
 				invalid = true;
@@ -36,8 +35,8 @@ public class Mummies {
 		}
 		else if (mumDirection.equals("a")) {
 			newMummyXCoord = currentMummyXCoord - 1;
-			if (ordered[currentMummyYCoord][currentMummyXCoord].getLeft() == false) {
-				mummy1.setX(newMummyXCoord);
+			if (ordered[currentMummyYCoord][currentMummyXCoord].checkWall(3) == false && newMummyXCoord < Maze.width && newMummyXCoord >= 0) {
+				this.setX(newMummyXCoord);
 			}
 			else {
 				invalid = true;
@@ -45,8 +44,8 @@ public class Mummies {
 		}
 		else if (mumDirection.equals("s")) {
 			newMummyYCoord = currentMummyYCoord + 1;
-			if (ordered[currentMummyYCoord][currentMummyXCoord].getDown() == false) {
-				mummy1.setY(newMummyYCoord);
+			if (ordered[currentMummyYCoord][currentMummyXCoord].checkWall(0) == false && newMummyYCoord < Maze.length && newMummyYCoord >= 0) {
+				this.setY(newMummyYCoord);
 			}
 			else {
 				invalid = true;
@@ -54,8 +53,8 @@ public class Mummies {
 		}
 		else if (mumDirection.equals("d")) {
 			newMummyXCoord = currentMummyXCoord + 1;
-			if (ordered[currentMummyYCoord][currentMummyXCoord].getRight() == false) { 
-				mummy1.setX(newMummyXCoord);
+			if (ordered[currentMummyYCoord][currentMummyXCoord].checkWall(1) == false && newMummyXCoord < Maze.width && newMummyXCoord >= 0) { 
+				this.setX(newMummyXCoord);
 			}
 			else {
 				invalid = true;
@@ -68,31 +67,31 @@ public class Mummies {
 		else {
 			ordered[currentMummyYCoord][currentMummyXCoord].setStatus('m');
 		}
-		if (newMummyYCoord < 0 || newMummyYCoord > mazeInstance.length) {
-			playerCord.setY(currentMummyYCoord);
+		if (newMummyYCoord < 0 || newMummyYCoord >= Maze.length) {
+			this.setY(currentMummyYCoord);
 		}
-		if (currentMummyXCoord < 0 || currentMummyXCoord > mazeInstance.width) {
-			playerCord.setX(currentMummyXCoord);
+		if (currentMummyXCoord < 0 || currentMummyXCoord >= Maze.width) {
+			this.setX(currentMummyXCoord);
 		}
-		checkCollision();
 		
 	}
-	public int checkCollision() {
-		if (playerCord.getX() == mummy1.getX() && playerCord.getY() == mummy1.getY()) {
+	public boolean checkCollision() {
+		if (playerInstance.getX() == this.getX() && playerInstance.getY() == this.getY()) {
 			playerInstance.updateLives(-1);
-			int numKilledChange = 1;
-			return numKilledChange;
+			System.out.println("Hit by Mummy. Player returned to start. Number of lives is " + playerInstance.getLives());
+			return true;
 		}
-		else {return 0;}
+		else {return false;}
 	}
 	
 	public void printLocation(){
-		System.out.println("Mummy 1 is at " + mummy1.getX() + ", " + mummy1.getY());
+		System.out.println("Mummy 1 is at " + this.getX() + ", " + this.getY());
 	}
 	
-	public String randomMummyDirection(){
+	public void getDirection(){
 		Random mummDirNum = new Random();
-		String mumDirection = null;
+		String mumDirection;
+		boolean valid = false;
 		int directionInput = mummDirNum.nextInt(4);
 		if (directionInput == 0) {
 			mumDirection = "w";
@@ -106,6 +105,29 @@ public class Mummies {
 		else {
 			mumDirection = "d";
 		}
-		return mumDirection;
+		while (valid == false) {
+			if (mumDirection.equals("a") || mumDirection.equals("s") || mumDirection.equals("w") || mumDirection.equals("d")) {
+				this.updateMummyPosition(mumDirection);
+				valid = true;
+			}
+		}
+	}
+	
+	
+	
+	
+	public double getX() {
+		return this.mummyX;
+	}
+
+	public double getY() {
+		return this.mummyY;
+	}
+	public void setX(double newX) {
+		this.mummyX = newX;
+	}
+	
+	public void setY(double newY) {
+		this.mummyY = newY;
 	}
 }
