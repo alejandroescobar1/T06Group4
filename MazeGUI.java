@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,11 +23,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 
@@ -36,6 +39,10 @@ public class MazeGUI extends Application {
 	private GridPane grid = new GridPane();
 	static private int length;
 	static private int width;
+	private Scene scene1, scene2;
+	final static double canvasWidth = 702;
+	private double playerImgSize;
+	private boolean canUpdate = true;
 
 	
 	public void start(Stage stage) throws Exception
@@ -48,6 +55,7 @@ public class MazeGUI extends Application {
 		
 		//output the wall strutures using a method that  
 		stage.setTitle("MazeGUI");
+		Player p1 = new Player(newMaze);
 		
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -65,10 +73,9 @@ public class MazeGUI extends Application {
 		grid.add(Width, 1, 1);
 		//grid.setGridLinesVisible(true);
 		
-		final Canvas canvas = new Canvas(702, 702);
+		final Canvas canvas = new Canvas(canvasWidth, canvasWidth);
 		gc=canvas.getGraphicsContext2D();
-		grid.add(canvas, 0, 3, 2, 1);
-		
+
 	    EventHandler<KeyEvent> dimensionEntered = new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent change) {
@@ -77,6 +84,12 @@ public class MazeGUI extends Application {
 				gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 				length=Integer.parseInt(Length.getText());
 				width=Integer.parseInt(Width.getText());
+				
+				//determine player image size
+				playerImgSize = canvasWidth / length;
+				p1.playerImg.setFitHeight(playerImgSize); //width/length - lineWidth pixel;
+				p1.playerImg.setFitWidth(playerImgSize);  //width/length - lineWidth pixel;
+				
 				newMaze = new Maze(Integer.parseInt(Length.getText()), Integer.parseInt(Width.getText()));
 				newMaze.GenerateWalls();
 				PrintMazeGUI(newMaze.CoordinateList);}
@@ -90,13 +103,66 @@ public class MazeGUI extends Application {
 		//!!!
 		//PrintMazeGUI(newMaze.CoordinateList);
 		//!!!
-
-		Scene scene = new Scene(grid);
+	    
+	    Group pane = new Group();
+	    
+	    pane.getChildren().addAll(p1.playerImg, canvas);
+		Scene scene1 = new Scene(grid);
+		Scene scene2 = new Scene(pane, canvasWidth, canvasWidth, Color.WHITE);
 		//scene.getStylesheets().add(MazeGUI.class.getResource("MazeGUI.css").toExternalForm());
 		
-		stage.setScene(scene);
+		//KeyBoard Interaction
+		scene2.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent e) {
+				if (e.getCode().equals(KeyCode.W)) {
+					if (canUpdate == true) {
+						canUpdate = false;
+						p1.goUp();
+					}
+				}
+				else if (e.getCode().equals(KeyCode.S)) {
+					if (canUpdate == true) {
+						canUpdate = false;
+						p1.goDown();
+					}
+				}
+				else if (e.getCode().equals(KeyCode.D)) {
+					if (canUpdate == true) {
+						canUpdate = false;
+						p1.goRight();
+					}
+				}
+				else if (e.getCode().equals(KeyCode.A)) {
+					if (canUpdate == true) {
+						canUpdate = false;
+						p1.goLeft();
+					}
+				}
+			}
+		});
+		
+		scene2.setOnKeyReleased(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent e) {
+				switch(e.getCode()) {
+				case W: canUpdate = true; break;
+				case S: canUpdate = true; break;
+				case D: canUpdate = true; break;
+				case A: canUpdate = true; break;
+				}
+			}
+		});
+		
+		stage.setScene(scene1);
 		stage.sizeToScene();
 		stage.show();
+		
+		//BUTTON
+		Button play = new Button("Play");
+		play.setOnAction(e -> stage.setScene(scene2));
+		grid.add(play, 0, 2);
 
 		
 	}
@@ -134,7 +200,7 @@ public class MazeGUI extends Application {
 			String row ="|";
             String top ="";
             double size = new Double(ordered.length);
-            double scale = 700/size;
+            double scale = (canvasWidth-2)/size;
 			//gc.strokeText("",1,1);
 			//gc.strokeText("|",10,10);
 			
@@ -148,7 +214,7 @@ public class MazeGUI extends Application {
                     {double scalej = (j*scale)+1;
                         double scalei = (i*scale)+1;
                         gc.strokeLine(scalej,scalei, scalej+scale, scalei);
-                        gc.strokeLine(1,700,700-scale,700);
+                        gc.strokeLine(1,canvasWidth-2,canvasWidth-2-scale,canvasWidth); //2 is LineWidth
                     }
 					}
 				 else {

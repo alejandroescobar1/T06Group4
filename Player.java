@@ -8,11 +8,14 @@ import javafx.scene.image.ImageView;
 public class Player {
 	private int lives = 3;
 	private String playerName= "Dave";
-	private Image PLAYER_LOC = new Image("ugandaR.png");
-	protected ImageView playerImg = new ImageView(PLAYER_LOC);
+	private Image ugandaR = new Image("ugandaR.png");
+	private Image ugandaL = new Image("ugandaL.png");
+	private Image ugandaD = new Image("ugandaD.png");
+	private Image ugandaU = new Image("ugandaU.png");
+	protected ImageView playerImg = new ImageView(ugandaR);
 	private double playerX = 0;
 	private double playerY = 0;
-	private Maze maze;
+	protected Maze maze;
 	
 	public Player(Maze newMaze) {
 		this.maze = newMaze;
@@ -162,8 +165,36 @@ public class Player {
 		this.playerY = newY;
 	}
 	
-	public void movePlayer() {
-		this.playerImg.relocate(playerX*playerImg.getLayoutX(), playerY*playerImg.getLayoutY());
+	public void goDown() {
+		if (playerY + 1 < maze.length) {	
+			playerImg.setImage(ugandaD);
+			playerImg.relocate(playerImg.getLayoutX(), playerImg.getLayoutY() + playerImg.getBoundsInLocal().getHeight());
+			this.playerY+= 1;
+		}
+	}
+	
+	public void goUp() {
+		if (playerY - 1 >= 0) {
+			playerImg.setImage(ugandaU);
+			playerImg.relocate(playerImg.getLayoutX(), playerImg.getLayoutY() - playerImg.getBoundsInLocal().getHeight());
+			this.playerY-= 1;
+		}
+	}
+	
+	public void goLeft() {
+		if (playerX - 1 >= 0) {
+			playerImg.setImage(ugandaL);
+			this.playerX-= 1;
+			playerImg.relocate(playerImg.getLayoutX() - playerImg.getBoundsInLocal().getWidth(), playerImg.getLayoutY());
+		}
+	}
+	
+	public void goRight() {
+		if (playerX + 1 < maze.width) {
+			playerImg.setImage(ugandaR);
+			playerImg.relocate(playerImg.getLayoutX()+ playerImg.getBoundsInLocal().getWidth(), playerImg.getLayoutY());
+			this.playerX+= 1;
+		}
 	}
 	
 	public void getDirection(){
