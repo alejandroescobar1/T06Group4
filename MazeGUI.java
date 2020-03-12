@@ -65,7 +65,7 @@ public class MazeGUI extends Application {
 		grid.add(Width, 1, 1);
 		//grid.setGridLinesVisible(true);
 		
-		final Canvas canvas = new Canvas(700, 700);
+		final Canvas canvas = new Canvas(702, 702);
 		gc=canvas.getGraphicsContext2D();
 		grid.add(canvas, 0, 3, 2, 1);
 		
@@ -110,8 +110,7 @@ public class MazeGUI extends Application {
 	{
 		gc.restore();
 		gc.save();
-		gc.scale(20,20);
-		gc.setLineWidth(1);
+		//gc.setLineWidth(1);
 
 		///// put into ordered list
 		Coordinate[][] ordered = new Coordinate[length][width];
@@ -129,13 +128,13 @@ public class MazeGUI extends Application {
 		///print ordered list to gui
 		//first print walls
 		gc.setStroke(Color.BLACK);
-		gc.setLineWidth(0.3);
+		gc.setLineWidth(2);
 
 		for (int i = 0; i < length; i++){
 			String row ="|";
             String top ="";
             double size = new Double(ordered.length);
-            double scale = 31/size;
+            double scale = 700/size;
 			//gc.strokeText("",1,1);
 			//gc.strokeText("|",10,10);
 			
@@ -149,7 +148,7 @@ public class MazeGUI extends Application {
                     {double scalej = (j*scale)+1;
                         double scalei = (i*scale)+1;
                         gc.strokeLine(scalej,scalei, scalej+scale, scalei);
-                        if (scalej+scale<32.0){gc.strokeLine(scalej,32,scalej+scale,32);}
+                        gc.strokeLine(1,700,700-scale,700);
                     }
 					}
 				 else {
@@ -166,13 +165,13 @@ public class MazeGUI extends Application {
 					//the below code draws the left side of wall
 					gc.strokeLine(1,scalei, 1, scalei+scale);
 				 }
-				else {row= row+"  ";}
+                else {row= row+"  ";}
                 }
             
 			System.out.println(top);
             System.out.println(row);
-            System.out.println(scale);
-            System.out.println(ordered.length);
+            
+            
 			}
             
         System.out.println(" --- --- --- --- --- --- --- --- --- --- --- --- --- ---     ");
