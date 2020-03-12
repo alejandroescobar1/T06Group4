@@ -1,10 +1,15 @@
 package application;
 import java.util.Scanner;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 public class Player {
 	private int lives = 3;
 	private String playerName= "Dave";
+	private Image PLAYER_LOC = new Image("ugandaR.png");
+	protected ImageView playerImg = new ImageView(PLAYER_LOC);
 	private double playerX = 0;
 	private double playerY = 0;
 	private Maze maze;
@@ -157,6 +162,9 @@ public class Player {
 		this.playerY = newY;
 	}
 	
+	public void movePlayer() {
+		this.playerImg.relocate(playerX*playerImg.getLayoutX(), playerY*playerImg.getLayoutY());
+	}
 	
 	public void getDirection(){
 		String directionInput = null;
