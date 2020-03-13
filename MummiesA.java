@@ -1,6 +1,8 @@
 package application;
 
 import java.util.Random;
+
+
 import java.util.Scanner;
 
 import javafx.scene.image.Image;
@@ -125,7 +127,6 @@ public class Mummies {
 	}
 	
 	
-	
 	public double getX() {
 		return this.mummyX;
 	}
@@ -143,34 +144,47 @@ public class Mummies {
 	
 	
 	public void goDown() {
-		if (mummyY + 1 < maze.length) {	
-			enemy.setImage(mummyDown);
-			enemy.relocate(enemy.getLayoutX(), enemy.getLayoutY() + enemy.getBoundsInLocal().getHeight());
-			this.mummyY+= 1;
+		if (mummyY + 1 < maze.length) {
+			Coordinate[][] ordered = maze.order(maze.CoordinateList);
+			if(ordered[(int) mummyY][(int) mummyX].checkWall(0) == false) {
+				enemy.setImage(mummyDown);
+				enemy.relocate(enemy.getLayoutX(), enemy.getLayoutY() + enemy.getBoundsInLocal().getHeight());
+				this.mummyY+= 1;
+			}
 		}
 	}
 	
 	public void goUp() {
 		if (mummyY - 1 >= 0) {
-			enemy.setImage(mummyUp);
-			enemy.relocate(enemy.getLayoutX(), enemy.getLayoutY() - enemy.getBoundsInLocal().getHeight());
-			this.mummyY-= 1;
+			Coordinate[][] ordered = maze.order(maze.CoordinateList);
+			if(ordered[(int) mummyY][(int) mummyX].checkWall(2) == false) {
+				enemy.setImage(mummyUp);
+				enemy.relocate(enemy.getLayoutX(), enemy.getLayoutY() - enemy.getBoundsInLocal().getHeight());
+				this.mummyY-= 1;
+			}
 		}
 	}
 	
 	public void goLeft() {
 		if (mummyX - 1 >= 0) {
-			enemy.setImage(mummyLeft);
-			this.mummyX-= 1;
-			enemy.relocate(enemy.getLayoutX() - enemy.getBoundsInLocal().getWidth(), enemy.getLayoutY());
+			Coordinate[][] ordered = maze.order(maze.CoordinateList);
+			if(ordered[(int) mummyY][(int) mummyX].checkWall(3) == false) {
+				enemy.setImage(mummyLeft);
+				this.mummyX-= 1;
+				enemy.relocate(enemy.getLayoutX() - enemy.getBoundsInLocal().getWidth(), enemy.getLayoutY());
+	
+			}
 		}
 	}
 	
 	public void goRight() {
 		if (mummyX + 1 < maze.width) {
-			enemy.setImage(mummyRight);
-			enemy.relocate(enemy.getLayoutX()+ enemy.getBoundsInLocal().getWidth(), enemy.getLayoutY());
-			this.mummyX+= 1;
+			Coordinate[][] ordered = maze.order(maze.CoordinateList);
+			if(ordered[(int) mummyY][(int) mummyX].checkWall(1) == false) {
+				enemy.setImage(mummyRight);
+				enemy.relocate(enemy.getLayoutX()+ enemy.getBoundsInLocal().getWidth(), enemy.getLayoutY());
+				this.mummyX+= 1;
+			}
 		}
 	}
 }
