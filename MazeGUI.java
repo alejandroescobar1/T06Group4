@@ -1,3 +1,10 @@
+/**
+ * @author T06 Group 4
+ * @version Demo 2 GUI based game
+ * @implNote This class contains generates the actual GUI version of the maze using a randomized correct path 
+ * to the finish coordinate and generating walls by preventing the passing of these walls. It will rely on the logic developed
+ * in the Maze class 
+ */
 package application;
 
 import java.util.ArrayList;
@@ -55,14 +62,13 @@ public class MazeGUI extends Application {
 		//do wall randomization
 		//newMaze.GenerateWalls();
 		
-		//output the wall strutures using a method that  
+		//output the wall structures using a method that  
 		stage.setTitle("Treasure Hunt");
 		p1 = new Player(newMaze);
 		mummy = new Mummies(newMaze, p1);
 		
 		//timer for mummy
 	
-		
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);

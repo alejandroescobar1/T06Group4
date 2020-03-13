@@ -1,3 +1,8 @@
+/**
+ * @author T06 Group 4
+ * @version Demo 2 GUI based game
+ * @implNote This class creates a congratulatory alert box when the player wins the game.
+ */
 package application;
 
 import javafx.scene.Group;
