@@ -1,5 +1,3 @@
-//This class converts the existing text-based Maze to GUI version
-
 package application;
 
 import java.util.ArrayList;
@@ -37,18 +35,16 @@ import javafx.animation.AnimationTimer;
 
 
 public class MazeGUI extends Application {
-	Maze newMaze;
-	Player playerInstance;
+	Maze newMaze = new Maze(5,5);
+	private Player p1;
 	private GraphicsContext gc;
 	private GridPane grid = new GridPane();
 	static private int length;
 	static private int width;
 	private Scene scene1, scene2;
 	final static double canvasWidth = 702;
-	private double playerImgSize;
 	private boolean canUpdate = true;
-	
-	private double mummyImageSize;
+	private double imgSize;
 
 	
 	public void start(Stage stage) throws Exception
@@ -60,9 +56,9 @@ public class MazeGUI extends Application {
 		//newMaze.GenerateWalls();
 		
 		//output the wall strutures using a method that  
-		stage.setTitle("MazeGUI");
-		Player p1 = new Player(newMaze);
-		Mummies mummy = new Mummies(newMaze, playerInstance);
+		stage.setTitle("Treasure Hunt");
+		p1 = new Player(newMaze);
+		Mummies mummy = new Mummies(newMaze, p1);
 		
 	
 		
@@ -89,26 +85,29 @@ public class MazeGUI extends Application {
 			@Override
 			public void handle(KeyEvent change) {
 				if (Length.getText().isEmpty()==false && Width.getText().isEmpty()==false&&Integer.parseInt(Length.getText())==Integer.parseInt(Width.getText()))
-				{
+				{	
 				gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 				length=Integer.parseInt(Length.getText());
 				width=Integer.parseInt(Width.getText());
 				
-				//determine player image size
-				playerImgSize = canvasWidth / length;
-				p1.playerImg.setFitHeight(playerImgSize); //width/length - lineWidth pixel;
-				p1.playerImg.setFitWidth(playerImgSize);  //width/length - lineWidth pixel;
+				newMaze = new Maze(Integer.parseInt(Length.getText()), Integer.parseInt(Width.getText()));
+				newMaze.GenerateWalls();
+				PrintMazeGUI(newMaze.CoordinateList);
+				
+				//determine player image size && create player
+				p1.setMaze(newMaze);
+				imgSize = canvasWidth / length;
+				p1.playerImg.setFitHeight(imgSize); //width/length - lineWidth pixel;
+				p1.playerImg.setFitWidth(imgSize);  //width/length - lineWidth pixel;
 				
 				
 				//determining the image size for the mummy
-				mummyImageSize = canvasWidth / length;
-				mummy.enemy.setFitHeight(mummyImageSize);
-				mummy.enemy.setFitWidth(mummyImageSize);
+				mummy.setMaze(newMaze);
+				imgSize = canvasWidth / length;
+				mummy.enemy.setFitHeight(imgSize);
+				mummy.enemy.setFitWidth(imgSize);
 				
-				
-				newMaze = new Maze(Integer.parseInt(Length.getText()), Integer.parseInt(Width.getText()));
-				newMaze.GenerateWalls();
-				PrintMazeGUI(newMaze.CoordinateList);}
+				}
 			}
 	    };
 		
@@ -122,10 +121,9 @@ public class MazeGUI extends Application {
 	    
 	    Group pane = new Group();
 	    
-	    pane.getChildren().addAll(p1.playerImg, canvas);
-	    pane.getChildren().addAll(mummy.enemy, canvas);
+	    pane.getChildren().addAll(p1.playerImg, canvas, mummy.enemy);
 		Scene scene1 = new Scene(grid);
-		Scene scene2 = new Scene(pane, canvasWidth, canvasWidth, Color.WHITE);
+		Scene scene2 = new Scene(pane, canvasWidth, canvasWidth, Color.LIGHTYELLOW);
 		//scene.getStylesheets().add(MazeGUI.class.getResource("MazeGUI.css").toExternalForm());
 		
 		//KeyBoard Interaction
@@ -136,6 +134,9 @@ public class MazeGUI extends Application {
 					if (canUpdate == true) {
 						canUpdate = false;
 						p1.goUp();
+						
+						//test
+						
 					}
 				}
 				else if (e.getCode().equals(KeyCode.S)) {
@@ -171,7 +172,7 @@ public class MazeGUI extends Application {
 				}
 			}
 		});
-		
+			
 		AnimationTimer timer = new AnimationTimer() {
 			
 			@Override
