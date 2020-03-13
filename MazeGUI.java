@@ -36,7 +36,7 @@ import javafx.animation.AnimationTimer;
 
 public class MazeGUI extends Application {
 	Maze newMaze = new Maze(5,5);
-	private Player p1;
+	private Player p1; private Mummies mummy;
 	private GraphicsContext gc;
 	private GridPane grid = new GridPane();
 	static private int length;
@@ -58,8 +58,9 @@ public class MazeGUI extends Application {
 		//output the wall strutures using a method that  
 		stage.setTitle("Treasure Hunt");
 		p1 = new Player(newMaze);
-		Mummies mummy = new Mummies(newMaze, p1);
+		mummy = new Mummies(newMaze, p1);
 		
+		//timer for mummy
 	
 		
 		grid.setAlignment(Pos.CENTER);
@@ -102,9 +103,11 @@ public class MazeGUI extends Application {
 				
 				
 				//determining the image size for the mummy
-				imgSize = canvasWidth / length;
+				mummy.setMaze(newMaze);
+				mummy.enemy.relocate(imgSize * mummy.getX(), imgSize * mummy.getY());
 				mummy.enemy.setFitHeight(imgSize);
 				mummy.enemy.setFitWidth(imgSize);
+				
 				
 				}
 			}
@@ -133,8 +136,6 @@ public class MazeGUI extends Application {
 					if (canUpdate == true) {
 						canUpdate = false;
 						p1.goUp();
-						
-						//test
 						
 					}
 				}
@@ -170,8 +171,7 @@ public class MazeGUI extends Application {
 				case A: canUpdate = true; break;
 				}
 			}
-		});
-				
+		});			
 				
 		
 		stage.setScene(scene1);
@@ -180,7 +180,11 @@ public class MazeGUI extends Application {
 		
 		//BUTTON
 		Button play = new Button("Play");
-		play.setOnAction(e -> stage.setScene(scene2));
+		play.setOnAction(e -> {
+			MummyTimer mummyTimer = new MummyTimer(p1, mummy);
+			mummyTimer.start();
+			stage.setScene(scene2);
+		});
 		grid.add(play, 0, 2);
 
 		

@@ -27,8 +27,8 @@ public class Mummies {
 		this.playerInstance = playerInstance;
 	}
 	
-	public void setMaze(Maze maze) {
-		this.maze = maze;
+	public void setMaze(Maze newMaze) {
+		this.maze = newMaze;
 	}
 	
 ///////////////////////////////UPDATE COORDINATE////////////////////////
