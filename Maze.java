@@ -1,3 +1,9 @@
+/**
+ * @author T06 Group 4
+ * @version Demo 2 GUI based game
+ * @implNote This class contains generates the actual maze using randomized correct path to the finish coordinate and 
+ * generating walls by preventing the passing of these walls.  
+ */
 package application;
 import java.util.*; 
 

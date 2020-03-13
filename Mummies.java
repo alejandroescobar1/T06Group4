@@ -1,3 +1,9 @@
+/**
+ * @author T06 Group 4
+ * @version Demo 2 GUI based game
+ * @implNote The mummy class creates a mummy that takes a random direction as input and evaluates if the resultant move
+ * can occur due to the absence of a wall. 
+ */
 package application;
 
 import java.util.Random;
@@ -32,7 +38,10 @@ public class Mummies {
 		this.maze = newMaze;
 	}
 	
-///////////////////////////////UPDATE COORDINATE////////////////////////
+	/* 
+	 * Update coordinate function tests if the resultant move require passing through a wall as well as if the resultant move
+	 * would move the mummy out of the boundary. 
+	 */
 	
 	public void updateMummyPosition (String mumDirection){
 		Coordinate[][] ordered = Maze.order(this.maze.CoordinateList);
@@ -93,6 +102,10 @@ public class Mummies {
 		}
 		
 	}
+	/*
+	 * This method checks of the player and mummy have collided and will update the player lives accordingly as well as print
+	 * a statement explaining what happened to the player into the counsel. 
+	 */
 	public boolean checkCollision() {
 		if (playerInstance.getX() == this.getX() && playerInstance.getY() == this.getY()) {
 			playerInstance.updateLives(-1);
@@ -109,7 +122,9 @@ public class Mummies {
 	public void printLocation(){
 		System.out.println("Mummy 1 is at " + this.getX() + ", " + this.getY());
 	}
-	
+	/* 
+	 * This method takes the random direction input, determines if it is a valid amount, and if it is, feeds it into the update coordinate function
+	 */
 	public void getDirection(){
 		Random mummDirNum = new Random();
 		String mumDirection;
@@ -135,7 +150,9 @@ public class Mummies {
 		}
 	}
 	
-	
+	/* 
+	 * Getter methods
+	 */
 	public double getX() {
 		return this.mummyX;
 	}
@@ -151,7 +168,9 @@ public class Mummies {
 		this.mummyY = newY;
 	}
 	
-	
+	/* 
+	 * Moves the mummy location in response to the getDirection() method.
+	 */
 	public void goDown() {
 		if (mummyY + 1 < maze.length) {
 			Coordinate[][] ordered = maze.order(maze.CoordinateList);

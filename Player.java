@@ -1,3 +1,9 @@
+/**
+ * @author T06 Group 4
+ * @version Demo 2 GUI based game
+ * @implNote The player class creates a player that takes a letter as the direction input and evaluates if the resultant move
+ * can occur due to the absence of a wall. It also contains the lives attribute.
+ */
 package application;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,7 +24,9 @@ public class Player {
 	private double playerY = 0;
 	protected Maze maze;
 
-	
+	/*
+	 * Constructor 
+	 */
 	public Player(Maze newMaze) {
 		this.maze = newMaze;
 	}
@@ -26,7 +34,9 @@ public class Player {
 	public void setMaze(Maze maze) {
 		this.maze = maze;
 	}
-	
+	/*
+	 * methods pertaining to the player lives. 
+	 */
 	public void setLives(int newLives)
 	{
 		this.lives = newLives;
@@ -36,15 +46,27 @@ public class Player {
 	{
 		return (this.lives);
 	}
-
-	//@param the amount of life added or lose
+	/**
+	 * @param livesChanged (the amount of life added or lose)
+	 * @return updated lives count
+	 */
 	public int updateLives(int livesChange)
 	{
 		return (this.lives = lives + livesChange);
 	}
+	public String getPlayerName()
+	{
+		return (this.playerName);
+	}
+	//will call this method if lives<0
+	public void dead()
+	{
 
-	//////////////////////////////////////////////////////////////////////
-	// This code allows the user to name the avatar's name. The default name is Dave
+		System.out.println("Game Over!");
+	}
+	/*
+	 * methods pertaining to the player name. 
+	 */
 	public void setPlayerName()
 	{
 		String inputName1 = null;
@@ -58,20 +80,10 @@ public class Player {
 		}
 	}
 
-	public String getPlayerName()
-	{
-		return (this.playerName);
-	}
-	//will call this method if lives<0
-	public void dead()
-	{
-
-		System.out.println("Game Over!");
-//		String action = getAction();
-//		action = "EXIT";
-//		return action;
-	}
-///////////////////////////////UPDATE COORDINATE////////////////////////
+	
+	/* Update coordinate function tests if the resultant move require passing through a wall as well as if the resultant move
+	 * would move the player out of the boundary. 
+	 */
 	
 	public void updatePlayerPosition (String direction){
 		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
@@ -138,6 +150,7 @@ public class Player {
 		}
 		
 	}
+	// checks if the player has reached the end of the maze 
 	public boolean checkWin() {
 		boolean win = false;
 		
@@ -147,16 +160,24 @@ public class Player {
 		
 		return win;
 	}
+	/*
+	 * checks if player has collected an item. Not yet relevant
+	 */
 	public void checkCollection(int itemX, int itemY) {
 		boolean collection = false;
 		if(this.getX() == itemX && this.getY() == itemY) {
 			collection = true;
 		}
 	}
+	/*
+	 * Prints a statement with the player's location
+	 */
 	public void printLocation(){
 		System.out.println("Player is at " + this.getX() + ", " + this.getY());
 	}
-	
+	/*
+	 * Getters for Player attributes
+	 */
 	public double getX() {
 		return this.playerX;
 	}
@@ -171,7 +192,9 @@ public class Player {
 	public void setY(double newY) {
 		this.playerY = newY;
 	}
-	
+	/* 
+	 * Moves the player location in response to the getDirection() method.
+	 */
 	public void goDown() {
 		if (playerY + 1 < maze.length) {
 			Coordinate[][] ordered = maze.order(maze.CoordinateList);
@@ -216,7 +239,9 @@ public class Player {
 			}
 		}
 	}
-	
+	/* 
+	 * This method takes the user input, determines if it is a valid amount, and if it is, feeds it into the update coordinate function
+	 */
 	public void getDirection(){
 		String directionInput = null;
 		Boolean valid = false;
