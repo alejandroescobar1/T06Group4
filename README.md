@@ -24,10 +24,14 @@ To run this code, download all seven class flies: ECoordinate.java, Maze.java, M
 
 Import all classes into the application package. 
 
-Also download the eight png files and the application.css and import them to src.
+Also download the nine png files (ugandaU.png, ugandaD.png, ugandaR.png, ugandaL.png, mummyRIGHT.png, mummyLEFT.png, mummyUP.png, mummyDOWN.png, and imageWin.png) and the application.css and import them to src.
 
 This version of the code allows the player to use the WASD keys on their keyboard to navigate the maze that also has a mummy that obeys the layout of the maze walls which moves as a result of randomized, valid movements. 
 
 When the player wins, an alert box appears telling they have won. 
 
-Run the MazeGUI.java class. Enter a desired length and width (should be equal), PRESS ENTER, and the "play button"
+Run the MazeGUI.java class. Enter a desired length and width (should be equal), PRESS ENTER, and the "play button". It is important to press enter before pressing the play button as it will first create the maze, and the Play button will make a GUI version of that maze. 
+
+
+
+
