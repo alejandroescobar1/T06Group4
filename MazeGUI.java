@@ -137,6 +137,10 @@ public class MazeGUI extends Application {
 						canUpdate = false;
 						p1.goUp();
 						mummy.checkCollision();
+						if(p1.checkWin()) {
+							AlertBox.displayWin();
+							System.exit(0);
+						}
 						
 					}
 				}
@@ -145,6 +149,10 @@ public class MazeGUI extends Application {
 						canUpdate = false;
 						p1.goDown();
 						mummy.checkCollision();
+						if(p1.checkWin()) {
+							AlertBox.displayWin();
+							System.exit(0);
+						}
 					}
 				}
 				else if (e.getCode().equals(KeyCode.D)) {
@@ -152,6 +160,10 @@ public class MazeGUI extends Application {
 						canUpdate = false;
 						p1.goRight();
 						mummy.checkCollision();
+						if(p1.checkWin()) {
+							AlertBox.displayWin();
+							System.exit(0);
+						}
 					}
 				}
 				else if (e.getCode().equals(KeyCode.A)) {
@@ -159,6 +171,10 @@ public class MazeGUI extends Application {
 						canUpdate = false;
 						p1.goLeft();
 						mummy.checkCollision();
+						if(p1.checkWin()) {
+							AlertBox.displayWin();
+							System.exit(0);
+						}
 					}
 				}
 			}
