@@ -1,11 +1,3 @@
-/**
- * @author T06 Group 4
- * @version Demo 2 GUI based game
- * 
- * @implNote The Coordinate class assigns a coordinate value to each block It also assigns to it the status of that block, 
- * for example if it is empty or has the player or mummy. It further defines functions that dictate what boundaries of 
- * what block act as a wall.
- */
 package application;
 
 import java.util.ArrayList;
@@ -18,9 +10,7 @@ public class Coordinate {
 	private boolean down;
 	private boolean left;
 	private boolean right;
-/*
- * Constructors
- */
+	
 	
 	public Coordinate(int col,int row,char newStatus,char newletter, boolean newup,boolean newdown,boolean newleft,boolean newright) {
 		this.setStatus(newStatus);
@@ -44,10 +34,8 @@ public class Coordinate {
 		this.left = Copy.left;
 		this.right = Copy.right;
 	}
-/*
- * Setters and getters for attributes including the attributes about the desired direction of movement which are boolean values
- * that determine if the player can go in that direction
- */
+	
+	
 	public void setX(int newX) {
 		this.xCoord = newX;
 	}
@@ -147,9 +135,7 @@ public class Coordinate {
 		}
 	}
 	
-	/*
-	 * This function relies on the get direction functions to determine if a wall exists in certain areas. 
-	 */
+	
 	public boolean checkWall(int direction) {
 		if (direction == 0) {
 			return this.getDown();
@@ -165,9 +151,7 @@ public class Coordinate {
 		}
 		else { return true;}
 	}
-	/*
-	 * This function breaks down the walls taht are not needed in the maze
-	 */
+	
 	public void breakWall(int Direction) {
 		if (Direction == 0) {
 			this.setUp(false);
@@ -191,3 +175,15 @@ public class Coordinate {
 		
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
