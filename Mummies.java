@@ -20,8 +20,8 @@ public class Mummies {
 	
 	private Maze maze;
 	private Player playerInstance;
-	private double mummyX = Maze.width-1;
-	private double mummyY = Maze.length-1;
+	private double mummyX;
+	private double mummyY;
 	
 	public Mummies(Maze newMaze, Player playerInstance) {
 		this.maze = newMaze;
@@ -30,6 +30,8 @@ public class Mummies {
 	
 	public void setMaze(Maze newMaze) {
 		this.maze = newMaze;
+		this.mummyX = Maze.width-1;
+		this.mummyY = Maze.length -1; 
 	}
 	
 ///////////////////////////////UPDATE COORDINATE////////////////////////
