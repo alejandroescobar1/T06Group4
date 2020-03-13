@@ -1,6 +1,7 @@
 # T06Group4
 Tutorial 06 Group 4 Repository
-Repository address: 
+Repository Name: T06Group4
+Repository address: https://github.com/alejandroescobar1/T06Group4
 
 This repository contains the code needed to play the Treasure Hunt game.
 
