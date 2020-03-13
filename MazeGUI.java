@@ -136,6 +136,7 @@ public class MazeGUI extends Application {
 					if (canUpdate == true) {
 						canUpdate = false;
 						p1.goUp();
+						mummy.checkCollision();
 						
 					}
 				}
@@ -143,18 +144,21 @@ public class MazeGUI extends Application {
 					if (canUpdate == true) {
 						canUpdate = false;
 						p1.goDown();
+						mummy.checkCollision();
 					}
 				}
 				else if (e.getCode().equals(KeyCode.D)) {
 					if (canUpdate == true) {
 						canUpdate = false;
 						p1.goRight();
+						mummy.checkCollision();
 					}
 				}
 				else if (e.getCode().equals(KeyCode.A)) {
 					if (canUpdate == true) {
 						canUpdate = false;
 						p1.goLeft();
+						mummy.checkCollision();
 					}
 				}
 			}
@@ -263,7 +267,18 @@ public class MazeGUI extends Application {
             
 			}
             
-        System.out.println(" --- --- --- --- --- --- --- --- --- --- --- --- --- ---     ");
+		for (int n = 1; n<length; n++) {
+			if (n == length-1){
+				System.out.println(" ---");
+			}
+        	else if (n == length) {
+        		System.out.println(" ---     ");
+        	}
+        	
+        	else {
+        		System.out.print(" ---");
+        	}
+        }
         
 		//the below loop draws the bottom side of wall
 		//for (int i = 0; i < length-1; i++){

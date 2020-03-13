@@ -15,6 +15,7 @@ public class Mummies {
 	private Image mummyUp = new Image("mummyUP.png");
 	private Image mummyDown = new Image("mummyDOWN.png");
 	protected ImageView enemy = new ImageView(mummyRight);
+	private Image ugandaR = new Image("ugandaR.png");
 	
 	
 	private Maze maze;
@@ -96,6 +97,10 @@ public class Mummies {
 		if (playerInstance.getX() == this.getX() && playerInstance.getY() == this.getY()) {
 			playerInstance.updateLives(-1);
 			System.out.println("Hit by Mummy. Player returned to start. Number of lives is " + playerInstance.getLives());
+			playerInstance.setX(0);
+			playerInstance.setY(0);
+			playerInstance.playerImg.setImage(ugandaR);
+			playerInstance.playerImg.relocate(0,0);
 			return true;
 		}
 		else {return false;}

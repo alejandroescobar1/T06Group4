@@ -24,18 +24,22 @@ public class MummyTimer {
 				if (move == 0)
 				{
 					mummy.goDown();
+					mummy.checkCollision();
 				}
 				else if (move == 1)
 				{
 					mummy.goUp();
+					mummy.checkCollision();
 				}
 				else if (move==2)
 				{
 					mummy.goRight();
+					mummy.checkCollision();
 				}
 				else if (move == 3)
 				{
 					mummy.goLeft();
+					mummy.checkCollision();
 				}
 		}
 		
@@ -53,5 +57,3 @@ public class MummyTimer {
 		
 	
 }
-			
-			
