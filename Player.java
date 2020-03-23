@@ -1,32 +1,30 @@
-package application;
-import java.util.ArrayList;
+/**
+ * @author T06 Group 4
+ * @version Demo 2 Text-based game
+ * @implNote The player class creates a player that takes a letter as the direction input and evaluates if the resultant move
+ * can occur due to the absence of a wall. It also contains the lives attribute.
+ */
 import java.util.Scanner;
-
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 
 public class Player {
 	private int lives = 3;
 	private String playerName= "Dave";
-	private Image playerR;
-	private Image playerL;
-	private Image playerD;
-	private Image playerU;
-	protected ImageView playerImg = new ImageView(playerR);
 	private double playerX = 0;
 	private double playerY = 0;
-	protected Maze maze;
-
-	
+	private Maze maze;
+	private int negItem = 0;
+	private int posItem = 0;
+	private int gemItem = 0;
+/*
+ * Constructor 
+ */
 	public Player(Maze newMaze) {
 		this.maze = newMaze;
 	}
-	
-	public void setMaze(Maze maze) {
-		this.maze = maze;
-	}
-	
+/*
+ * methods pertaining to the player lives. 
+ */
 	public void setLives(int newLives)
 	{
 		this.lives = newLives;
@@ -37,14 +35,28 @@ public class Player {
 		return (this.lives);
 	}
 
-	//@param the amount of life added or lose
+/**
+ * @param livesChanged (the amount of life added or lose)
+ * @return updated lives count
+ */
 	public int updateLives(int livesChange)
 	{
-		return (this.lives = lives + livesChange);
+		this.lives = lives + livesChange;
+		if (this.lives == 0) {
+			dead();
+		}
+		return (this.lives);
+		
 	}
-
-	//////////////////////////////////////////////////////////////////////
-	// This code allows the user to name the avatar's name. The default name is Dave
+	//will call this method if lives<0
+	public void dead()
+	{
+		System.out.println("Game Over!");
+		System.exit(0);
+	}
+/*
+ * methods pertaining to the player name. 
+ */
 	public void setPlayerName()
 	{
 		String inputName1 = null;
@@ -62,16 +74,10 @@ public class Player {
 	{
 		return (this.playerName);
 	}
-	//will call this method if lives<0
-	public void dead()
-	{
-
-		System.out.println("Game Over!");
-//		String action = getAction();
-//		action = "EXIT";
-//		return action;
-	}
-///////////////////////////////UPDATE COORDINATE////////////////////////
+	 
+/* Update coordinate function tests if the resultant move require passing through a wall as well as if the resultant move
+ * would move the player out of the boundary. 
+ */
 	
 	public void updatePlayerPosition (String direction){
 		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
@@ -122,6 +128,7 @@ public class Player {
 				}
 		}
 		if (invalid == false) {
+			itemCollection(ordered[newPlayerYCoord][newPlayerXCoord].getStatus());
 			ordered[currentPlayerYCoord][currentPlayerXCoord].setStatus('e'); 
 			ordered[newPlayerYCoord][newPlayerXCoord].setStatus('p');
 		}
@@ -138,25 +145,37 @@ public class Player {
 		}
 		
 	}
+// checks if the player has reached the end of the maze 
 	public boolean checkWin() {
 		boolean win = false;
 		
-		if (this.getX() == (Maze.width -1) && this.getY() == (Maze.length -1)) {
+		if (this.getX() == Maze.width-1 && this.getY() == Maze.length-1) {
 			win = true;
 		}
 		
 		return win;
 	}
-	public void checkCollection(int itemX, int itemY) {
+/*
+ * checks if player has collected an item. 
+ */
+	public char checkCollection(int newPlayerYCoord, int newPlayerXCoord) {
+		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
 		boolean collection = false;
-		if(this.getX() == itemX && this.getY() == itemY) {
+		char newSpotStatus = 'e';
+		if(ordered[newPlayerYCoord][newPlayerXCoord].getStatus() == 'g') {
 			collection = true;
 		}
+	return newSpotStatus;
 	}
+/*
+ * Prints a statement with the player's location
+ */
 	public void printLocation(){
 		System.out.println("Player is at " + this.getX() + ", " + this.getY());
 	}
-	
+/*
+ * Getters for Player attributes
+ */
 	public double getX() {
 		return this.playerX;
 	}
@@ -172,51 +191,9 @@ public class Player {
 		this.playerY = newY;
 	}
 	
-	public void goDown() {
-		if (playerY + 1 < maze.length) {
-			Coordinate[][] ordered = maze.order(maze.CoordinateList);
-			if(ordered[(int) playerY][(int) playerX].checkWall(0) == false) {
-				playerImg.setImage(playerD);
-				playerImg.relocate(playerImg.getLayoutX(), playerImg.getLayoutY() + playerImg.getBoundsInLocal().getHeight());
-				this.playerY+= 1;
-			}
-		}
-	}
-	
-	public void goUp() {
-		if (playerY - 1 >= 0) {
-			Coordinate[][] ordered = maze.order(maze.CoordinateList);
-			if(ordered[(int) playerY][(int) playerX].checkWall(2) == false) {
-				playerImg.setImage(playerU);
-				playerImg.relocate(playerImg.getLayoutX(), playerImg.getLayoutY() - playerImg.getBoundsInLocal().getHeight());
-				this.playerY-= 1;
-			}
-		}
-	}
-	
-	public void goLeft() {
-		if (playerX - 1 >= 0) {
-			Coordinate[][] ordered = maze.order(maze.CoordinateList);
-			if(ordered[(int) playerY][(int) playerX].checkWall(3) == false) {
-				playerImg.setImage(playerL);
-				this.playerX-= 1;
-				playerImg.relocate(playerImg.getLayoutX() - playerImg.getBoundsInLocal().getWidth(), playerImg.getLayoutY());
-				checkWin();
-			}
-		}
-	}
-	
-	public void goRight() {
-		if (playerX + 1 < maze.width) {
-			Coordinate[][] ordered = maze.order(maze.CoordinateList);
-			if(ordered[(int) playerY][(int) playerX].checkWall(1) == false) {
-				playerImg.setImage(playerR);
-				playerImg.relocate(playerImg.getLayoutX()+ playerImg.getBoundsInLocal().getWidth(), playerImg.getLayoutY());
-				this.playerX+= 1;
-			}
-		}
-	}
-	
+	/* 
+	 * This method takes the user input, determines if it is a valid amount, and if it is, feeds it into the update coordinate function
+	 */
 	public void getDirection(){
 		String directionInput = null;
 		Boolean valid = false;
@@ -232,46 +209,49 @@ public class Player {
 			}
 		}
 	}
-	
-	public void characterSelected(int characterSelected) {
-		if (characterSelected == 1) {
-			playerR = new Image("ugandaR.png");
-			playerL = new Image("ugandaL.png");
-			playerU = new Image("ugandaU.png");
-			playerD = new Image("ugandaD.png");
-			playerImg = new ImageView(playerR);
-		}
+	public void updateNegItem() {
+		this.negItem += 1;
+	}
+	public void updatePosItem() {
+		this.posItem += 1;
+	}
+	public void updateGemItem() {
+		this.gemItem += 1;
+	}
+	public int getNegItem() {
+		return this.negItem;
+	}
+	public int getPosItem() {
+		return this.posItem;
+	}
+	public int getGemItem() {
+		return this.gemItem;
+	}
+	public Time hasStaff() {
+		Time staffTimer = new Time();
+		staffTimer.start();
+		return staffTimer;
 		
-		else if (characterSelected == 2) {
-			playerR = new Image("ugandaR.png");
-			playerL = new Image("ugandaL.png");
-			playerU = new Image("ugandaU.png");
-			playerD = new Image("ugandaD.png");
-			playerImg = new ImageView(playerR);
+	}
+	public void itemCollection(char status) {
+		if (status == 'r') {
+			updateLives(-1);
+			System.out.println("You collected the Ring. You lost a life. Number of lives is " + getLives());
+			updateNegItem();
 		}
-		
-		else if (characterSelected == 3) {
-			playerR = new Image("ugandaR.png");
-			playerL = new Image("ugandaL.png");
-			playerU = new Image("ugandaU.png");
-			playerD = new Image("ugandaD.png");
-			playerImg = new ImageView(playerR);
+		else if (status == 'j') {
+			updateLives(1);
+			System.out.println("You collected the Jewel. You gained a life. Number of lives is " + getLives());
+			updatePosItem();
 		}
-		
-		else if (characterSelected == 4) {
-			playerR = new Image("ugandaR.png");
-			playerL = new Image("ugandaL.png");
-			playerU = new Image("ugandaU.png");
-			playerD = new Image("ugandaD.png");
-			playerImg = new ImageView(playerR);
+		else if (status == 's') {
+			System.out.println("You collected the Staff");
+			updatePosItem();
+			hasStaff();
 		}
-		
-		else if (characterSelected == 1) {
-			playerR = new Image("ugandaR.png");
-			playerL = new Image("ugandaL.png");
-			playerU = new Image("ugandaU.png");
-			playerD = new Image("ugandaD.png");
-			playerImg = new ImageView(playerR);
+		else if (status == 'g') {
+			System.out.println("You collected a Gem.");
+			updateGemItem();
 		}
 	}
 }

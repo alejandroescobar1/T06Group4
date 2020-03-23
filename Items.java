@@ -1,64 +1,154 @@
-package application;
+/**
+ * @author T06 Group 4
+ * @version Demo 2 Text-based game
+ * @implNote This class contains all the information for the items that will be available to the players. Currently, it has 
+ * the functionality to create the items onto the maze but does not have the effects for each item implemented. 
+ */
 import java.util.Random;
 
 public class Items {
 	int jewelX, jewelY, staffX, staffY, gemX, gemY, ringX, ringY;
-	Maze mazeInstance = new Maze(6,6);
-	Coordinate[][] ordered = mazeInstance.order(mazeInstance.CoordinateList);
+	private Maze maze;
+	private Player playerInstance;
 	Random coordOptions = new Random();
+	
+	public Items (Maze maze, Player playerInstance) {
+		this.maze = maze;
+		this.playerInstance = playerInstance;
+	}
+/*
+ * Setters make the items at some random empty coordinate at the initialization of the maze
+ */
 	public void setJewelCoord() {
+		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
 		boolean valuesGood = false;
-		while (valuesGood ==false){
-			int jewelYTest = coordOptions.nextInt(mazeInstance.length);
-			int jewelXTest = coordOptions.nextInt(mazeInstance.width);
-			if (ordered[jewelXTest][jewelYTest].getStatus() == 'e') {
+		while (valuesGood == false){
+			int jewelYTest = coordOptions.nextInt(Maze.length);
+			int jewelXTest = coordOptions.nextInt(Maze.width);
+			boolean startPoint = false;
+			if (jewelYTest == 0 && jewelXTest == 0) {
+				startPoint = true;
+			}
+			boolean endPoint = false;
+			if (jewelYTest == maze.length-1 && jewelXTest == maze.width-1) {
+				endPoint = true;
+			}
+			if (ordered[jewelXTest][jewelYTest].getStatus() == 'e'&& startPoint == false && endPoint == false) {
 				this.jewelX = jewelXTest;
 				this.jewelY = jewelYTest;
-				Coordinate jewelItem = new Coordinate(jewelX, jewelY, 'j', 'J', false, false, false, false);
+				ordered[jewelXTest][jewelYTest].setStatus('j');
 				valuesGood = true;
 			}
 		}
 	}
 	public void setStaffCoord() {
+		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
 		boolean valuesGood = false;
 		while (valuesGood == false){
-			int staffYTest = coordOptions.nextInt(mazeInstance.length);
-			int staffXTest = coordOptions.nextInt(mazeInstance.width);
-			if (ordered[staffXTest][staffYTest].getStatus() == 'e') {
+			int staffYTest = coordOptions.nextInt(Maze.length);
+			int staffXTest = coordOptions.nextInt(Maze.width);
+			boolean startPoint = false;
+			if (staffYTest == 0 && staffXTest == 0) {
+				startPoint = true;
+			}
+			boolean endPoint = false;
+			if (staffYTest == maze.length-1 && staffXTest == maze.width-1) {
+				endPoint = true;
+			}
+			if (ordered[staffXTest][staffYTest].getStatus() == 'e'&& startPoint == false && endPoint == false) {
 				this.staffX = staffXTest;
 				this.staffY = staffYTest;
-				Coordinate staffItem = new Coordinate(staffX, staffY, 's', 'S', false, false, false, false);
+				ordered[staffXTest][staffYTest].setStatus('s');
 				valuesGood = true;
 			}
 		}
 	}
 	public void setGemCoord() {
+		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
 		boolean valuesGood = false;
 		while (valuesGood ==false){
-			int gemYTest = coordOptions.nextInt(mazeInstance.length);
-			int gemXTest = coordOptions.nextInt(mazeInstance.width);
-			if (ordered[gemXTest][gemYTest].getStatus() == 'e') {
+			int gemYTest = coordOptions.nextInt(Maze.length);
+			int gemXTest = coordOptions.nextInt(Maze.width);
+			boolean startPoint = false;
+			if (gemYTest == 0 && gemXTest == 0) {
+				startPoint = true;
+			}
+			boolean endPoint = false;
+			if (gemYTest == maze.length-1 && gemXTest == maze.width-1) {
+				endPoint = true;
+			}
+			if (ordered[gemXTest][gemYTest].getStatus() == 'e'&& startPoint == false && endPoint == false) {
 				this.gemX = gemXTest;
 				this.gemY = gemYTest;
-				Coordinate gemItem = new Coordinate(gemX, gemY, 'g', 'G', false, false, false, false);
+				ordered[gemXTest][gemYTest].setStatus('g');
 				valuesGood = true;
 			}
 		}
 	}
 	public void setRingCoord() {
+		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
 		boolean valuesGood = false;
 		while (valuesGood == false){
-			int ringYTest = coordOptions.nextInt(mazeInstance.length);
-			int ringXTest = coordOptions.nextInt(mazeInstance.width);
-			if (ordered[ringXTest][ringYTest].getStatus() == 'e') {
+			int ringYTest = coordOptions.nextInt(Maze.length);
+			int ringXTest = coordOptions.nextInt(Maze.width);
+			boolean startPoint = false;
+			if (ringYTest == 0 && ringXTest == 0) {
+				startPoint = true;
+			}
+			boolean endPoint = false;
+			if (ringYTest == maze.length-1 && ringXTest == maze.width-1) {
+				endPoint = true;
+			}
+			if (ordered[ringXTest][ringYTest].getStatus() == 'e' && startPoint == false && endPoint == false) {
 				this.ringX = ringXTest;
 				this.ringY = ringYTest;
-				Coordinate staffItem = new Coordinate(ringX, ringY, 'r', 'R', false, false, false, false);
+				ordered[ringXTest][ringYTest].setStatus('r');
 				valuesGood = true;
 			}
 		}
 	}
 	
+	/*public boolean checkCollectionJewel() {
+		if (playerInstance.getX() == getJewelX() && playerInstance.getY() == getJewelY()) {
+			playerInstance.updateLives(1);
+			String statement = "Collected the Jewel. You gained a life. You now have " + playerInstance.getLives() + " lives.";
+			System.out.println(statement);
+			return true;
+		}
+		else {return false;}
+	}
+	
+	public boolean checkCollectionStaff() {
+		if (playerInstance.getX() == getRingX() && playerInstance.getY() == getRingY()) {
+			//playerInstance.updateLives(-1);
+			String statement = "Collected the Staff. You can kill mummies for five seconds now";
+			System.out.println(statement);
+			return true;
+		}
+		else {return false;}
+	}
+	
+	public boolean checkCollectionGem() {
+		if (playerInstance.getX() == getGemX() && playerInstance.getY() == getGemY()) {
+			return true;
+		}
+		else {return false;}
+	}
+	
+	public boolean checkCollectionRing() {
+		if (playerInstance.getX() == getRingX() && playerInstance.getY() == getRingY()) {
+			playerInstance.updateLives(-1);
+			System.out.println("You collected the Ring. You lost a life. Number of lives is " + playerInstance.getLives());
+			return true;
+		}
+		else {return false;}
+	}*/
+	
+	
+	
+/*
+ * Getter methods
+ */
 	public int getJewelX() {
 		return this.jewelX;
 	}

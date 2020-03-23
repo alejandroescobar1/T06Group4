@@ -1,4 +1,9 @@
-package application;
+/**
+ * @author T06 Group 4
+ * @version Demo 2 Text-based game
+ * @implNote This class contains generates the actual maze using randomized correct path to the finish coordinate and 
+ * generating walls by preventing the passing of these walls.  
+ */
 import java.util.*; 
 
 public class Maze {
@@ -207,9 +212,6 @@ public class Maze {
 						
 				Welldown++;}
 				
-				
-				
-				
 				//RANDOM DIRECTION IS LEFT
 				if (randomdir==3&&randomcol-1>=0) {
 					Coordinate myCoor;
@@ -222,7 +224,6 @@ public class Maze {
 						if ((x.getX() == randomcol-1)&&(x.getY() == randomrow)) {
 							beside = x;
 						}
-						
 					}
 					if ((myCoor.getLeft() == true)&&(beside.getRight() == true)&&(myCoor.getLetter() != beside.getLetter())){
 						myCoor.setLeft(false);

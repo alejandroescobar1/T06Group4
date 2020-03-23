@@ -1,3 +1,12 @@
+/**
+ * @author T06 Group 4
+ * @version Demo 2 Text-based game
+ * @see Demo 2 GUI-based game. Directions are found in the README.md file
+ * 
+ * @implNote This class creates a timer to determine how long the game is player, to allow for the timer-based score to be calculated
+ * 
+ */
+
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
