@@ -35,17 +35,21 @@ import javafx.animation.AnimationTimer;
 
 
 public class MazeGUI extends Application {
-	Maze newMaze = new Maze(5,5);
+	Maze newMaze = new Maze(5,5); MummyTimer mummyTimer;
 	private Player p1; private Mummies mummy;
 	private GraphicsContext gc;
 	private GridPane grid = new GridPane();
 	static private int length;
 	static private int width;
-	private Scene scene1, scene2;
+	private Scene scene1, scene2, sceneCharacter;
 	final static double canvasWidth = 702;
 	private boolean canUpdate = true;
-	private double imgSize;
-
+	private double imgSize; 
+	private final ImageView bg = new ImageView("sandBG.png");
+	
+	private int characterSelected;
+	
+	private Group pane = new Group();
 	
 	public void start(Stage stage) throws Exception
 	{	//create a new maze instance
@@ -62,7 +66,6 @@ public class MazeGUI extends Application {
 		
 		//timer for mummy
 	
-		
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
@@ -104,6 +107,7 @@ public class MazeGUI extends Application {
 				
 				//determining the image size for the mummy
 				mummy.setMaze(newMaze);
+				mummy.printLocation();
 				mummy.enemy.relocate(imgSize * mummy.getX(), imgSize * mummy.getY());
 				mummy.enemy.setFitHeight(imgSize);
 				mummy.enemy.setFitWidth(imgSize);
@@ -121,11 +125,102 @@ public class MazeGUI extends Application {
 		//PrintMazeGUI(newMaze.CoordinateList);
 		//!!!
 	    
-	    Group pane = new Group();
+	    //Scene choosing character
+	    HBox hbox = new HBox();
+		hbox.setSpacing(20);
+		hbox.setPadding(new Insets(500, 10, 10, 10));
+		
+		ImageView character1 = new ImageView("ugandaR.png");
+		character1.setFitHeight(125);
+		character1.setFitWidth(120);
+		character1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				characterSelected = 1;
+				p1.characterSelected(characterSelected);
+				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
+				stage.setScene(scene1);
+			}
+		});
+		
+		ImageView character2 = new ImageView("ugandaR.png");
+		character2.setFitHeight(125);
+		character2.setFitWidth(120);
+		character2.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				characterSelected = 2;
+				p1.characterSelected(characterSelected);
+				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
+				stage.setScene(scene1);
+			}
+		});
+		
+		ImageView character3 = new ImageView("ugandaR.png");
+		character3.setFitHeight(125);
+		character3.setFitWidth(120);
+		character3.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				characterSelected = 3;
+				p1.characterSelected(characterSelected);
+				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
+				stage.setScene(scene1);
+			}
+		});
+		
+		ImageView character4 = new ImageView("ugandaR.png");
+		character4.setFitHeight(125);
+		character4.setFitWidth(120);
+		character4.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				characterSelected = 4;
+				p1.characterSelected(characterSelected);
+				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
+				stage.setScene(scene1);
+			}
+		});
+		
+		ImageView character5 = new ImageView("ugandaR.png");
+		character5.setFitHeight(125);
+		character5.setFitWidth(120);
+		character5.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				characterSelected = 5;
+				p1.characterSelected(characterSelected);
+				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
+				stage.setScene(scene1);
+			}
+		});
+		
+		hbox.getChildren().addAll(character1, character2, character3, character4, character5);
+		
+		ImageView characterBG = new ImageView("characterBG.png");
+		Group group = new Group();
+		group.getChildren().addAll(characterBG, hbox);
+		
+	    sceneCharacter = new Scene(group, 702, 702);
+		
+		characterBG.setFitWidth(702);
+		characterBG.setFitHeight(702);
 	    
-	    pane.getChildren().addAll(p1.playerImg, canvas, mummy.enemy);
-		Scene scene1 = new Scene(grid);
-		Scene scene2 = new Scene(pane, canvasWidth, canvasWidth, Color.LIGHTYELLOW);
+		//scene1
+	    scene1 = new Scene(grid, 702, 702, Color.ALICEBLUE);
+	    
+	    
+		scene2 = new Scene(pane, canvasWidth, canvasWidth, Color.LIGHTYELLOW);
 		//scene.getStylesheets().add(MazeGUI.class.getResource("MazeGUI.css").toExternalForm());
 		
 		//KeyBoard Interaction
@@ -138,6 +233,7 @@ public class MazeGUI extends Application {
 						p1.goUp();
 						mummy.checkCollision();
 						if(p1.checkWin()) {
+							mummyTimer.stop();
 							AlertBox.displayWin();
 							System.exit(0);
 						}
@@ -150,6 +246,7 @@ public class MazeGUI extends Application {
 						p1.goDown();
 						mummy.checkCollision();
 						if(p1.checkWin()) {
+							mummyTimer.stop();
 							AlertBox.displayWin();
 							System.exit(0);
 						}
@@ -161,6 +258,7 @@ public class MazeGUI extends Application {
 						p1.goRight();
 						mummy.checkCollision();
 						if(p1.checkWin()) {
+							mummyTimer.stop();
 							AlertBox.displayWin();
 							System.exit(0);
 						}
@@ -172,6 +270,7 @@ public class MazeGUI extends Application {
 						p1.goLeft();
 						mummy.checkCollision();
 						if(p1.checkWin()) {
+							mummyTimer.stop();
 							AlertBox.displayWin();
 							System.exit(0);
 						}
@@ -193,15 +292,17 @@ public class MazeGUI extends Application {
 			}
 		});			
 				
-		
-		stage.setScene(scene1);
-		stage.sizeToScene();
+		stage.setScene(sceneCharacter);
+		stage.setMaxHeight(canvasWidth + 38);
+		stage.setMaxWidth(canvasWidth + 15);
+		stage.setMinHeight(canvasWidth + 38);
+		stage.setMinWidth(canvasWidth + 15);
 		stage.show();
 		
 		//BUTTON
 		Button play = new Button("Play");
 		play.setOnAction(e -> {
-			MummyTimer mummyTimer = new MummyTimer(p1, mummy);
+			mummyTimer = new MummyTimer(p1, mummy);
 			mummyTimer.start();
 			stage.setScene(scene2);
 		});

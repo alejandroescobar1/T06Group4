@@ -9,11 +9,11 @@ import javafx.scene.image.ImageView;
 public class Player {
 	private int lives = 3;
 	private String playerName= "Dave";
-	private Image ugandaR = new Image("ugandaR.png");
-	private Image ugandaL = new Image("ugandaL.png");
-	private Image ugandaD = new Image("ugandaD.png");
-	private Image ugandaU = new Image("ugandaU.png");
-	protected ImageView playerImg = new ImageView(ugandaR);
+	private Image playerR;
+	private Image playerL;
+	private Image playerD;
+	private Image playerU;
+	protected ImageView playerImg = new ImageView(playerR);
 	private double playerX = 0;
 	private double playerY = 0;
 	protected Maze maze;
@@ -141,7 +141,7 @@ public class Player {
 	public boolean checkWin() {
 		boolean win = false;
 		
-		if (this.getX() == Maze.width && this.getY() == Maze.length) {
+		if (this.getX() == (Maze.width -1) && this.getY() == (Maze.length -1)) {
 			win = true;
 		}
 		
@@ -176,7 +176,7 @@ public class Player {
 		if (playerY + 1 < maze.length) {
 			Coordinate[][] ordered = maze.order(maze.CoordinateList);
 			if(ordered[(int) playerY][(int) playerX].checkWall(0) == false) {
-				playerImg.setImage(ugandaD);
+				playerImg.setImage(playerD);
 				playerImg.relocate(playerImg.getLayoutX(), playerImg.getLayoutY() + playerImg.getBoundsInLocal().getHeight());
 				this.playerY+= 1;
 			}
@@ -187,7 +187,7 @@ public class Player {
 		if (playerY - 1 >= 0) {
 			Coordinate[][] ordered = maze.order(maze.CoordinateList);
 			if(ordered[(int) playerY][(int) playerX].checkWall(2) == false) {
-				playerImg.setImage(ugandaU);
+				playerImg.setImage(playerU);
 				playerImg.relocate(playerImg.getLayoutX(), playerImg.getLayoutY() - playerImg.getBoundsInLocal().getHeight());
 				this.playerY-= 1;
 			}
@@ -198,7 +198,7 @@ public class Player {
 		if (playerX - 1 >= 0) {
 			Coordinate[][] ordered = maze.order(maze.CoordinateList);
 			if(ordered[(int) playerY][(int) playerX].checkWall(3) == false) {
-				playerImg.setImage(ugandaL);
+				playerImg.setImage(playerL);
 				this.playerX-= 1;
 				playerImg.relocate(playerImg.getLayoutX() - playerImg.getBoundsInLocal().getWidth(), playerImg.getLayoutY());
 				checkWin();
@@ -210,7 +210,7 @@ public class Player {
 		if (playerX + 1 < maze.width) {
 			Coordinate[][] ordered = maze.order(maze.CoordinateList);
 			if(ordered[(int) playerY][(int) playerX].checkWall(1) == false) {
-				playerImg.setImage(ugandaR);
+				playerImg.setImage(playerR);
 				playerImg.relocate(playerImg.getLayoutX()+ playerImg.getBoundsInLocal().getWidth(), playerImg.getLayoutY());
 				this.playerX+= 1;
 			}
@@ -230,6 +230,48 @@ public class Player {
 				valid = true;
 				//this.printLocation();
 			}
+		}
+	}
+	
+	public void characterSelected(int characterSelected) {
+		if (characterSelected == 1) {
+			playerR = new Image("ugandaR.png");
+			playerL = new Image("ugandaL.png");
+			playerU = new Image("ugandaU.png");
+			playerD = new Image("ugandaD.png");
+			playerImg = new ImageView(playerR);
+		}
+		
+		else if (characterSelected == 2) {
+			playerR = new Image("ugandaR.png");
+			playerL = new Image("ugandaL.png");
+			playerU = new Image("ugandaU.png");
+			playerD = new Image("ugandaD.png");
+			playerImg = new ImageView(playerR);
+		}
+		
+		else if (characterSelected == 3) {
+			playerR = new Image("ugandaR.png");
+			playerL = new Image("ugandaL.png");
+			playerU = new Image("ugandaU.png");
+			playerD = new Image("ugandaD.png");
+			playerImg = new ImageView(playerR);
+		}
+		
+		else if (characterSelected == 4) {
+			playerR = new Image("ugandaR.png");
+			playerL = new Image("ugandaL.png");
+			playerU = new Image("ugandaU.png");
+			playerD = new Image("ugandaD.png");
+			playerImg = new ImageView(playerR);
+		}
+		
+		else if (characterSelected == 1) {
+			playerR = new Image("ugandaR.png");
+			playerL = new Image("ugandaL.png");
+			playerU = new Image("ugandaU.png");
+			playerD = new Image("ugandaD.png");
+			playerImg = new ImageView(playerR);
 		}
 	}
 }
