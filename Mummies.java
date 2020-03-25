@@ -6,7 +6,6 @@
  */
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class Mummies {
 	private Maze maze;
@@ -16,7 +15,7 @@ public class Mummies {
 	
 	public Mummies(Maze newMaze, Player playerInstance) {
 		this.maze = newMaze;
-		this.playerInstance = playerInstance;
+		this.setPlayerInstance(playerInstance);
 	}
 	
 /* 
@@ -83,25 +82,6 @@ public class Mummies {
 		}
 		
 	}
-/*
- * This method checks of the player and mummy have collided and will update the player lives accordingly as well as print
- * a statement explaining what happened to the player into the counsel. 
- */
-	/*public boolean checkCollision() {
-		if (playerInstance.getX() == this.getX() && playerInstance.getY() == this.getY()) {
-			if (playerInstance.hasStaff().secondPassed <= 1) {
-				System.out.println("You killed a mummy!");
-				return true;
-			}
-			else {
-				playerInstance.updateLives(-1);
-				System.out.println("Hit by Mummy. Player returned to start. Number of lives is " + playerInstance.getLives());
-				return true;
-			}
-		}
-		else {return false;}
-	}*/
-	
 	public void printLocation(){
 		System.out.println("Mummy 1 is at " + this.getX() + ", " + this.getY());
 	}
@@ -150,5 +130,13 @@ public class Mummies {
 	
 	public void setY(double newY) {
 		this.mummyY = newY;
+	}
+
+	public Player getPlayerInstance() {
+		return playerInstance;
+	}
+
+	public void setPlayerInstance(Player playerInstance) {
+		this.playerInstance = playerInstance;
 	}
 }

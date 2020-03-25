@@ -50,27 +50,35 @@ public class Excutable {
 			// Print player and mummy location
 			p1.printLocation();
 			m1.printLocation();
+			System.out.println(timer.getSecondPassed());
 			// Print maze
 			Maze.PrintMaze(maze1.CoordinateList);
 			// Prompt for direction so that the player and mummy can move. Check if there was a collision after every turn.
-			p1.getDirection();
 			m1.getDirection();
+			p1.getDirection();
+			if(p1.getStaffCollected() == true) {
+				p1.setStaffCollectionStart(timer.secondPassed);
+				System.out.println(p1.getStaffCollectionStart());
+				p1.setStaffCollected(false);
+			}
+			// Checking for collision with mummy and allocating the effects according to if the player has the staff or not
 			if(p1.getX() == m1.getX() && p1.getY() == m1.getY()) {
-				if (p1.hasStaff().secondPassed <= 5) {
-					System.out.println("You killed a mummy!");
-					numMummy +=1;
-					m1.setX(Maze.width-1);
-					m1.setY(Maze.length-1);
-				}
+				int staffTimeElapsed = timer.secondPassed - p1.getStaffCollectionStart();
+				if (staffTimeElapsed <= 60) {
+						System.out.println("You killed a mummy!");
+						numMummy +=1;
+						m1.setX(Maze.width-1);
+						m1.setY(Maze.length-1);
+					}
 				else {
 					p1.updateLives(-1);
 					System.out.println("Hit by Mummy. Player returned to start. Number of lives is " + p1.getLives());
 					numKilled +=1;
 					p1.setX(0);
 					p1.setY(0);
+					}
 				}
 			}
-		}
 /*
  * Here we define what happens when the player wins. We print out a message with their score and exit the game. 
  */

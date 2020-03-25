@@ -13,14 +13,6 @@ public class Maze {
 	 public ArrayList<ArrayList<Coordinate>> CoordinateList2D2;
 	 static char[][] CoordinateList2D;
 	 
-	 
-	 /*protected boolean[][] down;
-	 protected boolean[][] up;
-	 protected boolean[][] right;
-	 protected boolean[][] left;
-	 protected boolean[][] visited;*/
-
-	 
 	 public Maze(int length, int width) {
 		 this.CoordinateList=new ArrayList<Coordinate> ();
 		 this.CoordinateList2D2 = new ArrayList<ArrayList<Coordinate>>();
@@ -36,39 +28,9 @@ public class Maze {
 				 this.CoordinateList2D2.add(tempList);
 				 if (newLetter > 89) {newLetter = 65;}
 				 else {newLetter++;}
-			 }}
-		 //randomly generate wall i.e. change 'e' to 'w' but have to be sure the wall doesn't form
-		 //a closed path, i.e. at least one of direction should be opened(for entering)
-		/* down = new boolean[length][width];
-		 up = new boolean[length][width];
-		 right = new boolean[length][width];
-		 left = new boolean[length][width];		 
-	        for (int x = 0; x < length; x++) {
-	            for (int y = 0; y < width; y++) {
-	            	down[x][y] = true;
-	                up[x][y]  = true;
-	                right[x][y] = true;
-	                left[x][y]  = true;
-	            }
-	        }
-	        up[0][0]=false;
-	        down[length-1][width-1]=false;
-			//convert to 2D Array
-			CoordinateList2D=new char[length][width];
-			for (int row=0;row<width;row++) {
-			for (int col =0;col<length;col++) {
-				CoordinateList2D[row][col]=CoordinateList.get(row*length+col).getLetter();}}*/
-			
-			//Hardcoded Walls and Coordinate List
-				//ArrayList<Coordinate> temp = new ArrayList<Coordinate>();
-			//for (ArrayList<Coordinate> x :this.CoordinateList2D2) {
-			///	if (x.contains(temp)){
-					
-			//	}
-			
-			}
-
-		 //GenerateWalls();
+			 }
+		}
+	}
 		
 		 
 	 public boolean SameSet() {
@@ -76,9 +38,6 @@ public class Maze {
 	 }
 	 public void GenerateWalls()
 	 {
-				//generate a random integer between 1-size of maze( directions)
-				//Random ran = new Random();
-				int Welldown=0;
 				//using the random number above, 1: check left(x-1), 2:right(x+1),3:up(y+1) 4:down(y-1)
 				//for (int row=0;row<this.width;row++) {
 				//for (int col =0;col<this.length;col++) {
@@ -129,7 +88,6 @@ public class Maze {
 						CoordinateList2D2.remove(removeList);}
 					
 					}
-					Welldown++;
 					}
 					
 				
@@ -169,8 +127,7 @@ public class Maze {
 						}
 						CoordinateList2D2.remove(removeList);}
 					
-					}
-				Welldown++;}
+					}}
 
 				
 				//RANDOM DIRECTION IS UP
@@ -208,9 +165,7 @@ public class Maze {
 						}
 						CoordinateList2D2.remove(removeList);}
 					
-					}
-						
-				Welldown++;}
+					}}
 				
 				//RANDOM DIRECTION IS LEFT
 				if (randomdir==3&&randomcol-1>=0) {
@@ -246,8 +201,7 @@ public class Maze {
 						}
 						CoordinateList2D2.remove(removeList);}
 					
-					}
-				Welldown++;	}
+					}	}
 				
 				
 				} }
@@ -276,7 +230,6 @@ public class Maze {
 	public static void PrintMaze(ArrayList<Coordinate> list) {
 		Coordinate[][] ordered = order(list);
 		for (int i = 0; i < length; i++){
-			String bottom = "";
 			String row ="|";
 			String top ="";
 			for (int j = 0;j<width;j++) {
@@ -327,7 +280,7 @@ public class Maze {
 					System.out.println(z.getRight());
 				}
 			}
-			newMaze.PrintMaze(newMaze.CoordinateList);
+			Maze.PrintMaze(newMaze.CoordinateList);
 			
 
 	  

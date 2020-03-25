@@ -6,7 +6,7 @@
  * for example if it is empty or has the player, mummy or a specific item in it. It further defines functions that dictate 
  * what boundaries of what block act as a wall.
  */
-import java.util.ArrayList;
+
 public class Coordinate {
 	private int xCoord;
 	private int yCoord;

@@ -16,6 +16,8 @@ public class Player {
 	private int negItem = 0;
 	private int posItem = 0;
 	private int gemItem = 0;
+	private boolean staffCollected = false;
+	private int staffCollectionStart;
 /*
  * Constructor 
  */
@@ -57,6 +59,7 @@ public class Player {
 /*
  * methods pertaining to the player name. 
  */
+	@SuppressWarnings("resource")
 	public void setPlayerName()
 	{
 		String inputName1 = null;
@@ -80,7 +83,7 @@ public class Player {
  */
 	
 	public void updatePlayerPosition (String direction){
-		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
+		Coordinate[][] ordered = Maze.order(this.maze.CoordinateList);
 		int currentPlayerXCoord = (int)this.getX();
 		int currentPlayerYCoord = (int)this.getY();
 		int newPlayerXCoord = currentPlayerXCoord;
@@ -156,14 +159,12 @@ public class Player {
 		return win;
 	}
 /*
- * checks if player has collected an item. 
+ * checks if player has collected an item. ------> not using
  */
 	public char checkCollection(int newPlayerYCoord, int newPlayerXCoord) {
-		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
-		boolean collection = false;
+		Coordinate[][] ordered = Maze.order(this.maze.CoordinateList);
 		char newSpotStatus = 'e';
 		if(ordered[newPlayerYCoord][newPlayerXCoord].getStatus() == 'g') {
-			collection = true;
 		}
 	return newSpotStatus;
 	}
@@ -194,6 +195,7 @@ public class Player {
 	/* 
 	 * This method takes the user input, determines if it is a valid amount, and if it is, feeds it into the update coordinate function
 	 */
+	@SuppressWarnings("resource")
 	public void getDirection(){
 		String directionInput = null;
 		Boolean valid = false;
@@ -227,12 +229,7 @@ public class Player {
 	public int getGemItem() {
 		return this.gemItem;
 	}
-	public Time hasStaff() {
-		Time staffTimer = new Time();
-		staffTimer.start();
-		return staffTimer;
-		
-	}
+
 	public void itemCollection(char status) {
 		if (status == 'r') {
 			updateLives(-1);
@@ -247,11 +244,23 @@ public class Player {
 		else if (status == 's') {
 			System.out.println("You collected the Staff");
 			updatePosItem();
-			hasStaff();
+			setStaffCollected(true);
 		}
 		else if (status == 'g') {
 			System.out.println("You collected a Gem.");
 			updateGemItem();
 		}
+	}
+	public boolean getStaffCollected() {
+		return staffCollected;
+	}
+	public void setStaffCollected(boolean staffCollected) {
+		this.staffCollected = staffCollected;
+	}
+	public int getStaffCollectionStart() {
+		return staffCollectionStart;
+	}
+	public void setStaffCollectionStart(int staffCollectionStart) {
+		this.staffCollectionStart = staffCollectionStart;
 	}
 }

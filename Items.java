@@ -14,13 +14,13 @@ public class Items {
 	
 	public Items (Maze maze, Player playerInstance) {
 		this.maze = maze;
-		this.playerInstance = playerInstance;
+		this.setPlayerInstance(playerInstance);
 	}
 /*
  * Setters make the items at some random empty coordinate at the initialization of the maze
  */
 	public void setJewelCoord() {
-		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
+		Coordinate[][] ordered = Maze.order(this.maze.CoordinateList);
 		boolean valuesGood = false;
 		while (valuesGood == false){
 			int jewelYTest = coordOptions.nextInt(Maze.length);
@@ -30,7 +30,7 @@ public class Items {
 				startPoint = true;
 			}
 			boolean endPoint = false;
-			if (jewelYTest == maze.length-1 && jewelXTest == maze.width-1) {
+			if (jewelYTest == Maze.length-1 && jewelXTest == Maze.width-1) {
 				endPoint = true;
 			}
 			if (ordered[jewelXTest][jewelYTest].getStatus() == 'e'&& startPoint == false && endPoint == false) {
@@ -42,7 +42,7 @@ public class Items {
 		}
 	}
 	public void setStaffCoord() {
-		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
+		Coordinate[][] ordered = Maze.order(this.maze.CoordinateList);
 		boolean valuesGood = false;
 		while (valuesGood == false){
 			int staffYTest = coordOptions.nextInt(Maze.length);
@@ -52,7 +52,7 @@ public class Items {
 				startPoint = true;
 			}
 			boolean endPoint = false;
-			if (staffYTest == maze.length-1 && staffXTest == maze.width-1) {
+			if (staffYTest == Maze.length-1 && staffXTest == Maze.width-1) {
 				endPoint = true;
 			}
 			if (ordered[staffXTest][staffYTest].getStatus() == 'e'&& startPoint == false && endPoint == false) {
@@ -64,7 +64,7 @@ public class Items {
 		}
 	}
 	public void setGemCoord() {
-		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
+		Coordinate[][] ordered = Maze.order(this.maze.CoordinateList);
 		boolean valuesGood = false;
 		while (valuesGood ==false){
 			int gemYTest = coordOptions.nextInt(Maze.length);
@@ -74,7 +74,7 @@ public class Items {
 				startPoint = true;
 			}
 			boolean endPoint = false;
-			if (gemYTest == maze.length-1 && gemXTest == maze.width-1) {
+			if (gemYTest == Maze.length-1 && gemXTest == Maze.width-1) {
 				endPoint = true;
 			}
 			if (ordered[gemXTest][gemYTest].getStatus() == 'e'&& startPoint == false && endPoint == false) {
@@ -86,7 +86,7 @@ public class Items {
 		}
 	}
 	public void setRingCoord() {
-		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
+		Coordinate[][] ordered = Maze.order(this.maze.CoordinateList);
 		boolean valuesGood = false;
 		while (valuesGood == false){
 			int ringYTest = coordOptions.nextInt(Maze.length);
@@ -96,7 +96,7 @@ public class Items {
 				startPoint = true;
 			}
 			boolean endPoint = false;
-			if (ringYTest == maze.length-1 && ringXTest == maze.width-1) {
+			if (ringYTest == Maze.length-1 && ringXTest == Maze.width-1) {
 				endPoint = true;
 			}
 			if (ordered[ringXTest][ringYTest].getStatus() == 'e' && startPoint == false && endPoint == false) {
@@ -172,5 +172,11 @@ public class Items {
 	}
 	public int getGemY() {
 		return this.jewelX;
+	}
+	public Player getPlayerInstance() {
+		return playerInstance;
+	}
+	public void setPlayerInstance(Player playerInstance) {
+		this.playerInstance = playerInstance;
 	}
 }
