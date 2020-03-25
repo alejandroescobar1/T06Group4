@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
-public class Player {
+public class Player extends Character{
 	private int lives = 3;
 	private String playerName= "Dave";
 	private Image playerR;
@@ -14,18 +14,13 @@ public class Player {
 	private Image playerD;
 	private Image playerU;
 	protected ImageView playerImg = new ImageView(playerR);
-	private double playerX = 0;
-	private double playerY = 0;
-	protected Maze maze;
 
 	
 	public Player(Maze newMaze) {
-		this.maze = newMaze;
+		super(newMaze,0,0);
 	}
 	
-	public void setMaze(Maze maze) {
-		this.maze = maze;
-	}
+	
 	
 	public void setLives(int newLives)
 	{
@@ -73,7 +68,7 @@ public class Player {
 	}
 ///////////////////////////////UPDATE COORDINATE////////////////////////
 	
-	public void updatePlayerPosition (String direction){
+	public void updatePosition (String direction){
 		Coordinate[][] ordered = this.maze.order(this.maze.CoordinateList);
 		int currentPlayerXCoord = (int)this.getX();
 		int currentPlayerYCoord = (int)this.getY();
@@ -138,6 +133,13 @@ public class Player {
 		}
 		
 	}
+	public boolean checkLoss(){
+		boolean loss = false;
+		if(this.lives<=0){
+			loss = true;
+		}
+		return loss;
+	}
 	public boolean checkWin() {
 		boolean win = false;
 		
@@ -154,52 +156,39 @@ public class Player {
 		}
 	}
 	public void printLocation(){
-		System.out.println("Player is at " + this.getX() + ", " + this.getY());
+		System.out.println("Player is at "+super.Location());
 	}
 	
-	public double getX() {
-		return this.playerX;
-	}
-
-	public double getY() {
-		return this.playerY;
-	}
-	public void setX(double newX) {
-		this.playerX = newX;
-	}
 	
-	public void setY(double newY) {
-		this.playerY = newY;
-	}
 	
 	public void goDown() {
-		if (playerY + 1 < maze.length) {
+		if (this.getY() + 1 < maze.length) {
 			Coordinate[][] ordered = maze.order(maze.CoordinateList);
-			if(ordered[(int) playerY][(int) playerX].checkWall(0) == false) {
+			if(ordered[(int) this.getY()][(int) this.getX()].checkWall(0) == false) {
 				playerImg.setImage(playerD);
 				playerImg.relocate(playerImg.getLayoutX(), playerImg.getLayoutY() + playerImg.getBoundsInLocal().getHeight());
-				this.playerY+= 1;
+				this.setY(this.getY()+1);
 			}
 		}
 	}
 	
 	public void goUp() {
-		if (playerY - 1 >= 0) {
+		if (this.getY() - 1 >= 0) {
 			Coordinate[][] ordered = maze.order(maze.CoordinateList);
-			if(ordered[(int) playerY][(int) playerX].checkWall(2) == false) {
+			if(ordered[(int) this.getY()][(int) this.getX()].checkWall(2) == false) {
 				playerImg.setImage(playerU);
 				playerImg.relocate(playerImg.getLayoutX(), playerImg.getLayoutY() - playerImg.getBoundsInLocal().getHeight());
-				this.playerY-= 1;
+				this.setY(this.getY()-1);
 			}
 		}
 	}
 	
 	public void goLeft() {
-		if (playerX - 1 >= 0) {
+		if (this.getX() - 1 >= 0) {
 			Coordinate[][] ordered = maze.order(maze.CoordinateList);
-			if(ordered[(int) playerY][(int) playerX].checkWall(3) == false) {
+			if(ordered[(int) this.getY()][(int) this.getX()].checkWall(3) == false) {
 				playerImg.setImage(playerL);
-				this.playerX-= 1;
+				this.setX(this.getX()-1);
 				playerImg.relocate(playerImg.getLayoutX() - playerImg.getBoundsInLocal().getWidth(), playerImg.getLayoutY());
 				checkWin();
 			}
@@ -207,12 +196,12 @@ public class Player {
 	}
 	
 	public void goRight() {
-		if (playerX + 1 < maze.width) {
+		if (this.getX() + 1 < maze.width) {
 			Coordinate[][] ordered = maze.order(maze.CoordinateList);
-			if(ordered[(int) playerY][(int) playerX].checkWall(1) == false) {
+			if(ordered[(int) this.getY()][(int) this.getX()].checkWall(1) == false) {
 				playerImg.setImage(playerR);
 				playerImg.relocate(playerImg.getLayoutX()+ playerImg.getBoundsInLocal().getWidth(), playerImg.getLayoutY());
-				this.playerX+= 1;
+				this.setX(this.getX()+1);
 			}
 		}
 	}
@@ -226,7 +215,7 @@ public class Player {
 
 		while (valid == false) {
 			if (directionInput.equals("a") || directionInput.equals("s") || directionInput.equals("w") || directionInput.equals("d")) {
-				this.updatePlayerPosition(directionInput);
+				this.updatePosition(directionInput);
 				valid = true;
 				//this.printLocation();
 			}

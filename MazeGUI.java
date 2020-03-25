@@ -237,6 +237,11 @@ public class MazeGUI extends Application {
 							AlertBox.displayWin();
 							System.exit(0);
 						}
+						if (p1.checkLoss()){
+							mummyTimer.stop();
+							AlertBox.displayLoss();
+							System.exit(0);
+						}
 						
 					}
 				}
@@ -248,6 +253,11 @@ public class MazeGUI extends Application {
 						if(p1.checkWin()) {
 							mummyTimer.stop();
 							AlertBox.displayWin();
+							System.exit(0);
+						}
+						if (p1.checkLoss()){
+							mummyTimer.stop();
+							AlertBox.displayLoss();
 							System.exit(0);
 						}
 					}
@@ -262,6 +272,11 @@ public class MazeGUI extends Application {
 							AlertBox.displayWin();
 							System.exit(0);
 						}
+						if (p1.checkLoss()){
+							mummyTimer.stop();
+							AlertBox.displayLoss();
+							System.exit(0);
+						}
 					}
 				}
 				else if (e.getCode().equals(KeyCode.A)) {
@@ -272,6 +287,11 @@ public class MazeGUI extends Application {
 						if(p1.checkWin()) {
 							mummyTimer.stop();
 							AlertBox.displayWin();
+							System.exit(0);
+						}
+						if (p1.checkLoss()){
+							mummyTimer.stop();
+							AlertBox.displayLoss();
 							System.exit(0);
 						}
 					}
