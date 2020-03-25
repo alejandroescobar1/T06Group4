@@ -64,7 +64,7 @@ public class Excutable {
 			// Checking for collision with mummy and allocating the effects according to if the player has the staff or not
 			if(p1.getX() == m1.getX() && p1.getY() == m1.getY()) {
 				int staffTimeElapsed = timer.secondPassed - p1.getStaffCollectionStart();
-				if (staffTimeElapsed <= 60) {
+				if (staffTimeElapsed <= 15) {
 						System.out.println("You killed a mummy!");
 						numMummy +=1;
 						m1.setX(Maze.width-1);
