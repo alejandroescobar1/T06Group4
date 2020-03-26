@@ -46,7 +46,6 @@ public class MazeGUI extends Application {
 	private boolean canUpdate = true;
 	private double imgSize; 
 	private final ImageView bg = new ImageView("sandBG.png");
-	
 	private int characterSelected;
 	
 	private Group pane = new Group();
@@ -62,7 +61,7 @@ public class MazeGUI extends Application {
 		//output the wall strutures using a method that  
 		stage.setTitle("Treasure Hunt");
 		p1 = new Player(newMaze);
-		mummy = new Mummies(newMaze, p1);
+		
 		
 		//timer for mummy
 	
@@ -130,7 +129,7 @@ public class MazeGUI extends Application {
 		hbox.setSpacing(20);
 		hbox.setPadding(new Insets(500, 10, 10, 10));
 		
-		ImageView character1 = new ImageView("ugandaR.png");
+		ImageView character1 = new ImageView("MSR.png");
 		character1.setFitHeight(125);
 		character1.setFitWidth(120);
 		character1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -140,6 +139,8 @@ public class MazeGUI extends Application {
 				// TODO Auto-generated method stub
 				characterSelected = 1;
 				p1.characterSelected(characterSelected);
+				mummy = new Mummies(newMaze, p1);
+				mummy.characterSelected(characterSelected);
 				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
 				stage.setScene(scene1);
 			}
@@ -155,6 +156,8 @@ public class MazeGUI extends Application {
 				// TODO Auto-generated method stub
 				characterSelected = 2;
 				p1.characterSelected(characterSelected);
+				mummy = new Mummies(newMaze, p1);
+				mummy.characterSelected(characterSelected);
 				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
 				stage.setScene(scene1);
 			}
@@ -170,6 +173,8 @@ public class MazeGUI extends Application {
 				// TODO Auto-generated method stub
 				characterSelected = 3;
 				p1.characterSelected(characterSelected);
+				mummy = new Mummies(newMaze, p1);
+				mummy.characterSelected(characterSelected);
 				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
 				stage.setScene(scene1);
 			}
@@ -185,6 +190,8 @@ public class MazeGUI extends Application {
 				// TODO Auto-generated method stub
 				characterSelected = 4;
 				p1.characterSelected(characterSelected);
+				mummy = new Mummies(newMaze, p1);
+				mummy.characterSelected(characterSelected);
 				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
 				stage.setScene(scene1);
 			}
@@ -200,6 +207,8 @@ public class MazeGUI extends Application {
 				// TODO Auto-generated method stub
 				characterSelected = 5;
 				p1.characterSelected(characterSelected);
+				mummy = new Mummies(newMaze, p1);
+				mummy.characterSelected(characterSelected);
 				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
 				stage.setScene(scene1);
 			}
@@ -234,12 +243,12 @@ public class MazeGUI extends Application {
 						mummy.checkCollision();
 						if(p1.checkWin()) {
 							mummyTimer.stop();
-							AlertBox.displayWin();
+							AlertBox.displayWin(characterSelected);
 							System.exit(0);
 						}
 						if (p1.checkLoss()){
 							mummyTimer.stop();
-							AlertBox.displayLoss();
+							AlertBox.displayLoss(characterSelected);
 							System.exit(0);
 						}
 						
@@ -252,12 +261,12 @@ public class MazeGUI extends Application {
 						mummy.checkCollision();
 						if(p1.checkWin()) {
 							mummyTimer.stop();
-							AlertBox.displayWin();
+							AlertBox.displayWin(characterSelected);
 							System.exit(0);
 						}
 						if (p1.checkLoss()){
 							mummyTimer.stop();
-							AlertBox.displayLoss();
+							AlertBox.displayLoss(characterSelected);
 							System.exit(0);
 						}
 					}
@@ -269,12 +278,12 @@ public class MazeGUI extends Application {
 						mummy.checkCollision();
 						if(p1.checkWin()) {
 							mummyTimer.stop();
-							AlertBox.displayWin();
+							AlertBox.displayWin(characterSelected);
 							System.exit(0);
 						}
 						if (p1.checkLoss()){
 							mummyTimer.stop();
-							AlertBox.displayLoss();
+							AlertBox.displayLoss(characterSelected);
 							System.exit(0);
 						}
 					}
@@ -286,12 +295,12 @@ public class MazeGUI extends Application {
 						mummy.checkCollision();
 						if(p1.checkWin()) {
 							mummyTimer.stop();
-							AlertBox.displayWin();
+							AlertBox.displayWin(characterSelected);
 							System.exit(0);
 						}
 						if (p1.checkLoss()){
 							mummyTimer.stop();
-							AlertBox.displayLoss();
+							AlertBox.displayLoss(characterSelected);
 							System.exit(0);
 						}
 					}

@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 public class Player extends Character{
 	private int lives = 3;
 	private String playerName= "Dave";
-	private Image playerR;
+	protected Image playerR;
 	private Image playerL;
 	private Image playerD;
 	private Image playerU;
@@ -224,10 +224,10 @@ public class Player extends Character{
 	
 	public void characterSelected(int characterSelected) {
 		if (characterSelected == 1) {
-			playerR = new Image("ugandaR.png");
-			playerL = new Image("ugandaL.png");
-			playerU = new Image("ugandaU.png");
-			playerD = new Image("ugandaD.png");
+			playerR = new Image("MSR.png");
+			playerL = new Image("MSL.png");
+			playerU = new Image("MSU.png");
+			playerD = new Image("MSD.png");
 			playerImg = new ImageView(playerR);
 		}
 		

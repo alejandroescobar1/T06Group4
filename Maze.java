@@ -1,10 +1,16 @@
+/**
+ * @author T06 Group 4
+ * @version Demo 2 GUI based game
+ * @implNote This class contains generates the actual maze using randomized correct path to the finish coordinate and 
+ * generating walls by preventing the passing of these walls.  
+ */
 package application;
 import java.util.*; 
 
 public class Maze {
 	 static int length;
 	 static int width;
-	 public  ArrayList<Coordinate> CoordinateList;
+	 ArrayList<Coordinate> CoordinateList;
 	 public ArrayList<ArrayList<Coordinate>> CoordinateList2D2;
 	 static char[][] CoordinateList2D;
 	 
@@ -66,7 +72,12 @@ public class Maze {
 		 //GenerateWalls();
 		
 		 
-	 public boolean SameSet() {
+	 public ArrayList<Coordinate> getCoordinateList() {
+		
+		return CoordinateList;
+	}
+
+	public boolean SameSet() {
 		 return true;
 	 }
 	 public void GenerateWalls()

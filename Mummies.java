@@ -16,12 +16,11 @@ import javafx.scene.image.ImageView;
 
 public class Mummies extends Character{
 	//Pictures for the mummies
-	private Image mummyRight = new Image("mummyRIGHT.png");
-	private Image mummyLeft = new Image("mummyLEFT.png");
-	private Image mummyUp = new Image("mummyUP.png");
-	private Image mummyDown = new Image("mummyDOWN.png");
-	protected ImageView enemy = new ImageView(mummyRight);
-	private Image ugandaR = new Image("ugandaR.png");
+	private Image enemyRight;
+	private Image enemyLeft;
+	private Image enemyUp;
+	private Image enemyDown;
+	protected ImageView enemy = new ImageView(enemyRight);
 	
 	
 	
@@ -42,7 +41,26 @@ public class Mummies extends Character{
 	 * Update coordinate function tests if the resultant move require passing through a wall as well as if the resultant move
 	 * would move the mummy out of the boundary. 
 	 */
-	
+	public void characterSelected(int characterselected){
+		if (characterselected == 2){
+			enemyRight = new Image("mummyRIGHT.png");
+			enemyLeft = new Image("mummyLEFT.png");
+			enemyUp = new Image("mummyUP.png");
+			enemyDown = new Image("mummyDOWN.png");
+		}
+		else if (characterselected == 1){
+			enemyRight = new Image("creeperR.png");
+			enemyLeft = new Image("creeperL.png");
+			enemyUp = new Image("creeperU.png");
+			enemyDown = new Image("creeperD.png");
+		}
+		else{
+			enemyRight = new Image("mummyRIGHT.png");
+			enemyLeft = new Image("mummyLEFT.png");
+			enemyUp = new Image("mummyUP.png");
+			enemyDown = new Image("mummyDOWN.png");
+		}
+	}
 	public void updatePosition (String mumDirection){
 		Coordinate[][] ordered = Maze.order(this.maze.CoordinateList);
 		int currentMummyXCoord = (int) this.getX();
@@ -112,7 +130,7 @@ public class Mummies extends Character{
 			System.out.println("Hit by Mummy. Player returned to start. Number of lives is " + playerInstance.getLives());
 			playerInstance.setX(0);
 			playerInstance.setY(0);
-			playerInstance.playerImg.setImage(ugandaR);
+			playerInstance.playerImg.setImage(playerInstance.playerR);
 			playerInstance.playerImg.relocate(0,0);
 			return true;
 		}
@@ -162,7 +180,7 @@ public class Mummies extends Character{
 		if (this.getY()+1 < maze.length) {
 			Coordinate[][] ordered = maze.order(maze.CoordinateList);
 			if(ordered[(int) this.getY()][(int) this.getX()].checkWall(0) == false) {
-				enemy.setImage(mummyDown);
+				enemy.setImage(enemyDown);
 				enemy.relocate(enemy.getLayoutX(), enemy.getLayoutY() + enemy.getBoundsInLocal().getHeight());
 				this.setY(this.getY()+1);
 			}
@@ -173,7 +191,7 @@ public class Mummies extends Character{
 		if (this.getY() - 1 >= 0) {
 			Coordinate[][] ordered = maze.order(maze.CoordinateList);
 			if(ordered[(int) this.getY()][(int) this.getX()].checkWall(2) == false) {
-				enemy.setImage(mummyUp);
+				enemy.setImage(enemyUp);
 				enemy.relocate(enemy.getLayoutX(), enemy.getLayoutY() - enemy.getBoundsInLocal().getHeight());
 				this.setY(this.getY()-1);
 			}
@@ -184,7 +202,7 @@ public class Mummies extends Character{
 		if (this.getX() - 1 >= 0) {
 			Coordinate[][] ordered = maze.order(maze.CoordinateList);
 			if(ordered[(int) this.getY()][(int) this.getX()].checkWall(3) == false) {
-				enemy.setImage(mummyLeft);
+				enemy.setImage(enemyLeft);
 				this.setX(this.getX()-1);
 				enemy.relocate(enemy.getLayoutX() - enemy.getBoundsInLocal().getWidth(), enemy.getLayoutY());
 	
@@ -196,7 +214,7 @@ public class Mummies extends Character{
 		if (this.getX() + 1 < maze.width) {
 			Coordinate[][] ordered = maze.order(maze.CoordinateList);
 			if(ordered[(int) this.getY()][(int) this.getX()].checkWall(1) == false) {
-				enemy.setImage(mummyRight);
+				enemy.setImage(enemyRight);
 				enemy.relocate(enemy.getLayoutX()+ enemy.getBoundsInLocal().getWidth(), enemy.getLayoutY());
 				this.setX(this.getX()+1);
 			}
