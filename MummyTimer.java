@@ -47,12 +47,14 @@ public class MummyTimer {
 					mummy.goUp();
 					mummy.checkCollision();
 				}
-				else if (move==2&&((int)mummy.getY()<(int)p1.getY()))
+				else if (move==3&&((int)mummy.getY()<(int)p1.getY()))
 				{
 					mummy.goDown();
 					mummy.checkCollision();	
 				}
-
+				
+				//if stuck in wall e.g. player is to left up position, but both side has wall
+				
 			
 	
 		}
