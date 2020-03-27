@@ -27,29 +27,34 @@ public class MummyTimer {
 	Timer timer = new Timer();
 	TimerTask task = new TimerTask(){
 		public void run() {
+			
 				Random mummyDirection = new Random();
 				int move = mummyDirection.nextInt(4);
 				
-				if (move == 0)
-				{
-					mummy.goDown();
-					mummy.checkCollision();
-				}
-				else if (move == 1)
-				{
-					mummy.goUp();
-					mummy.checkCollision();
-				}
-				else if (move==2)
-				{
-					mummy.goRight();
-					mummy.checkCollision();
-				}
-				else if (move == 3)
+				if (move==0&&(int)mummy.getX()>(int)p1.getX())
 				{
 					mummy.goLeft();
 					mummy.checkCollision();
 				}
+				else if (move==1&&(int)mummy.getX()<(int)p1.getX())
+				{
+					mummy.goRight();
+					mummy.checkCollision();	
+					
+				}
+				else if (move==2&&((int)mummy.getY()>(int)p1.getY()))
+				{
+					mummy.goUp();
+					mummy.checkCollision();
+				}
+				else if (move==2&&((int)mummy.getY()<(int)p1.getY()))
+				{
+					mummy.goDown();
+					mummy.checkCollision();	
+				}
+
+			
+	
 		}
 		
 	};
