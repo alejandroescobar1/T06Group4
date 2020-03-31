@@ -1,7 +1,7 @@
 /**
  * @author T06 Group 4
- * @version Demo 2 GUI based game
- * @implNote This class contains generates the actual maze using randomized correct path to the finish coordinate and 
+ * @version Demo 3 GUI based game
+ * @implNote This class generates the actual maze using randomized correct path to the finish coordinate and 
  * generating walls by preventing the passing of these walls.  
  */
 package application;
@@ -13,21 +13,18 @@ public class Maze {
 	 ArrayList<Coordinate> CoordinateList;
 	 public ArrayList<ArrayList<Coordinate>> CoordinateList2D2;
 	 static char[][] CoordinateList2D;
-	 
-	 
-	 /*protected boolean[][] down;
-	 protected boolean[][] up;
-	 protected boolean[][] right;
-	 protected boolean[][] left;
-	 protected boolean[][] visited;*/
 
-	 
+
+	 /*
+	  * Constructor
+	  */
 	 public Maze(int length, int width) {
 		 this.CoordinateList=new ArrayList<Coordinate> ();
 		 this.CoordinateList2D2 = new ArrayList<ArrayList<Coordinate>>();
 		 Maze.length=length;
 		 Maze.width=width;
 		 char newLetter = 65;
+		 // Here, a coordinate for every possible combination of i columns and j rows is generated
 		 for(int i=0;i<(length);i++) {
 			 for(int j=0;j<(width);j++) {
 				 Coordinate tempCoor = new Coordinate(j,i,'e',newLetter,true,true,true,true);
@@ -38,66 +35,31 @@ public class Maze {
 				 if (newLetter > 89) {newLetter = 65;}
 				 else {newLetter++;}
 			 }}
-		 //randomly generate wall i.e. change 'e' to 'w' but have to be sure the wall doesn't form
-		 //a closed path, i.e. at least one of direction should be opened(for entering)
-		/* down = new boolean[length][width];
-		 up = new boolean[length][width];
-		 right = new boolean[length][width];
-		 left = new boolean[length][width];		 
-	        for (int x = 0; x < length; x++) {
-	            for (int y = 0; y < width; y++) {
-	            	down[x][y] = true;
-	                up[x][y]  = true;
-	                right[x][y] = true;
-	                left[x][y]  = true;
-	            }
-	        }
-	        up[0][0]=false;
-	        down[length-1][width-1]=false;
-			//convert to 2D Array
-			CoordinateList2D=new char[length][width];
-			for (int row=0;row<width;row++) {
-			for (int col =0;col<length;col++) {
-				CoordinateList2D[row][col]=CoordinateList.get(row*length+col).getLetter();}}*/
-			
-			//Hardcoded Walls and Coordinate List
-				//ArrayList<Coordinate> temp = new ArrayList<Coordinate>();
-			//for (ArrayList<Coordinate> x :this.CoordinateList2D2) {
-			///	if (x.contains(temp)){
-					
-			//	}
-			
 			}
-
-		 //GenerateWalls();
 		
-		 
+		/*
+		 * Getter for coordinate list.
+		 */
 	 public ArrayList<Coordinate> getCoordinateList() {
 		
 		return CoordinateList;
 	}
-
-	public boolean SameSet() {
-		 return true;
-	 }
+	 /*
+	  * Generates a list with the coordinates that have walls, and which relative direction the wall is in. This function for
+	  * any given direction works such that it saves the coordinate of the attempted move and it not only checks if there is a
+	  * wall from the given position to the desired position, but also tests if the reverse is true. For example, if the random 
+	  * direction was down, it would check if there is a wall below the given coordinate as well as if there is a wall above the 
+	  * coordinate above the given coordinate. This makes sure regardless of the wall's classification during  the generation of 
+	  * all the coordinates, no walls will be able to be passed. The coordinates that do not have a wall in the defined direction are
+	  * added to the remove list. 
+	  */
 	 public void GenerateWalls()
 	 {
-				//generate a random integer between 1-size of maze( directions)
-				//Random ran = new Random();
-				int Welldown=0;
-				//using the random number above, 1: check left(x-1), 2:right(x+1),3:up(y+1) 4:down(y-1)
-				//for (int row=0;row<this.width;row++) {
-				//for (int col =0;col<this.length;col++) {
-				//while(Welldown<(length*width-1)) {
-				//while any of the internal walls has true value
 					while(CoordinateList2D2.size() > 1) {	
-					//0-4 for length of 5
 						Random ran = new Random();
 					int randomrow=ran.nextInt(length);
 					int randomcol=ran.nextInt(width);
-					int randomdir=ran.nextInt(4);
-					
-					
+					int randomdir=ran.nextInt(4);// randomly gives 1 of 4 numbers which are used as the random direction (1: left, 2: right, 3: up, 4: down)
 					
 					// RANDOM DIRECTION IS DOWN
 					if (randomdir==0 && randomrow+1<width) {
@@ -135,7 +97,6 @@ public class Maze {
 						CoordinateList2D2.remove(removeList);}
 					
 					}
-					Welldown++;
 					}
 					
 				
@@ -175,8 +136,7 @@ public class Maze {
 						}
 						CoordinateList2D2.remove(removeList);}
 					
-					}
-				Welldown++;}
+					}}
 
 				
 				//RANDOM DIRECTION IS UP
@@ -214,9 +174,7 @@ public class Maze {
 						}
 						CoordinateList2D2.remove(removeList);}
 					
-					}
-						
-				Welldown++;}
+					}}
 				
 				
 				
@@ -256,12 +214,14 @@ public class Maze {
 						}
 						CoordinateList2D2.remove(removeList);}
 					
-					}
-				Welldown++;	}
+					}	}
 				
 				
 				} }
-				
+	/*
+	 * Creates a coordinate for every combination of i rows and j columns. This method also makes sure these values of i and j are
+	 * within the range of the actual maze
+	 */
 	public static Coordinate[][] order(ArrayList<Coordinate> list){
 		Coordinate[][] ordered = new Coordinate[length][width];
 		for (int i = 0; i < length; i++){
@@ -282,11 +242,14 @@ public class Maze {
 		return ordered;
 	}
 				
-				
+	/*
+	 * Prints the maze in the console such that at every vertical boundary, a "|" is printed and for every coordinate's ceiling or floor, "---".
+	 * This is done by once more, looping through all combinations of coordinates and using the getSomeDirection methods to move in that given
+	 * direction and print the next row or column 
+	 */
 	public static void PrintMaze(ArrayList<Coordinate> list) {
 		Coordinate[][] ordered = order(list);
 		for (int i = 0; i < length; i++){
-			String bottom = "";
 			String row ="|";
 			String top ="";
 			for (int j = 0;j<width;j++) {
@@ -318,7 +281,11 @@ public class Maze {
         }
 		}
 	
-
+	/*
+	 * Main method that uses the coordinate list of coordinates and the direction from said coordinate that encounters a wall
+	 * (saved in the form of the letter parameter for the Coordinate constructor) to construct and print a randomized maze
+	 * with at least one solution
+	 */
 	 public static void main(String[] args) 
 	    { 
 		 char c = 90;
@@ -337,7 +304,7 @@ public class Maze {
 					System.out.println(z.getRight());
 				}
 			}
-			newMaze.PrintMaze(newMaze.CoordinateList);
+			Maze.PrintMaze(newMaze.CoordinateList);
 			
 
 	  

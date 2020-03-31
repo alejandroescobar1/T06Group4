@@ -1,12 +1,14 @@
+/**
+ * @author T06 Group 4
+ * @version Demo 3 GUI based game
+ * @implNote This class deals with the actual graphical interface, handling mouse and keyboard inputs, presenting and changing 
+ * 			the graphics visible on canvas, ect. This is also the class that needs to be executed in order to run the game.   
+ */
+
 package application;
 
 import java.util.ArrayList;
-import java.util.Random;
-
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,23 +17,16 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.animation.Animation;
-import javafx.animation.AnimationTimer;
 
 
 public class MazeGUI extends Application {
@@ -47,24 +42,14 @@ public class MazeGUI extends Application {
 	private double imgSize; 
 	private final ImageView bg = new ImageView("sandBG.png");
 	private int characterSelected;
-	
 	private Group pane = new Group();
 	
-	public void start(Stage stage) throws Exception
-	{	//create a new maze instance
-		//length=6;
-		//width=6;
-		//newMaze= new Maze(length, width);
-		//do wall randomization
-		//newMaze.GenerateWalls();
-		
-		//output the wall strutures using a method that  
+	/*
+	 * Generating the screen that asks for user input for the maze dimentions and setting up the canvas length and width accordingly
+	 */
+	public void start(Stage stage) throws Exception{ 
 		stage.setTitle("Treasure Hunt");
 		p1 = new Player(newMaze);
-		
-		
-		//timer for mummy
-	
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
@@ -79,10 +64,11 @@ public class MazeGUI extends Application {
 		final TextField Width = new TextField();
 		grid.add(WidthLabel, 0, 1);
 		grid.add(Width, 1, 1);
-		//grid.setGridLinesVisible(true);
 		
 		final Canvas canvas = new Canvas(canvasWidth, canvasWidth);
 		gc=canvas.getGraphicsContext2D();
+		
+		// Event handler for user input for the maze dimensions. It alters the character sizes accordingly. This event handler also generates the maze.
 
 	    EventHandler<KeyEvent> dimensionEntered = new EventHandler<KeyEvent>() {
 			@Override
@@ -116,15 +102,16 @@ public class MazeGUI extends Application {
 			}
 	    };
 		
-	   // Length.setOnKeyPressed(dimensionEntered);
+
 	    Length.setOnKeyTyped(dimensionEntered);
-	    //Width.setOnKeyPressed(dimensionEntered);
 	    Width.setOnKeyTyped(dimensionEntered);
 		//!!!
 		//PrintMazeGUI(newMaze.CoordinateList);
 		//!!!
 	    
-	    //Scene choosing character
+	    /*
+	     * Here, the choose character screen is being developed
+	     */
 	    HBox hbox = new HBox();
 		hbox.setSpacing(20);
 		hbox.setPadding(new Insets(500, 10, 10, 10));
@@ -133,10 +120,9 @@ public class MazeGUI extends Application {
 		character1.setFitHeight(125);
 		character1.setFitWidth(120);
 		character1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-
+			// Here, if the user picks the first character, it uses the Minecraft Steve character as the avatar (MSR.png).
 			@Override
 			public void handle(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				characterSelected = 1;
 				p1.characterSelected(characterSelected);
 				mummy = new Mummies(newMaze, p1);
@@ -145,7 +131,7 @@ public class MazeGUI extends Application {
 				stage.setScene(scene1);
 			}
 		});
-		
+		// Currently, characters 2-5 are the same character
 		ImageView character2 = new ImageView("ugandaR.png");
 		character2.setFitHeight(125);
 		character2.setFitWidth(120);
@@ -153,7 +139,6 @@ public class MazeGUI extends Application {
 
 			@Override
 			public void handle(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				characterSelected = 2;
 				p1.characterSelected(characterSelected);
 				mummy = new Mummies(newMaze, p1);
@@ -170,7 +155,6 @@ public class MazeGUI extends Application {
 
 			@Override
 			public void handle(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				characterSelected = 3;
 				p1.characterSelected(characterSelected);
 				mummy = new Mummies(newMaze, p1);
@@ -187,7 +171,6 @@ public class MazeGUI extends Application {
 
 			@Override
 			public void handle(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				characterSelected = 4;
 				p1.characterSelected(characterSelected);
 				mummy = new Mummies(newMaze, p1);
@@ -204,7 +187,6 @@ public class MazeGUI extends Application {
 
 			@Override
 			public void handle(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				characterSelected = 5;
 				p1.characterSelected(characterSelected);
 				mummy = new Mummies(newMaze, p1);
@@ -215,7 +197,7 @@ public class MazeGUI extends Application {
 		});
 		
 		hbox.getChildren().addAll(character1, character2, character3, character4, character5);
-		
+		// gets background image
 		ImageView characterBG = new ImageView("characterBG.png");
 		Group group = new Group();
 		group.getChildren().addAll(characterBG, hbox);
@@ -232,7 +214,7 @@ public class MazeGUI extends Application {
 		scene2 = new Scene(pane, canvasWidth, canvasWidth, Color.LIGHTYELLOW);
 		//scene.getStylesheets().add(MazeGUI.class.getResource("MazeGUI.css").toExternalForm());
 		
-		//KeyBoard Interaction
+		//KeyBoard Interaction. These event handlers take the user input and check if the player can appropriately do the requested motion, checks for collisions, and checks if the player has won or lost at every turn 
 		scene2.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent e) {
@@ -310,6 +292,7 @@ public class MazeGUI extends Application {
 		
 		scene2.setOnKeyReleased(new EventHandler<KeyEvent>() {
 
+			@SuppressWarnings("incomplete-switch")
 			@Override
 			public void handle(KeyEvent e) {
 				switch(e.getCode()) {
@@ -328,7 +311,7 @@ public class MazeGUI extends Application {
 		stage.setMinWidth(canvasWidth + 15);
 		stage.show();
 		
-		//BUTTON
+		//making the play button
 		Button play = new Button("Play");
 		play.setOnAction(e -> {
 			mummyTimer = new MummyTimer(p1, mummy);
@@ -349,9 +332,8 @@ public class MazeGUI extends Application {
 	{
 		gc.restore();
 		gc.save();
-		//gc.setLineWidth(1);
 
-		///// put into ordered list
+		///// put coordinates for i rows and j columns into ordered list
 		Coordinate[][] ordered = new Coordinate[length][width];
 		for (int i = 0; i < length; i++){
 			for (int j = 0;j<width;j++) {
@@ -362,10 +344,9 @@ public class MazeGUI extends Application {
 				}
 			}
 		}
-		////
-		
-		///print ordered list to gui
-		//first print walls
+		/*
+		 * Print the walls with black ink
+		 */
 		gc.setStroke(Color.BLACK);
 		gc.setLineWidth(2);
 
@@ -374,15 +355,11 @@ public class MazeGUI extends Application {
             String top ="";
             double size = new Double(ordered.length);
             double scale = (canvasWidth-2)/size;
-			//gc.strokeText("",1,1);
-			//gc.strokeText("|",10,10);
-			
-			//gc.fillText("|",10,10,0.3);
 			for (int j = 0;j<width;j++) {
 				if (ordered[i][j].getUp() == true) {
 					top = top +" ---";
 					
-					// add 10 to both horizontal start and end point to begin with since otherwise the left outter wall gets chunked off 
+					// add 10 to both horizontal start and end point to begin with since otherwise the left outer wall gets cut off 
 					if (i!=0||j!=0)
                     {double scalej = (j*scale)+1;
                         double scalei = (i*scale)+1;
@@ -398,10 +375,7 @@ public class MazeGUI extends Application {
                     double scalej = (j*scale)+1;
                     double scalei = (i*scale)+1;
 					row = row+" |";
-					// add 10 to both horizontal start and end point to begin with since otherwise the left outter wall gets chunked off 
 					gc.strokeLine(scalej+scale,scalei, scalej+scale, scalei +scale);
-					//gc.strokeText("|",i+1,j+1);
-					//the below code draws the left side of wall
 					gc.strokeLine(1,scalei, 1, scalei+scale);
 				 }
                 else {row= row+"  ";}
@@ -425,9 +399,4 @@ public class MazeGUI extends Application {
         		System.out.print(" ---");
         	}
         }
-        
-		//the below loop draws the bottom side of wall
-		//for (int i = 0; i < length-1; i++){
-        //gc.strokeLine(i+10,width+10, i+10.9, width+10);
-        //}
 	}}

@@ -1,14 +1,11 @@
-/**
+ /**
  * @author T06 Group 4
- * @version Demo 2 GUI based game
- * 
+ * @version Demo 3 GUI-based game
  * @implNote The Coordinate class assigns a coordinate value to each block It also assigns to it the status of that block, 
  * for example if it is empty or has the player or mummy. It further defines functions that dictate what boundaries of 
  * what block act as a wall.
  */
 package application;
-
-import java.util.ArrayList;
 public class Coordinate {
 	private int xCoord;
 	private int yCoord;
@@ -46,8 +43,9 @@ public class Coordinate {
 	}
 	
 	/*
-	 * Setters and getters for attributes including the attributes about the desired direction of movement which are boolean values
-	 * that determine if the player can go in that direction
+	 * Setters and getters for attributes. No conditions apply to setting any of these values. Although there are only given 
+	 * values or ranges of each attribute, since it is important to do functions only it is a certain value, these requirements
+	 * are implicitly checked when the attribute is being used rather than when it is being set. 
 	 */
 	public void setX(int newX) {
 		this.xCoord = newX;
@@ -114,7 +112,10 @@ public class Coordinate {
 		return Copy.letter;
 	}
 	
-	
+	/*
+	 * These getDirection methods return booleans that indicate if the desired direction is allowed or not. 
+	 * This is used by MazeGUI while constructing the maze.
+	 */
 	public boolean getUp() {
 		Coordinate Copy = new Coordinate(this);
 		return Copy.up;
@@ -169,7 +170,8 @@ public class Coordinate {
 		else { return true;}
 	}
 	/*
-	 * This function breaks down the walls that are not needed in the maze
+	 * This method breaks down the walls that are not needed in the maze. It is used when constructing
+	 * the maze. 
 	 */
 	public void breakWall(int Direction) {
 		if (Direction == 0) {
@@ -186,7 +188,9 @@ public class Coordinate {
 		}
 	}
 	
-	
+	/*
+	 * This method returns a string that states the coordinate with the X and Y values. 
+	 */
 	public String toString() {
 		return "Coordinate: ("+this.xCoord+","+this.yCoord+")"+" Status:"+ this.status;
 	}

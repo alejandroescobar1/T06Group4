@@ -1,6 +1,6 @@
 /**
  * @author T06 Group 4
- * @version Demo 2 GUI based game
+ * @version Demo 3 GUI based game
  * @implNote This class creates a timer for the mummy that is used to determine 
  * when the mummy should try a random direction and thus move if valid.
  */
@@ -18,7 +18,7 @@ public class MummyTimer {
 	 * Constructors 
 	 */
 	public MummyTimer(Player p1, Mummies mummy) {
-		this.p1 = p1;
+		this.setP1(p1);
 		this.mummy = mummy;
 	}
 	/* 
@@ -54,6 +54,9 @@ public class MummyTimer {
 		
 	};
 	
+	/*
+	 * Start and stop methods that can start or stop the timer. 
+	 */
 	public void stop()
 	{
 		timer.cancel();
@@ -62,6 +65,16 @@ public class MummyTimer {
 	public void start()
 	{
 		timer.scheduleAtFixedRate(task, 0, 500);
+	}
+	/* 
+	 * Getter and Setter for player instance p1" 
+	 */
+	public Player getP1() {
+		return p1;
+	}
+
+	public void setP1(Player p1) {
+		this.p1 = p1;
 	}
 		
 	

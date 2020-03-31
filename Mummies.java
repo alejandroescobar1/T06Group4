@@ -1,16 +1,13 @@
 /**
  * @author T06 Group 4
- * @version Demo 2 GUI based game
- * @implNote The mummy class creates a mummy that takes a random direction as input and evaluates if the resultant move
- * can occur due to the absence of a wall. 
+ * @version Demo 3 GUI based game
+ * @implNote The mummy class is a subclass and it extends the abstract Character class. This class uses the 
+ * 			constructor from its super class to create a mummy. This class also gives the mummy a random direction
+ * 			and tests if that direction is valid. 
  */
 package application;
 
 import java.util.Random;
-
-
-import java.util.Scanner;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -21,38 +18,77 @@ public class Mummies extends Character{
 	private Image enemyUp;
 	private Image enemyDown;
 	protected ImageView enemy = new ImageView(enemyRight);
-	
-	
-	
+	//Attributes needed to make the mummy start at a random location
+	Random coordOptions = new Random();
+	private int startX;
+	private int startY;
+	// Creates an instance of a player
 	private Player playerInstance;
 	
+	/*Constructor. The constructor uses the super constructor to make the mummy. However, it quickly overrides the default
+	 * start position by generating a valid, random location for the mummy to start at. This is done by calling the 
+	 * tryStartCoord() method followed by the use of the super setters to set the new X and Y coordinates to start. If you want
+	 * to start the mummy at a given location, comment out the tryStartCoord() line upto and including the super.setY(startY)
+	 * line.
+	 */
+
 	public Mummies(Maze newMaze, Player playerInstance) {
-		super(newMaze, newMaze.width - 1, newMaze.length -1);
+		super(newMaze, Maze.width - 1, Maze.length -1);
+		tryStartCoord();
+		super.setX(startX);
+		super.setY(startY);
 		this.playerInstance = playerInstance;
 	}
 	
-	public void setMaze(Maze newMaze) {
-		super.setMaze(newMaze);
-		this.setX(Maze.width-1);
-		this.setY(Maze.length -1);
+	/* 
+	 * This method randomly generates possible coordinates for the mummy start point. It then checks if that randomly
+	 * generated position is the start of end position of the maze. If it is not either of those, and that coordinate 
+	 * has a status of 'e' (meaning empty), then it will both set that location at the start coordinates and set the 
+	 * status of the coordinate to 'm'. This is important as the Item class uses these statuses to determine where it 
+	 * can generate items in, and it is also an important functionality for the player when it is checking what it has
+	 * collected.
+	 */
+	public void tryStartCoord() {
+		Coordinate[][] ordered = Maze.order(this.maze.CoordinateList);
+		boolean valuesGood = false;
+		while (valuesGood == false){
+			int startYTest = coordOptions.nextInt(Maze.length);
+			int startXTest = coordOptions.nextInt(Maze.width);
+			boolean startPoint = false;
+			if (startYTest == 0 && startXTest == 0) {
+				startPoint = true;
+			}
+			boolean endPoint = false;
+			if (startYTest == Maze.length-1 && startXTest == Maze.width-1) {
+				endPoint = true;
+			}
+			if (ordered[startXTest][startYTest].getStatus() == 'e'&& startPoint == false && endPoint == false) {
+				this.startX = startXTest;
+				this.startY = startYTest;
+				ordered[startXTest][startYTest].setStatus('m');
+				valuesGood = true;
+			}
+		}
 	}
 	
 	/* 
-	 * Update coordinate function tests if the resultant move require passing through a wall as well as if the resultant move
-	 * would move the mummy out of the boundary. 
+	 * This method assigns the appropriate images to the mummy according to the character the user chose
+	 * in the beginning. Since there are only two unique characters made thus far, if the character picks
+	 * any character other than character 1, they will get the same enemy and the same avatar. 
 	 */
 	public void characterSelected(int characterselected){
-		if (characterselected == 2){
-			enemyRight = new Image("mummyRIGHT.png");
-			enemyLeft = new Image("mummyLEFT.png");
-			enemyUp = new Image("mummyUP.png");
-			enemyDown = new Image("mummyDOWN.png");
-		}
-		else if (characterselected == 1){
+		if (characterselected == 1){
 			enemyRight = new Image("creeperR.png");
 			enemyLeft = new Image("creeperL.png");
 			enemyUp = new Image("creeperU.png");
 			enemyDown = new Image("creeperD.png");
+			
+		}
+		else if (characterselected == 2){
+			enemyRight = new Image("mummyRIGHT.png");
+			enemyLeft = new Image("mummyLEFT.png");
+			enemyUp = new Image("mummyUP.png");
+			enemyDown = new Image("mummyDOWN.png");
 		}
 		else{
 			enemyRight = new Image("mummyRIGHT.png");
@@ -61,68 +97,11 @@ public class Mummies extends Character{
 			enemyDown = new Image("mummyDOWN.png");
 		}
 	}
-	public void updatePosition (String mumDirection){
-		Coordinate[][] ordered = Maze.order(this.maze.CoordinateList);
-		int currentMummyXCoord = (int) this.getX();
-		int currentMummyYCoord = (int) this.getY();
-		int newMummyXCoord = currentMummyXCoord;
-		int newMummyYCoord = currentMummyYCoord;
-		boolean invalid=false;
-		
-		if (mumDirection.equals("w")) {
-			newMummyYCoord = currentMummyYCoord - 1;
-			if (ordered[currentMummyYCoord][currentMummyXCoord].checkWall(2) == false && newMummyYCoord < Maze.length && newMummyYCoord >= 0) {
-				this.setY(newMummyYCoord);
-			}
-			else {
-				invalid = true;
-				}
-		}
-		else if (mumDirection.equals("a")) {
-			newMummyXCoord = currentMummyXCoord - 1;
-			if (ordered[currentMummyYCoord][currentMummyXCoord].checkWall(3) == false && newMummyXCoord < Maze.width && newMummyXCoord >= 0) {
-				this.setX(newMummyXCoord);
-			}
-			else {
-				invalid = true;
-				}
-		}
-		else if (mumDirection.equals("s")) {
-			newMummyYCoord = currentMummyYCoord + 1;
-			if (ordered[currentMummyYCoord][currentMummyXCoord].checkWall(0) == false && newMummyYCoord < Maze.length && newMummyYCoord >= 0) {
-				this.setY(newMummyYCoord);
-			}
-			else {
-				invalid = true;
-				}
-		}
-		else if (mumDirection.equals("d")) {
-			newMummyXCoord = currentMummyXCoord + 1;
-			if (ordered[currentMummyYCoord][currentMummyXCoord].checkWall(1) == false && newMummyXCoord < Maze.width && newMummyXCoord >= 0) { 
-				this.setX(newMummyXCoord);
-			}
-			else {
-				invalid = true;
-				}
-		}
-		if (invalid == false) {
-			ordered[currentMummyYCoord][currentMummyXCoord].setStatus('e');
-			ordered[newMummyYCoord][newMummyXCoord].setStatus('m');
-		}
-		else {
-			ordered[currentMummyYCoord][currentMummyXCoord].setStatus('m');
-		}
-		if (newMummyYCoord < 0 || newMummyYCoord >= Maze.length) {
-			this.setY(currentMummyYCoord);
-		}
-		if (currentMummyXCoord < 0 || currentMummyXCoord >= Maze.width) {
-			this.setX(currentMummyXCoord);
-		}
-		
-	}
+
 	/*
-	 * This method checks of the player and mummy have collided and will update the player lives accordingly as well as print
-	 * a statement explaining what happened to the player into the counsel. 
+	 * This method checks of the player and mummy have collided and will update the player lives accordingly. 
+	 * It will also move the player to the beginning position as well as print a statement explaining what 
+	 * happened to the player into the counsel. 
 	 */
 	public boolean checkCollision() {
 		if (playerInstance.getX() == this.getX() && playerInstance.getY() == this.getY()) {
@@ -141,44 +120,12 @@ public class Mummies extends Character{
 		System.out.println("Mummy 1 is at "+ super.Location());
 	}
 	/* 
-	 * This method takes the random direction input, determines if it is a valid amount, and if it is, feeds it into the update coordinate function
-	 */
-	public void getDirection(){
-		Random mummDirNum = new Random();
-		String mumDirection;
-		boolean valid = false;
-		int directionInput = mummDirNum.nextInt(4);
-		if (directionInput == 0) {
-			mumDirection = "w";
-		}
-		else if (directionInput == 1) {
-			mumDirection = "a";
-		}
-		else if (directionInput == 2) {
-			mumDirection = "s";
-		}
-		else {
-			mumDirection = "d";
-		}
-		while (valid == false) {
-			if (mumDirection.equals("a") || mumDirection.equals("s") || mumDirection.equals("w") || mumDirection.equals("d")) {
-				this.updatePosition(mumDirection);
-				valid = true;
-			}
-		}
-	}
-	
-	/* 
-	 * Getter methods
-	 */
-	
-	
-	/* 
-	 * Moves the mummy GUI location in response to the getDirection() method.
+	 * Moves the mummy GUI location in the direction listed in the method name. It is called in MazeGUI 
+	 * when it is given a random direction. 
 	 */
 	public void goDown() {
-		if (this.getY()+1 < maze.length) {
-			Coordinate[][] ordered = maze.order(maze.CoordinateList);
+		if (this.getY()+1 < Maze.length) {
+			Coordinate[][] ordered = Maze.order(maze.CoordinateList);
 			if(ordered[(int) this.getY()][(int) this.getX()].checkWall(0) == false) {
 				enemy.setImage(enemyDown);
 				enemy.relocate(enemy.getLayoutX(), enemy.getLayoutY() + enemy.getBoundsInLocal().getHeight());
@@ -189,7 +136,7 @@ public class Mummies extends Character{
 	
 	public void goUp() {
 		if (this.getY() - 1 >= 0) {
-			Coordinate[][] ordered = maze.order(maze.CoordinateList);
+			Coordinate[][] ordered = Maze.order(maze.CoordinateList);
 			if(ordered[(int) this.getY()][(int) this.getX()].checkWall(2) == false) {
 				enemy.setImage(enemyUp);
 				enemy.relocate(enemy.getLayoutX(), enemy.getLayoutY() - enemy.getBoundsInLocal().getHeight());
@@ -200,7 +147,7 @@ public class Mummies extends Character{
 	
 	public void goLeft() {
 		if (this.getX() - 1 >= 0) {
-			Coordinate[][] ordered = maze.order(maze.CoordinateList);
+			Coordinate[][] ordered = Maze.order(maze.CoordinateList);
 			if(ordered[(int) this.getY()][(int) this.getX()].checkWall(3) == false) {
 				enemy.setImage(enemyLeft);
 				this.setX(this.getX()-1);
@@ -211,8 +158,8 @@ public class Mummies extends Character{
 	}
 	
 	public void goRight() {
-		if (this.getX() + 1 < maze.width) {
-			Coordinate[][] ordered = maze.order(maze.CoordinateList);
+		if (this.getX() + 1 < Maze.width) {
+			Coordinate[][] ordered = Maze.order(maze.CoordinateList);
 			if(ordered[(int) this.getY()][(int) this.getX()].checkWall(1) == false) {
 				enemy.setImage(enemyRight);
 				enemy.relocate(enemy.getLayoutX()+ enemy.getBoundsInLocal().getWidth(), enemy.getLayoutY());
