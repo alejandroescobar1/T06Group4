@@ -253,7 +253,7 @@ public class Player extends Character{
 			playerImg = new ImageView(playerR);
 		}
 		
-		else if (characterSelected == 2) {
+		else if (characterSelected == 3) {
 			playerR = new Image("/images/ugandaR.png");
 			playerL = new Image("/images/ugandaL.png");
 			playerU = new Image("/images/ugandaU.png");
@@ -261,11 +261,11 @@ public class Player extends Character{
 			playerImg = new ImageView(playerR);
 		}
 		
-		else if (characterSelected == 3) {
-			playerR = new Image("/images/ugandaR.png");
-			playerL = new Image("/images/ugandaL.png");
-			playerU = new Image("/images/ugandaU.png");
-			playerD = new Image("/images/ugandaD.png");
+		else if (characterSelected == 2) {
+			playerR = new Image("/images/linkR.png");
+			playerL = new Image("/images/linkL.png");
+			playerU = new Image("/images/linkU.png");
+			playerD = new Image("/images/linkD.png");
 			playerImg = new ImageView(playerR);
 		}
 		

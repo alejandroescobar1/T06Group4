@@ -98,13 +98,18 @@ public class MazeGUI extends Application {
 				
 				
 				//determining the image size for the mummy
+				try {
 				mummy.setMaze(newMaze);
 				mummy.printLocation();
+				}
+				catch (Exception e){}
 				mummy.enemy.relocate(imgSize * mummy.getX(), imgSize * mummy.getY());
 				mummy.enemy.setFitHeight(imgSize);
 				mummy.enemy.setFitWidth(imgSize);
 				
 				//determining the image size for the items
+				items.setMaze(newMaze);
+				
 				items.setGemCoord();
 				items.gemImg.relocate(imgSize * items.getGemX(), imgSize * items.getGemY());
 				items.gemImg.setFitHeight(imgSize);
@@ -167,7 +172,7 @@ public class MazeGUI extends Application {
 			}
 		});
 		// Currently, characters 2-5 are the same character
-		ImageView character2 = new ImageView("/images/ugandaR.png");
+		ImageView character2 = new ImageView("/images/linkR.png");
 		character2.setFitHeight(125);
 		character2.setFitWidth(120);
 		character2.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {

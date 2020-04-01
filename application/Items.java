@@ -162,4 +162,7 @@ public class Items {
 	public void setPlayerInstance(Player playerInstance) {
 		this.playerInstance = playerInstance;
 	}
+	public void setMaze(Maze aMaze) {
+		this.maze = aMaze;
+	}
 }
