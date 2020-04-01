@@ -63,8 +63,8 @@ public class Score {
 	 */
 	private int timeScore() {
 		int timeScore;
-		if (secondPassed < 30) timeScore = 1000; //finish under 30 second then get 1000 points
-		else if (secondPassed < 60) timeScore = 500; // finish under 60 second then get 500 points
+		if (secondPassed < 15) timeScore = 1000; //finish under 30 second then get 1000 points
+		else if (secondPassed < 30) timeScore = 500; // finish under 60 second then get 500 points
 		else timeScore = 250; //else get 250 points for finish
 		return timeScore;
 	}

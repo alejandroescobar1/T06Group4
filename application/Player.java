@@ -29,7 +29,7 @@ public class Player extends Character{
 	 * @param newMaze 
 	 */
 	public Player(Maze newMaze) {
-		super(newMaze,0,0);
+		super(newMaze, 0, 0);
 	}
 	
 	/*
@@ -145,7 +145,7 @@ public class Player extends Character{
 		}
 	}
 	
-	/**
+	/*
 	 * Getter and setter for the staffCollected attribute. This attribute is important because the behavior of the
 	 * checkCollisions method in the Mummies class needs to be changed. This is because, if the player has the staff, 
 	 * and the mummy and the player come into contact, the mummy will be killed and returned to its start spot. Otherwise,

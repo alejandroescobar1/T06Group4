@@ -14,6 +14,7 @@ import java.util.TimerTask;
 public class MummyTimer {
 	private Player p1;
 	private Mummies mummy;
+	private int secondPassed = 0;
 	
 	/**
 	 * Constructors 
@@ -28,8 +29,10 @@ public class MummyTimer {
 	/* 
 	 * creates timer and sets what direction the random number means.
 	 */
-	Timer timer = new Timer();
-	TimerTask task = new TimerTask(){
+	Timer timer1 = new Timer();
+	Timer timer2 = new Timer();
+	
+	TimerTask taskMummy = new TimerTask(){
 		public void run() {
 				Random mummyDirection = new Random();
 				int move = mummyDirection.nextInt(4);
@@ -58,12 +61,19 @@ public class MummyTimer {
 		
 	};
 	
+	TimerTask taskGameTime = new TimerTask() {
+    	public void run() {
+    		secondPassed++;
+    	}
+    };
+	
 	/**
 	 * Stop the timer.
 	 */
 	public void stop()
 	{
-		timer.cancel();
+		timer1.cancel();
+		timer2.cancel();
 	}
 	
 	/**
@@ -71,7 +81,8 @@ public class MummyTimer {
 	 */
 	public void start()
 	{
-		timer.scheduleAtFixedRate(task, 0, 500);
+		timer1.scheduleAtFixedRate(taskMummy, 0, 500);
+		timer2.scheduleAtFixedRate(taskGameTime, 0, 1000);
 	}
 	
 	/**
@@ -87,6 +98,11 @@ public class MummyTimer {
 	public void setP1(Player p1) {
 		this.p1 = p1;
 	}
-		
 	
+	/**
+     * Getter that can tell how many seconds have elapsed since the timer started. 
+     */
+    public int getSecondPassed() {
+		return this.secondPassed;
+	}
 }

@@ -8,11 +8,17 @@
 package application;
 
 import java.util.ArrayList;
+
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -25,13 +31,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 
 public class MazeGUI extends Application {
 	Maze newMaze = new Maze(5,5); MummyTimer mummyTimer;
-	private Player p1; private Mummies mummy;
+	private Player p1; private Mummies mummy; private Items items;
 	private GraphicsContext gc;
 	private GridPane grid = new GridPane();
 	static private int length;
@@ -97,7 +104,26 @@ public class MazeGUI extends Application {
 				mummy.enemy.setFitHeight(imgSize);
 				mummy.enemy.setFitWidth(imgSize);
 				
+				//determining the image size for the items
+				items.setGemCoord();
+				items.gemImg.relocate(imgSize * items.getGemX(), imgSize * items.getGemY());
+				items.gemImg.setFitHeight(imgSize);
+				items.gemImg.setFitWidth(imgSize);
 				
+				items.setJewelCoord();
+				items.jewelImg.relocate(imgSize * items.getJewelX(), imgSize * items.getJewelY());
+				items.jewelImg.setFitHeight(imgSize);
+				items.jewelImg.setFitWidth(imgSize);
+				
+				items.setStaffCoord();
+				items.staffImg.relocate(imgSize * items.getStaffX(), imgSize * items.getStaffY());
+				items.staffImg.setFitHeight(imgSize);
+				items.staffImg.setFitWidth(imgSize);
+				
+				items.setRingCoord();
+				items.ringImg.relocate(imgSize * items.getRingX(), imgSize * items.getRingY());
+				items.ringImg.setFitHeight(imgSize);
+				items.ringImg.setFitWidth(imgSize);
 				}
 			}
 	    };
@@ -116,6 +142,14 @@ public class MazeGUI extends Application {
 		hbox.setSpacing(20);
 		hbox.setPadding(new Insets(500, 10, 10, 10));
 		
+		//time label
+		Label time = new Label("1");
+		time.setFont(Font.font("Verdana", 25));
+		time.setTextFill(Color.BLACK);
+		HBox root = new HBox();
+		root.setPadding(new Insets(10, 10, 350, 350));
+		root.getChildren().addAll(time);
+		
 		ImageView character1 = new ImageView("/images/MSR.png");
 		character1.setFitHeight(125);
 		character1.setFitWidth(120);
@@ -127,7 +161,8 @@ public class MazeGUI extends Application {
 				p1.characterSelected(characterSelected);
 				mummy = new Mummies(newMaze, p1);
 				mummy.characterSelected(characterSelected);
-				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
+				items = new Items(newMaze, p1);
+				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy, items.gemImg, items.ringImg, items.jewelImg, items.staffImg, root);
 				stage.setScene(scene1);
 			}
 		});
@@ -143,7 +178,8 @@ public class MazeGUI extends Application {
 				p1.characterSelected(characterSelected);
 				mummy = new Mummies(newMaze, p1);
 				mummy.characterSelected(characterSelected);
-				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
+				items = new Items(newMaze, p1);
+				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy, items.gemImg, items.ringImg, items.jewelImg, items.staffImg, root);
 				stage.setScene(scene1);
 			}
 		});
@@ -159,7 +195,8 @@ public class MazeGUI extends Application {
 				p1.characterSelected(characterSelected);
 				mummy = new Mummies(newMaze, p1);
 				mummy.characterSelected(characterSelected);
-				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
+				items = new Items(newMaze, p1);
+				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy, items.gemImg, items.ringImg, items.jewelImg, items.staffImg, root);
 				stage.setScene(scene1);
 			}
 		});
@@ -175,7 +212,8 @@ public class MazeGUI extends Application {
 				p1.characterSelected(characterSelected);
 				mummy = new Mummies(newMaze, p1);
 				mummy.characterSelected(characterSelected);
-				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
+				items = new Items(newMaze, p1);
+				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy, items.gemImg, items.ringImg, items.jewelImg, items.staffImg, root);
 				stage.setScene(scene1);
 			}
 		});
@@ -191,7 +229,8 @@ public class MazeGUI extends Application {
 				p1.characterSelected(characterSelected);
 				mummy = new Mummies(newMaze, p1);
 				mummy.characterSelected(characterSelected);
-				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy);
+				items = new Items(newMaze, p1);
+				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy, items.gemImg, items.ringImg, items.jewelImg, items.staffImg, root);
 				stage.setScene(scene1);
 			}
 		});
@@ -228,12 +267,12 @@ public class MazeGUI extends Application {
 							AlertBox.displayWin(characterSelected);
 							System.exit(0);
 						}
+						
 						if (p1.checkLoss()){
 							mummyTimer.stop();
 							AlertBox.displayLoss(characterSelected);
 							System.exit(0);
 						}
-						
 					}
 				}
 				else if (e.getCode().equals(KeyCode.S)) {
@@ -320,7 +359,20 @@ public class MazeGUI extends Application {
 		});
 		grid.add(play, 0, 2);
 
-		
+		//display time in game
+		final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler() {  
+			@Override
+			public void handle(Event arg0) {
+			try {
+				time.setText(String.valueOf(mummyTimer.getSecondPassed()));
+				
+			}	
+			catch (Exception e) {}
+			}
+		}));
+				
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.play();
 	}
 	
 	public static void main(String[] args) {
