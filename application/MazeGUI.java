@@ -37,7 +37,7 @@ import javafx.scene.input.KeyEvent;
 
 
 public class MazeGUI extends Application {
-	Maze newMaze = new Maze(5,5); MummyTimer mummyTimer;
+	Maze newMaze = new Maze(15, 15); MummyTimer mummyTimer;
 	private Player p1; private Mummies mummy; private Items items;
 	private GraphicsContext gc;
 	private GridPane grid = new GridPane();
@@ -375,7 +375,8 @@ public class MazeGUI extends Application {
 			public void handle(Event arg0) {
 			try {
 				timeLbl.setText("Time: " + String.valueOf(mummyTimer.getSecondPassed()));
-				liveLbl.setText("Lives: " + p1.getLives());
+				if (p1.getLives() >= 0) {
+				liveLbl.setText("Lives: " + p1.getLives());}
 			}	
 			catch (Exception e) {}
 			}
