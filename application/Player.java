@@ -254,14 +254,14 @@ public class Player extends Character{
 		}
 		
 		else if (characterSelected == 3) {
-			playerR = new Image("/images/ugandaR.png");
-			playerL = new Image("/images/ugandaL.png");
-			playerU = new Image("/images/ugandaU.png");
-			playerD = new Image("/images/ugandaD.png");
+			playerR = new Image("/images/spongebobR.png");
+			playerL = new Image("/images/spongebobL.png");
+			playerU = new Image("/images/spongebobU.png");
+			playerD = new Image("/images/spongebobD.png");
 			playerImg = new ImageView(playerR);
 		}
 		
-		else if (characterSelected == 2) {
+		else if (characterSelected == 5) {
 			playerR = new Image("/images/linkR.png");
 			playerL = new Image("/images/linkL.png");
 			playerU = new Image("/images/linkU.png");
@@ -270,14 +270,14 @@ public class Player extends Character{
 		}
 		
 		else if (characterSelected == 4) {
-			playerR = new Image("/images/ugandaR.png");
-			playerL = new Image("/images/ugandaL.png");
-			playerU = new Image("/images/ugandaU.png");
-			playerD = new Image("/images/ugandaD.png");
+			playerR = new Image("/images/neeyanR.png");
+			playerL = new Image("/images/neeyanL.png");
+			playerU = new Image("/images/neeyanU.png");
+			playerD = new Image("/images/neeyanD.png");
 			playerImg = new ImageView(playerR);
 		}
 		
-		else if (characterSelected == 5) {
+		else if (characterSelected == 2) {
 			playerR = new Image("/images/ugandaR.png");
 			playerL = new Image("/images/ugandaL.png");
 			playerU = new Image("/images/ugandaU.png");

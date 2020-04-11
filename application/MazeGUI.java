@@ -172,7 +172,7 @@ public class MazeGUI extends Application {
 			}
 		});
 		// Currently, characters 2-5 are the same character
-		ImageView character2 = new ImageView("/images/linkR.png");
+		ImageView character2 = new ImageView("/images/ugandaR.png");
 		character2.setFitHeight(125);
 		character2.setFitWidth(120);
 		character2.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -189,7 +189,7 @@ public class MazeGUI extends Application {
 			}
 		});
 		
-		ImageView character3 = new ImageView("/images/ugandaR.png");
+		ImageView character3 = new ImageView("/images/spongebobR.png");
 		character3.setFitHeight(125);
 		character3.setFitWidth(120);
 		character3.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -206,7 +206,7 @@ public class MazeGUI extends Application {
 			}
 		});
 		
-		ImageView character4 = new ImageView("/images/ugandaR.png");
+		ImageView character4 = new ImageView("/images/neeyanR.png");
 		character4.setFitHeight(125);
 		character4.setFitWidth(120);
 		character4.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -223,7 +223,7 @@ public class MazeGUI extends Application {
 			}
 		});
 		
-		ImageView character5 = new ImageView("/images/ugandaR.png");
+		ImageView character5 = new ImageView("/images/linkR.png");
 		character5.setFitHeight(125);
 		character5.setFitWidth(120);
 		character5.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -255,7 +255,7 @@ public class MazeGUI extends Application {
 	    scene1 = new Scene(grid, 702, 702, Color.ALICEBLUE);
 	    
 	    
-		scene2 = new Scene(pane, canvasWidth, canvasWidth, Color.LIGHTYELLOW);
+		scene2 = new Scene(pane, canvasWidth, canvasWidth + 50, Color.LIGHTYELLOW);
 		//scene.getStylesheets().add(MazeGUI.class.getResource("MazeGUI.css").toExternalForm());
 		
 		//KeyBoard Interaction. These event handlers take the user input and check if the player can appropriately do the requested motion, checks for collisions, and checks if the player has won or lost at every turn 
@@ -349,10 +349,11 @@ public class MazeGUI extends Application {
 		});			
 				
 		stage.setScene(sceneCharacter);
-		stage.setMaxHeight(canvasWidth + 38);
+		stage.setMaxHeight(canvasWidth + 38 + 50);
 		stage.setMaxWidth(canvasWidth + 15);
 		stage.setMinHeight(canvasWidth + 38);
 		stage.setMinWidth(canvasWidth + 15);
+		stage.sizeToScene();
 		stage.show();
 		
 		//making the play button
