@@ -33,9 +33,6 @@ public class Mummies extends Character{
 	 */
 	public Mummies(Maze newMaze, Player playerInstance) {
 		super(newMaze, Maze.width - 1, Maze.length -1);
-		tryStartCoord();
-		super.setX(startX);
-		super.setY(startY);
 		this.playerInstance = playerInstance;
 	}
 	
@@ -181,5 +178,12 @@ public class Mummies extends Character{
 				this.setX(this.getX()+1);
 			}
 		}
+	}
+	
+	public void setMaze(Maze aMaze) {
+		this.maze = aMaze;
+		tryStartCoord();
+		super.setX(startX);
+		super.setY(startY);
 	}
 }
