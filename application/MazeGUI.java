@@ -37,7 +37,7 @@ import javafx.scene.input.KeyEvent;
 
 
 public class MazeGUI extends Application {
-	Maze newMaze = new Maze(15, 15); MummyTimer mummyTimer;
+	Maze newMaze = new Maze(2, 2); MummyTimer mummyTimer;
 	private Player p1; private Mummies mummy; private Items items;
 	private GraphicsContext gc;
 	private GridPane grid = new GridPane();
