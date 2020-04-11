@@ -147,13 +147,17 @@ public class MazeGUI extends Application {
 		hbox.setSpacing(20);
 		hbox.setPadding(new Insets(500, 10, 10, 10));
 		
-		//time label
-		Label time = new Label("1");
-		time.setFont(Font.font("Verdana", 25));
-		time.setTextFill(Color.BLACK);
+		//time and lives label
 		HBox root = new HBox();
-		root.setPadding(new Insets(10, 10, 350, 350));
-		root.getChildren().addAll(time);
+		root.setSpacing(440);
+		Label liveLbl = new Label("Lives: 3");
+		liveLbl.setFont(Font.font("Verdana", 25));
+		liveLbl.setTextFill(Color.BLACK);
+		Label timeLbl = new Label("Time: 0");
+		timeLbl.setFont(Font.font("Verdana", 25));
+		timeLbl.setTextFill(Color.BLACK);
+		root.setPadding(new Insets(710, 10, 10, 20));
+		root.getChildren().addAll(liveLbl, timeLbl);
 		
 		ImageView character1 = new ImageView("/images/MSR.png");
 		character1.setFitHeight(125);
@@ -370,8 +374,8 @@ public class MazeGUI extends Application {
 			@Override
 			public void handle(Event arg0) {
 			try {
-				time.setText(String.valueOf(mummyTimer.getSecondPassed()));
-				
+				timeLbl.setText("Time: " + String.valueOf(mummyTimer.getSecondPassed()));
+				liveLbl.setText("Lives: " + p1.getLives());
 			}	
 			catch (Exception e) {}
 			}
