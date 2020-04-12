@@ -271,10 +271,10 @@ public class MazeGUI extends Application {
 						canUpdate = false;
 						p1.goUp();
 						mummy.checkCollision();
-						items.checkCollisionGem();
-						items.checkCollisionJewel();
-						items.checkCollisionStaff();
-						items.checkCollisionRing();
+						if(items.checkCollisionGem()==true) {pane.getChildren().remove(items.gemImg);}
+						if(items.checkCollisionJewel()==true) {pane.getChildren().remove(items.jewelImg);}
+						if(items.checkCollisionStaff()==true) {pane.getChildren().remove(items.staffImg);}
+						if(items.checkCollisionRing()==true) {pane.getChildren().remove(items.ringImg);}
 						if(p1.checkWin()) {
 							mummyTimer.stop();
 							p1.setTimeFinished(mummyTimer.getSecondPassed());
@@ -294,10 +294,10 @@ public class MazeGUI extends Application {
 						canUpdate = false;
 						p1.goDown();
 						mummy.checkCollision();
-						items.checkCollisionGem();
-						items.checkCollisionJewel();
-						items.checkCollisionStaff();
-						items.checkCollisionRing();
+						if(items.checkCollisionGem()==true) {pane.getChildren().remove(items.gemImg);}
+						if(items.checkCollisionJewel()==true) {pane.getChildren().remove(items.jewelImg);}
+						if(items.checkCollisionStaff()==true) {pane.getChildren().remove(items.staffImg);}
+						if(items.checkCollisionRing()==true) {pane.getChildren().remove(items.ringImg);}
 						if(p1.checkWin()) {
 							mummyTimer.stop();
 							p1.setTimeFinished(mummyTimer.getSecondPassed());
@@ -316,10 +316,10 @@ public class MazeGUI extends Application {
 						canUpdate = false;
 						p1.goRight();
 						mummy.checkCollision();
-						items.checkCollisionGem();
-						items.checkCollisionJewel();
-						items.checkCollisionStaff();
-						items.checkCollisionRing();
+						if(items.checkCollisionGem()==true) {pane.getChildren().remove(items.gemImg);}
+						if(items.checkCollisionJewel()==true) {pane.getChildren().remove(items.jewelImg);}
+						if(items.checkCollisionStaff()==true) {pane.getChildren().remove(items.staffImg);}
+						if(items.checkCollisionRing()==true) {pane.getChildren().remove(items.ringImg);}
 						if(p1.checkWin()) {
 							mummyTimer.stop();
 							p1.setTimeFinished(mummyTimer.getSecondPassed());
@@ -338,10 +338,10 @@ public class MazeGUI extends Application {
 						canUpdate = false;
 						p1.goLeft();
 						mummy.checkCollision();
-						items.checkCollisionGem();
-						items.checkCollisionJewel();
-						items.checkCollisionStaff();
-						items.checkCollisionRing();
+						if(items.checkCollisionGem()==true) {pane.getChildren().remove(items.gemImg);}
+						if(items.checkCollisionJewel()==true) {pane.getChildren().remove(items.jewelImg);}
+						if(items.checkCollisionStaff()==true) {pane.getChildren().remove(items.staffImg);}
+						if(items.checkCollisionRing()==true) {pane.getChildren().remove(items.ringImg);}
 						if(p1.checkWin()) {
 							mummyTimer.stop();
 							p1.setTimeFinished(mummyTimer.getSecondPassed());
