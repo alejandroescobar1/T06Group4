@@ -177,6 +177,9 @@ public class Items {
 			System.out.println("Colliside Gem. Player score increased. Score added: 100");
 			//make gem image disappear
 			this.gemImg.setVisible(false);
+			//make its coordinate invalid
+			this.gemX=-1;
+			this.gemY=-1;
 			return true;
 		}
 		else {return false;}
@@ -194,6 +197,8 @@ public class Items {
 			playerInstance.updatePosItem();
 			//make gem image disappear
 			this.jewelImg.setVisible(false);
+			this.jewelX=-1;
+			this.jewelY=-1;
 			return true;
 		}
 		else {return false;}
@@ -210,6 +215,8 @@ public class Items {
 			playerInstance.setStaffCollected(true);			
 			//make gem image disappear
 			this.staffImg.setVisible(false);
+			this.staffX=-1;
+			this.staffY=-1;
 			return true;
 		}
 		else {return false;}
@@ -227,6 +234,8 @@ public class Items {
 			playerInstance.updateNegItem();
 			//make gem image disappear
 			this.ringImg.setVisible(false);
+			this.ringX=-1;
+			this.ringY=-1;
 			return true;
 		}
 		else {return false;}
