@@ -136,7 +136,7 @@ public class Items {
 		return this.jewelX;
 	}
 	public int getJewelY() {
-		return this.jewelX;
+		return this.jewelY;
 	}
 	public int getStaffX() {
 		return this.staffX;

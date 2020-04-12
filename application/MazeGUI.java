@@ -37,7 +37,7 @@ import javafx.scene.input.KeyEvent;
 
 
 public class MazeGUI extends Application {
-	Maze newMaze = new Maze(2, 2); MummyTimer mummyTimer;
+	Maze newMaze = new Maze(2,2); MummyTimer mummyTimer;
 	private Player p1; private Mummies mummy; private Items items;
 	private GraphicsContext gc;
 	private GridPane grid = new GridPane();
@@ -273,7 +273,8 @@ public class MazeGUI extends Application {
 						mummy.checkCollision();
 						if(p1.checkWin()) {
 							mummyTimer.stop();
-							AlertBox.displayWin(characterSelected);
+							p1.setTimeFinished(mummyTimer.getSecondPassed());
+							AlertBox.displayWin(characterSelected, p1);
 							System.exit(0);
 						}
 						
@@ -291,7 +292,8 @@ public class MazeGUI extends Application {
 						mummy.checkCollision();
 						if(p1.checkWin()) {
 							mummyTimer.stop();
-							AlertBox.displayWin(characterSelected);
+							p1.setTimeFinished(mummyTimer.getSecondPassed());
+							AlertBox.displayWin(characterSelected, p1);
 							System.exit(0);
 						}
 						if (p1.checkLoss()){
@@ -308,7 +310,8 @@ public class MazeGUI extends Application {
 						mummy.checkCollision();
 						if(p1.checkWin()) {
 							mummyTimer.stop();
-							AlertBox.displayWin(characterSelected);
+							p1.setTimeFinished(mummyTimer.getSecondPassed());
+							AlertBox.displayWin(characterSelected, p1);
 							System.exit(0);
 						}
 						if (p1.checkLoss()){
@@ -325,7 +328,8 @@ public class MazeGUI extends Application {
 						mummy.checkCollision();
 						if(p1.checkWin()) {
 							mummyTimer.stop();
-							AlertBox.displayWin(characterSelected);
+							p1.setTimeFinished(mummyTimer.getSecondPassed());
+							AlertBox.displayWin(characterSelected, p1);
 							System.exit(0);
 						}
 						if (p1.checkLoss()){

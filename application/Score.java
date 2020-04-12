@@ -12,47 +12,30 @@ package application;
 
 
 public class Score {
-	private int numGem =  0;
-	private int numMummy = 0;
-	private int numKilled = 0;
-	private int numPosItem = 0;
-	private int numNegItem = 0;
-	private int secondPassed = 0;
+	private static int numGem =  0;
+	private static int numMummy = 0;
+	private static int numKilled = 0;
+	private static int numPosItem = 0;
+	private static int numNegItem = 0;
+	private static int secondPassed = 0;
 	
-	/**
-	 * Constructor
-	 * @param numGem
-	 * @param numMummy
-	 * @param numKilled
-	 * @param numPosItem
-	 * @param numNegItem
-	 * @param secondPassed
-	 */
-	public Score(int numGem, int numMummy, int numKilled, int numPosItem, int numNegItem, int secondPassed) {
-		this.numGem = numGem;
-		this.numMummy = numMummy;
-		this.numKilled = numKilled;
-		this.numPosItem = numPosItem;
-		this.numNegItem = numNegItem;
-		this.secondPassed = secondPassed;
-	}
 	
 	/**
 	 * Score calculations per item type. The descriptions are beside every score breakdown. 
 	 */
-	private int gemScore() {
+	private static int gemScore() {
 		return numGem * 100; //100 points for each gem
 	}
-	private int mummyScore() {
+	private static int mummyScore() {
 		return numMummy * 300; //300 points for each mummy killed
 	}
-	private int killedScore() {
-		return numKilled * -300; //-300 points for each time killed by mummy
+	private static int livesScore() {
+		return numKilled * 300; //300 points for each live
 	}
-	private int posItemScore() {
+	private static int posItemScore() {
 		return numPosItem * 300; //300 points for each time killed by mummy
 	}
-	private int negItemScore() {
+	private static int negItemScore() {
 		return numNegItem * -300; //-300 points for each time killed by mummy
 	}
 	
@@ -61,7 +44,7 @@ public class Score {
 	 * categories (<30, 30<=t<60, and >60 seconds) and giving a score based on which category the player falls
 	 * in.
 	 */
-	private int timeScore() {
+	private static int timeScore() {
 		int timeScore;
 		if (secondPassed < 15) timeScore = 1000; //finish under 15 second then get 1000 points
 		else if (secondPassed < 30) timeScore = 750; // finish under 30 second then get 750 points
@@ -74,7 +57,13 @@ public class Score {
 	 * Determines the final score. It takes the appropriate tallies in the constructor which is used to calculate the
 	 * score for each category and then adds them all together for the overall score. 
 	 */
-	public int getScore() {
-		return gemScore() + mummyScore() + killedScore() + posItemScore() + negItemScore() + timeScore();
+	public static int getScore(Player p1) {
+		Score.numGem = p1.getGemItem();
+		Score.numMummy = p1.getNumMummyKilled();
+		Score.numKilled = p1.getLives();
+		Score.numPosItem = p1.getPosItem();
+		Score.numNegItem = p1.getNegItem();
+		Score.secondPassed = p1.getTimeFinished();
+		return gemScore() + mummyScore() + livesScore() + posItemScore() + negItemScore() + timeScore();
 	}
 }

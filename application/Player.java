@@ -21,6 +21,8 @@ public class Player extends Character{
 	private int negItem = 0;
 	private int posItem = 0;
 	private int gemItem = 0;
+	private int numMummyKilled = 0;
+	private int timeFinished = 0;
 	private boolean staffCollected = false;
 	private int staffCollectionStart;
 
@@ -168,6 +170,15 @@ public class Player extends Character{
 	}
 	public void setStaffCollectionStart(int staffCollectionStart) {
 		this.staffCollectionStart = staffCollectionStart;
+	}
+	public int getNumMummyKilled() {
+		return numMummyKilled;
+	}
+	public int getTimeFinished() {
+		return timeFinished;
+	}
+	public void setTimeFinished(int secondPassed) {
+		this.timeFinished = secondPassed;
 	}
 /////////////////////////////////////////////////END OF ITEMS///////////////////////////////
 	

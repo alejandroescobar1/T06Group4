@@ -180,6 +180,7 @@ public class Mummies extends Character{
 		}
 	}
 	
+	@Override
 	public void setMaze(Maze aMaze) {
 		this.maze = aMaze;
 		tryStartCoord();
