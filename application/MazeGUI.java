@@ -271,6 +271,10 @@ public class MazeGUI extends Application {
 						canUpdate = false;
 						p1.goUp();
 						mummy.checkCollision();
+						items.checkCollisionGem();
+						items.checkCollisionJewel();
+						items.checkCollisionStaff();
+						items.checkCollisionRing();
 						if(p1.checkWin()) {
 							mummyTimer.stop();
 							p1.setTimeFinished(mummyTimer.getSecondPassed());
@@ -290,6 +294,10 @@ public class MazeGUI extends Application {
 						canUpdate = false;
 						p1.goDown();
 						mummy.checkCollision();
+						items.checkCollisionGem();
+						items.checkCollisionJewel();
+						items.checkCollisionStaff();
+						items.checkCollisionRing();
 						if(p1.checkWin()) {
 							mummyTimer.stop();
 							p1.setTimeFinished(mummyTimer.getSecondPassed());
@@ -308,6 +316,10 @@ public class MazeGUI extends Application {
 						canUpdate = false;
 						p1.goRight();
 						mummy.checkCollision();
+						items.checkCollisionGem();
+						items.checkCollisionJewel();
+						items.checkCollisionStaff();
+						items.checkCollisionRing();
 						if(p1.checkWin()) {
 							mummyTimer.stop();
 							p1.setTimeFinished(mummyTimer.getSecondPassed());
@@ -326,6 +338,10 @@ public class MazeGUI extends Application {
 						canUpdate = false;
 						p1.goLeft();
 						mummy.checkCollision();
+						items.checkCollisionGem();
+						items.checkCollisionJewel();
+						items.checkCollisionStaff();
+						items.checkCollisionRing();
 						if(p1.checkWin()) {
 							mummyTimer.stop();
 							p1.setTimeFinished(mummyTimer.getSecondPassed());

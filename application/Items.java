@@ -165,4 +165,73 @@ public class Items {
 	public void setMaze(Maze aMaze) {
 		this.maze = aMaze;
 	}
+	
+	/**
+	 * This method checks of the player and gem have collided and will update the player score accordingly. 
+	 * It will also make the gem disappear upon collision.
+	 */
+	public boolean checkCollisionGem() {
+		if (playerInstance.getX() == this.gemX && playerInstance.getY() == this.gemY) {
+			//do something - add 1 to GemItem
+			playerInstance.updateGemItem();
+			System.out.println("Colliside Gem. Player score increased. Score added: 100");
+			//make gem image disappear
+			this.gemImg.setVisible(false);
+			return true;
+		}
+		else {return false;}
+	}
+	
+	/**
+	 * This method checks of the player and jewel have collided and will update the player lives accordingly. 
+	 * It will also make the jewel disappear upon collision.
+	 */
+	public boolean checkCollisionJewel() {
+		if (playerInstance.getX() == this.jewelX && playerInstance.getY() == this.jewelY) {
+			//do something - add 1 to JewelItem
+			playerInstance.updateLives(1);
+			System.out.println("You collected the Jewel. You gained a life. Number of lives is " + playerInstance.getLives());
+			playerInstance.updatePosItem();
+			//make gem image disappear
+			this.jewelImg.setVisible(false);
+			return true;
+		}
+		else {return false;}
+	}
+	/**
+	 * This method checks of the player and jewel have collided and will update the player lives accordingly. 
+	 * It will also make the jewel disappear upon collision.
+	 */
+	public boolean checkCollisionStaff() {
+		if (playerInstance.getX() == this.staffX && playerInstance.getY() == this.staffY) {
+			//do something - add 1 to JewelItem
+			System.out.println("You collected the Staff");
+			playerInstance.updatePosItem();
+			playerInstance.setStaffCollected(true);			
+			//make gem image disappear
+			this.staffImg.setVisible(false);
+			return true;
+		}
+		else {return false;}
+	}
+	
+	/**
+	 * This method checks of the player and jewel have collided and will update the player lives accordingly. 
+	 * It will also make the jewel disappear upon collision.
+	 */
+	public boolean checkCollisionRing() {
+		if (playerInstance.getX() == this.ringX && playerInstance.getY() == this.ringY) {
+			//do something - add 1 to JewelItem
+			playerInstance.updateLives(-1);
+			System.out.println("You collected the Ring. You lost a life. Number of lives is " + playerInstance.getLives());
+			playerInstance.updateNegItem();
+			//make gem image disappear
+			this.ringImg.setVisible(false);
+			return true;
+		}
+		else {return false;}
+	}
+	
+	
+	
 }
