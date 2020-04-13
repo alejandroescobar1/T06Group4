@@ -33,9 +33,6 @@ public class Mummies extends Character{
 	 */
 	public Mummies(Maze newMaze, Player playerInstance) {
 		super(newMaze, Maze.width - 1, Maze.length -1);
-		tryStartCoord();
-		this.setX(startX);
-		this.setX(startY);
 		this.playerInstance = playerInstance;
 		this.ordered = Maze.order(newMaze.CoordinateList);
 	}
@@ -74,6 +71,7 @@ public class Mummies extends Character{
 			}
 		}
 	}
+	
 	public boolean findPath(int direction,int mummyX,int mummyY,int playerX,int playerY){
 		final int originalX = playerX;
 		final int originalY = playerY;
@@ -240,35 +238,35 @@ public class Mummies extends Character{
 	 */
 	public void characterSelected(int characterselected){
 		if (characterselected == 1){
-			enemyRight = new Image("creeperR.png");
-			enemyLeft = new Image("creeperL.png");
-			enemyUp = new Image("creeperU.png");
-			enemyDown = new Image("creeperD.png");
+			enemyRight = new Image("/images/creeperR.png");
+			enemyLeft = new Image("/images/creeperL.png");
+			enemyUp = new Image("/images/creeperU.png");
+			enemyDown = new Image("/images/creeperD.png");
 			
 		}
 		else if (characterselected == 2){
-			enemyRight = new Image("mummyRIGHT.png");
-			enemyLeft = new Image("mummyLEFT.png");
-			enemyUp = new Image("mummyUP.png");
-			enemyDown = new Image("mummyDOWN.png");
+			enemyRight = new Image("/images/mummyRIGHT.png");
+			enemyLeft = new Image("/images/mummyLEFT.png");
+			enemyUp = new Image("/images/mummyUP.png");
+			enemyDown = new Image("/images/mummyDOWN.png");
 		}
 		else if (characterselected == 3){
-			enemyRight = new Image("mummyRIGHT.png");
-			enemyLeft = new Image("mummyLEFT.png");
-			enemyUp = new Image("mummyUP.png");
-			enemyDown = new Image("mummyDOWN.png");
+			enemyRight = new Image("/images/mummyRIGHT.png");
+			enemyLeft = new Image("/images/mummyLEFT.png");
+			enemyUp = new Image("/images/mummyUP.png");
+			enemyDown = new Image("/images/mummyDOWN.png");
 		}
 		else if (characterselected == 4){
-			enemyRight = new Image("mummyRIGHT.png");
-			enemyLeft = new Image("mummyLEFT.png");
-			enemyUp = new Image("mummyUP.png");
-			enemyDown = new Image("mummyDOWN.png");
+			enemyRight = new Image("/images/mummyRIGHT.png");
+			enemyLeft = new Image("/images/mummyLEFT.png");
+			enemyUp = new Image("/images/mummyUP.png");
+			enemyDown = new Image("/images/mummyDOWN.png");
 		}
 		else if (characterselected == 5){
-			enemyRight = new Image("mummyRIGHT.png");
-			enemyLeft = new Image("mummyLEFT.png");
-			enemyUp = new Image("mummyUP.png");
-			enemyDown = new Image("mummyDOWN.png");
+			enemyRight = new Image("/images/guardianR.png");
+			enemyLeft = new Image("/images/guardianL.png");
+			enemyUp = new Image("/images/guardianU.png");
+			enemyDown = new Image("/images/guardianD.png");
 		}
 	}
 
@@ -281,27 +279,27 @@ public class Mummies extends Character{
 		if (staffCollected == false) {
 			if (playerInstance.getX() == this.getX() && playerInstance.getY() == this.getY()) {
 				playerInstance.updateLives(-1);
-				playerInstance.updateNumKilledByMummy();
 				System.out.println("Hit by Mummy. Player returned to start. Number of lives is " + playerInstance.getLives());
 				playerInstance.setX(0);
 				playerInstance.setY(0);
 				playerInstance.playerImg.setImage(playerInstance.playerR);
 				playerInstance.playerImg.relocate(0,0);
-				this.setX(Maze.width-1);
 				this.setY(0);
-				enemy.relocate(this.getX(), this.getY());
+				this.setX(Maze.length-1);
+				enemy.setImage(enemyRight);
+				enemy.relocate(this.getX() * this.enemy.getFitHeight(), this.getY() * this.enemy.getFitHeight());
 				return true;
 			}
 			else {return false;}
 		}
 		else if (staffCollected == true) {
 			if (playerInstance.getX() == this.getX() && playerInstance.getY() == this.getY()) {
-				playerInstance.updateNumMummyKilled();
-				this.setX(Maze.width-1);
 				this.setY(0);
+				this.setX(Maze.length-1);
 				System.out.println("Killed the Mummy. Mummy has been moved to (" + this.getX() + "," + this.getY() + ")");
+				this.playerInstance.updateMummyKilled();
 				enemy.setImage(enemyRight);
-				enemy.relocate(this.getX(),this.getY());
+				enemy.relocate(this.getX() * this.enemy.getFitHeight(),this.getY() * this.enemy.getFitHeight());
 				return true;
 			}
 			else {return false;}

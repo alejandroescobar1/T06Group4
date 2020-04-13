@@ -22,7 +22,6 @@ public class Player extends Character{
 	private int posItem = 0;
 	private int gemItem = 0;
 	private int numMummyKilled = 0;
-	private int numKilledByMummy = 0;
 	private int timeFinished = 0;
 	private boolean staffCollected = false;
 	private int staffCollectionStart;
@@ -104,11 +103,8 @@ public class Player extends Character{
 	public void updateGemItem() {
 		this.gemItem += 1;
 	}
-	public void updateNumMummyKilled() {
-		this.numMummyKilled+=1;
-	}
-	public void updateNumKilledByMummy() {
-		this.numKilledByMummy +=1;
+	public void updateMummyKilled() {
+		this.numMummyKilled += 1;
 	}
 	
 	/*
@@ -132,7 +128,7 @@ public class Player extends Character{
 	 * items, it makes the appropriate effects. This may be updating the lives or the positive or negative items
 	 * tally to later be used by the score class. 
 	 */
-	/*public void itemCollection(char status) {
+	public void itemCollection(char status) {
 		if (status == 'r') {
 			updateLives(-1);
 			System.out.println("You collected the Ring. You lost a life. Number of lives is " + getLives());
@@ -152,7 +148,7 @@ public class Player extends Character{
 			System.out.println("You collected a Gem.");
 			updateGemItem();
 		}
-	}*/
+	}
 	
 	/*
 	 * Getter and setter for the staffCollected attribute. This attribute is important because the behavior of the
@@ -186,9 +182,6 @@ public class Player extends Character{
 	}
 	public void setTimeFinished(int secondPassed) {
 		this.timeFinished = secondPassed;
-	}
-	public int getNumKilledByMummy() {
-		return this.numKilledByMummy;
 	}
 /////////////////////////////////////////////////END OF ITEMS///////////////////////////////
 	
@@ -267,45 +260,43 @@ public class Player extends Character{
 	 */
 	public void characterSelected(int characterSelected) {
 		if (characterSelected == 1) {
-			playerR = new Image("MSR.png");
-			playerL = new Image("MSL.png");
-			playerU = new Image("MSU.png");
-			playerD = new Image("MSD.png");
+			playerR = new Image("/images/MSR.png");
+			playerL = new Image("/images/MSL.png");
+			playerU = new Image("/images/MSU.png");
+			playerD = new Image("/images/MSD.png");
 			playerImg = new ImageView(playerR);
 		}
 		
 		else if (characterSelected == 3) {
-			playerR = new Image("spongebobR.png");
-			playerL = new Image("spongebobL.png");
-			playerU = new Image("spongebobU.png");
-			playerD = new Image("spongebobD.png");
+			playerR = new Image("/images/spongebobR.png");
+			playerL = new Image("/images/spongebobL.png");
+			playerU = new Image("/images/spongebobU.png");
+			playerD = new Image("/images/spongebobD.png");
 			playerImg = new ImageView(playerR);
 		}
 		
 		else if (characterSelected == 5) {
-			playerR = new Image("linkR.png");
-			playerL = new Image("linkL.png");
-			playerU = new Image("linkU.png");
-			playerD = new Image("linkD.png");
+			playerR = new Image("/images/linkR.png");
+			playerL = new Image("/images/linkL.png");
+			playerU = new Image("/images/linkU.png");
+			playerD = new Image("/images/linkD.png");
 			playerImg = new ImageView(playerR);
 		}
 		
 		else if (characterSelected == 4) {
-			playerR = new Image("neeyanR.png");
-			playerL = new Image("neeyanL.png");
-			playerU = new Image("neeyanU.png");
-			playerD = new Image("neeyanD.png");
+			playerR = new Image("/images/neeyanR.png");
+			playerL = new Image("/images/neeyanL.png");
+			playerU = new Image("/images/neeyanU.png");
+			playerD = new Image("/images/neeyanD.png");
 			playerImg = new ImageView(playerR);
 		}
 		
 		else if (characterSelected == 2) {
-			playerR = new Image("ugandaR.png");
-			playerL = new Image("ugandaL.png");
-			playerU = new Image("ugandaU.png");
-			playerD = new Image("ugandaD.png");
+			playerR = new Image("/images/ugandaR.png");
+			playerL = new Image("/images/ugandaL.png");
+			playerU = new Image("/images/ugandaU.png");
+			playerD = new Image("/images/ugandaD.png");
 			playerImg = new ImageView(playerR);
 		}
 	}
-
-	
 }
