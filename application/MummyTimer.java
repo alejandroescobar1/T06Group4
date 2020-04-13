@@ -32,7 +32,8 @@ public class MummyTimer {
 	Timer timer2 = new Timer();
 	
 	/**
-	 * creates a timertask taskmummy, which uses the find path algorithm to moves towards player
+	 * creates a timertask taskmummy, which uses the find path algorithm to moves towards player. 
+	 * If findpath failed or stackoverflowed when mummy AI going into circle, then use the random movement for mummy instead
 	 */
 	TimerTask taskMummy = new TimerTask(){
 		public void run() {
