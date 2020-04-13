@@ -22,13 +22,10 @@ import javafx.stage.Stage;
 
 
 public class AlertBox {
-	static ImageView knucklesWin = new ImageView("/images/knucklesWin.png");
-	static ImageView knucklesLoss = new ImageView("/images/knucklesloss.gif");
-	static ImageView MSWin = new ImageView("/images/MSwin.gif");
-	static ImageView MSLoss = new ImageView("/images/MSLoss.gif");
-	static ImageView neeyanLoss = new ImageView("/images/neeyanLoss.gif");
-	static ImageView spongebobLoss = new ImageView("/images/spongebobLoss.gif");
-	static ImageView linkLoss = new ImageView("/images/linkLoss.gif");
+	static ImageView knucklesWin = new ImageView("knucklesWin.png");
+	static ImageView knucklesLoss = new ImageView("knucklesloss.gif");
+	static ImageView MSWin = new ImageView("MSwin.gif");
+	static ImageView MSLoss = new ImageView("MSLoss.gif");
 	
 	/**
 	 * This creates a customized loss screen. It is called when the player looses all their lives. 
@@ -56,7 +53,7 @@ public class AlertBox {
 			Stage window = new Stage();
 			window.initModality(Modality.APPLICATION_MODAL);
 			Group layout = new Group();
-			layout.getChildren().add(spongebobLoss);
+			layout.getChildren().add(knucklesLoss);
 			Scene scene = new Scene(layout);
 			window.setScene(scene);
 			window.showAndWait();
@@ -65,7 +62,7 @@ public class AlertBox {
 			Stage window = new Stage();
 			window.initModality(Modality.APPLICATION_MODAL);
 			Group layout = new Group();
-			layout.getChildren().add(neeyanLoss);
+			layout.getChildren().add(knucklesLoss);
 			Scene scene = new Scene(layout);
 			window.setScene(scene);
 			window.showAndWait();
@@ -74,7 +71,7 @@ public class AlertBox {
 			Stage window = new Stage();
 			window.initModality(Modality.APPLICATION_MODAL);
 			Group layout = new Group();
-			layout.getChildren().add(linkLoss);
+			layout.getChildren().add(knucklesLoss);
 			Scene scene = new Scene(layout);
 			window.setScene(scene);
 			window.showAndWait();
@@ -130,11 +127,7 @@ public class AlertBox {
 			Stage window = new Stage();
 			window.initModality(Modality.APPLICATION_MODAL);
 			Group layout = new Group();
-			rec.setFill(Color.ALICEBLUE);
-			vbox.setPadding(new Insets(120, 10, 10, 400));
-			rec.setX(330);
-			rec.setY(100);
-			layout.getChildren().addAll(MSWin, rec, vbox);
+			layout.getChildren().add(MSWin);
 		
 			Scene scene = new Scene(layout);
 			window.setScene(scene);

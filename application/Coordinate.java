@@ -1,5 +1,4 @@
- /**
- /**
+/**
  * @author T06 Group 4
  * @version Demo 3 GUI-based game
  * @implNote The Coordinate class assigns a coordinate value to each block It also assigns to it the status of that block, 
