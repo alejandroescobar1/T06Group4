@@ -14,10 +14,10 @@ public class Items {
 	private Maze maze;
 	private Player playerInstance;
 	Random coordOptions = new Random();
-	protected Image jewel = new Image ("jewel.png");
-	private Image staff = new Image ("staff.png");
-	private Image gem = new Image ("gem.png");
-	private Image ring = new Image ("ring.png");
+	protected Image jewel = new Image ("/images/jewel.png");
+	private Image staff = new Image ("/images/staff.png");
+	private Image gem = new Image ("/images/gem.png");
+	private Image ring = new Image ("/images/ring.png");
 	protected ImageView jewelImg = new ImageView(jewel);
 	protected ImageView staffImg = new ImageView(staff);
 	protected ImageView gemImg = new ImageView(gem);
