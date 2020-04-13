@@ -60,7 +60,7 @@ public class Score {
 	public static int getScore(Player p1) {
 		Score.numGem = p1.getGemItem();
 		Score.numMummy = p1.getNumMummyKilled();
-		Score.numKilled = p1.getLives();
+		Score.numKilled = p1.getNumKilledByMummy();
 		Score.numPosItem = p1.getPosItem();
 		Score.numNegItem = p1.getNegItem();
 		Score.secondPassed = p1.getTimeFinished();

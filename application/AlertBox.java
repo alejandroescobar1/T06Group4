@@ -22,13 +22,10 @@ import javafx.stage.Stage;
 
 
 public class AlertBox {
-	static ImageView knucklesWin = new ImageView("/images/knucklesWin.png");
-	static ImageView knucklesLoss = new ImageView("/images/knucklesloss.gif");
-	static ImageView MSWin = new ImageView("/images/MSwin.gif");
-	static ImageView MSLoss = new ImageView("/images/MSLoss.gif");
-	static ImageView neeyanLoss = new ImageView("/images/neeyanLoss.gif");
-	static ImageView spongebobLoss = new ImageView("/images/spongebobLoss.gif");
-	static ImageView linkLoss = new ImageView("/images/linkLoss.gif");
+	static ImageView knucklesWin = new ImageView("knucklesWin.png");
+	static ImageView knucklesLoss = new ImageView("knucklesloss.gif");
+	static ImageView MSWin = new ImageView("MSwin.gif");
+	static ImageView MSLoss = new ImageView("MSLoss.gif");
 	
 	/**
 	 * This creates a customized loss screen. It is called when the player looses all their lives. 
@@ -56,7 +53,7 @@ public class AlertBox {
 			Stage window = new Stage();
 			window.initModality(Modality.APPLICATION_MODAL);
 			Group layout = new Group();
-			layout.getChildren().add(spongebobLoss);
+			layout.getChildren().add(knucklesLoss);
 			Scene scene = new Scene(layout);
 			window.setScene(scene);
 			window.showAndWait();
@@ -65,7 +62,7 @@ public class AlertBox {
 			Stage window = new Stage();
 			window.initModality(Modality.APPLICATION_MODAL);
 			Group layout = new Group();
-			layout.getChildren().add(neeyanLoss);
+			layout.getChildren().add(knucklesLoss);
 			Scene scene = new Scene(layout);
 			window.setScene(scene);
 			window.showAndWait();
@@ -74,7 +71,7 @@ public class AlertBox {
 			Stage window = new Stage();
 			window.initModality(Modality.APPLICATION_MODAL);
 			Group layout = new Group();
-			layout.getChildren().add(linkLoss);
+			layout.getChildren().add(knucklesLoss);
 			Scene scene = new Scene(layout);
 			window.setScene(scene);
 			window.showAndWait();
@@ -90,27 +87,30 @@ public class AlertBox {
 		vbox.setPadding(new Insets(150, 10, 10, 250));
 
 		Label gemLbl = new Label("Gems: " + p1.getGemItem());
-		gemLbl.setFont(Font.font("Verdana", 30));
+		gemLbl.setFont(Font.font("Verdana", 25));
 		gemLbl.setTextFill(Color.BLACK);
 		Label mummyLbl = new Label("Mummy killed: " + p1.getNumMummyKilled());
-		mummyLbl.setFont(Font.font("Verdana", 30));
+		mummyLbl.setFont(Font.font("Verdana", 25));
 		mummyLbl.setTextFill(Color.BLACK);
+		Label killedByMummyLbl = new Label("Killed by mummy: " + p1.getNumKilledByMummy());
+		killedByMummyLbl.setFont(Font.font("Verdana", 25));
+		killedByMummyLbl.setTextFill(Color.BLACK);
 		Label deaths = new Label("Lives: " + p1.getLives());
-		deaths.setFont(Font.font("Verdana", 30));
+		deaths.setFont(Font.font("Verdana", 25));
 		deaths.setTextFill(Color.BLACK);
 		Label posItem = new Label("Good item: " + p1.getPosItem());
-		posItem.setFont(Font.font("Verdana", 30));
+		posItem.setFont(Font.font("Verdana", 25));
 		posItem.setTextFill(Color.BLACK);
 		Label negItem = new Label("Bad item: " + p1.getNegItem());
-		negItem.setFont(Font.font("Verdana", 30));
+		negItem.setFont(Font.font("Verdana", 25));
 		negItem.setTextFill(Color.BLACK);
 		Label time = new Label("Time: " + p1.getTimeFinished());
-		time.setFont(Font.font("Verdana", 30));
+		time.setFont(Font.font("Verdana", 25));
 		time.setTextFill(Color.BLACK);
 		Label score = new Label("Score: " + Score.getScore(p1));
-		score.setFont(Font.font("Verdana", 30));
+		score.setFont(Font.font("Verdana", 25));
 		score.setTextFill(Color.BLACK);
-		vbox.getChildren().addAll(gemLbl, mummyLbl, deaths, posItem, negItem, time, score);
+		vbox.getChildren().addAll(gemLbl, mummyLbl, killedByMummyLbl, deaths, posItem, negItem, time, score);
 		
 		Rectangle rec = new Rectangle(400, 300, Color.LIGHTYELLOW);
 		rec.setX(180);
@@ -130,11 +130,7 @@ public class AlertBox {
 			Stage window = new Stage();
 			window.initModality(Modality.APPLICATION_MODAL);
 			Group layout = new Group();
-			rec.setFill(Color.ALICEBLUE);
-			vbox.setPadding(new Insets(120, 10, 10, 400));
-			rec.setX(330);
-			rec.setY(100);
-			layout.getChildren().addAll(MSWin, rec, vbox);
+			layout.getChildren().add(MSWin);
 		
 			Scene scene = new Scene(layout);
 			window.setScene(scene);
