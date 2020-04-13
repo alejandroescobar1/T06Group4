@@ -36,7 +36,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 
-public class MazeGUI extends Application {
+public class MazeGUI$ extends Application {
 	Maze newMaze = new Maze(2,2); MummyTimer mummyTimer;
 	private Player p1; private Mummies mummy; private Items items, items1, items2;
 	private GraphicsContext gc;
@@ -108,6 +108,7 @@ public class MazeGUI extends Application {
 		character1.setFitHeight(125);
 		character1.setFitWidth(120);
 		character1.setOnMouseClicked(e -> { 
+			characterSelected = 1;
 			CharacterSelected(1);
 			pane.getChildren().add(root);
 			stage.setScene(scene1);
@@ -119,6 +120,7 @@ public class MazeGUI extends Application {
 		character2.setFitHeight(125);
 		character2.setFitWidth(120);
 		character2.setOnMouseClicked(e -> {
+			characterSelected = 2;
 			CharacterSelected(2);
 			pane.getChildren().add(root);
 			stage.setScene(scene1);
@@ -130,6 +132,7 @@ public class MazeGUI extends Application {
 		character3.setFitHeight(125);
 		character3.setFitWidth(120);
 		character3.setOnMouseClicked(e -> {
+			characterSelected = 3;
 			CharacterSelected(3);
 			pane.getChildren().add(root);
 			stage.setScene(scene1);
@@ -141,6 +144,7 @@ public class MazeGUI extends Application {
 		character4.setFitHeight(125);
 		character4.setFitWidth(120);
 		character4.setOnMouseClicked(e -> {
+			characterSelected = 4;
 			CharacterSelected(4);
 			pane.getChildren().add(root);
 			stage.setScene(scene1);
@@ -152,6 +156,7 @@ public class MazeGUI extends Application {
 		character5.setFitHeight(125);
 		character5.setFitWidth(120);
 		character5.setOnMouseClicked(e-> {
+			characterSelected = 5;
 			CharacterSelected(5);
 			pane.getChildren().add(root);
 			stage.setScene(scene1);
