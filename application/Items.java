@@ -172,7 +172,7 @@ public class Items {
 	 */
 	public boolean checkCollisionGem() {
 		if (playerInstance.getX() == this.gemX && playerInstance.getY() == this.gemY) {
-			//do something - add 1 to GemItem
+			//if the two collide - add 1 gem item score (100)
 			playerInstance.updateGemItem();
 			System.out.println("Colliside Gem. Player score increased. Score added: 100");
 			//make gem image disappear
@@ -191,7 +191,7 @@ public class Items {
 	 */
 	public boolean checkCollisionJewel() {
 		if (playerInstance.getX() == this.jewelX && playerInstance.getY() == this.jewelY) {
-			//if the two collide - add 1 life and add score
+			//if the two collide - add 1 life and add score(300)
 			playerInstance.updateLives(1);
 			System.out.println("You collected the Jewel. You gained a life. Number of lives is " + playerInstance.getLives());
 			playerInstance.updatePosItem();
@@ -209,7 +209,8 @@ public class Items {
 	 */
 	public boolean checkCollisionStaff() {
 		if (playerInstance.getX() == this.staffX && playerInstance.getY() == this.staffY) {
-			//if the two collide - add score 
+			//if the two collide - add score (300) and enable player ability to kill mummy
+			//(to send it back to top right corner and collects extra score)
 			System.out.println("You collected the Staff");
 			playerInstance.updatePosItem();
 			playerInstance.setStaffCollected(true);			
