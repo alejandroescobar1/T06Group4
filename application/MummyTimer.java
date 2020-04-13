@@ -26,11 +26,14 @@ public class MummyTimer {
 	}
 	
 	/** 
-	 * creates timer and sets what direction the random number means.
+	 * creates timers and sets what direction the random number means.
 	 */
 	Timer timer1 = new Timer();
 	Timer timer2 = new Timer();
 	
+	/**
+	 * creates a timertask taskmummy, which uses the find path algorithm to moves towards player
+	 */
 	TimerTask taskMummy = new TimerTask(){
 		public void run() {
 				try{if (mummy.findPath(0, (int)mummy.getX(), (int)mummy.getY(),(int) p1.getX(),(int) p1.getY()))
@@ -127,7 +130,7 @@ public class MummyTimer {
 	}
 	
 	/**
-	 * Start the timer.
+	 * Start the timer. timer 1 do taskMummy every 500 millisecond, and timer2 do taskGmae every 1000 milliseconds
 	 */
 	public void start()
 	{
