@@ -38,22 +38,22 @@ public class MummyTimer {
 				try{if (mummy.findPath(0, (int)mummy.getX(), (int)mummy.getY(),(int) p1.getX(),(int) p1.getY()))
 				{
 					mummy.goDown();
-					mummy.checkCollision();
+					mummy.checkCollision(p1.getStaffCollected());
 				}
 				else if (mummy.findPath(1, (int)mummy.getX(), (int)mummy.getY(),(int) p1.getX(),(int) p1.getY()))
 				{
 					mummy.goUp();
-					mummy.checkCollision();
+					mummy.checkCollision(p1.getStaffCollected());
 				}
 				else if (mummy.findPath(2, (int)mummy.getX(), (int)mummy.getY(),(int) p1.getX(),(int) p1.getY()))
 				{
 					mummy.goRight();
-					mummy.checkCollision();
+					mummy.checkCollision(p1.getStaffCollected());
 				}
 				else if (mummy.findPath(3, (int)mummy.getX(), (int)mummy.getY(),(int) p1.getX(),(int) p1.getY()))
 				{
 					mummy.goLeft();
-					mummy.checkCollision();
+					mummy.checkCollision(p1.getStaffCollected());
 				}}
 				catch(StackOverflowError e){
 					//Do a random move
@@ -63,22 +63,22 @@ public class MummyTimer {
 					if (move == 0)
 					{
 						mummy.goDown();
-						mummy.checkCollision();
+						mummy.checkCollision(p1.getStaffCollected());
 					}
 					else if (move == 1)
 					{
 						mummy.goUp();
-						mummy.checkCollision();
+						mummy.checkCollision(p1.getStaffCollected());
 					}
 					else if (move==2)
 					{
 						mummy.goRight();
-						mummy.checkCollision();
+						mummy.checkCollision(p1.getStaffCollected());
 					}
 					else if (move == 3)
 					{
 						mummy.goLeft();
-						mummy.checkCollision();
+						mummy.checkCollision(p1.getStaffCollected());
 					}
 					System.out.println("Oops!Something went wrong.");
 				}

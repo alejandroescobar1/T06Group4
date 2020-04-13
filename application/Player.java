@@ -103,6 +103,9 @@ public class Player extends Character{
 	public void updateGemItem() {
 		this.gemItem += 1;
 	}
+	public void updateMummyKilled() {
+		this.numMummyKilled += 1;
+	}
 	
 	/*
 	 * These are getter functions for the positive, negative, and gem item tallies that will be used by the score
