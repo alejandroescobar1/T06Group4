@@ -191,7 +191,7 @@ public class Items {
 	 */
 	public boolean checkCollisionJewel() {
 		if (playerInstance.getX() == this.jewelX && playerInstance.getY() == this.jewelY) {
-			//do something - add 1 to JewelItem
+			//if the two collide - add 1 life and add score
 			playerInstance.updateLives(1);
 			System.out.println("You collected the Jewel. You gained a life. Number of lives is " + playerInstance.getLives());
 			playerInstance.updatePosItem();
@@ -204,12 +204,12 @@ public class Items {
 		else {return false;}
 	}
 	/**
-	 * This method checks of the player and jewel have collided and will update the player lives accordingly. 
-	 * It will also make the jewel disappear upon collision.
+	 * This method checks of the player and Staff have collided and will update the pos item/score accordingly. 
+	 * It will also make the Staff disappear upon collision.
 	 */
 	public boolean checkCollisionStaff() {
 		if (playerInstance.getX() == this.staffX && playerInstance.getY() == this.staffY) {
-			//do something - add 1 to JewelItem
+			//if the two collide - add score 
 			System.out.println("You collected the Staff");
 			playerInstance.updatePosItem();
 			playerInstance.setStaffCollected(true);			
@@ -223,12 +223,12 @@ public class Items {
 	}
 	
 	/**
-	 * This method checks of the player and jewel have collided and will update the player lives accordingly. 
-	 * It will also make the jewel disappear upon collision.
+	 * This method checks of the player and Ring have collided and will lose a player life and lose score accordingly. 
+	 * It will also make the Ring disappear upon collision.
 	 */
 	public boolean checkCollisionRing() {
 		if (playerInstance.getX() == this.ringX && playerInstance.getY() == this.ringY) {
-			//do something - add 1 to JewelItem
+			//if the two collide - lose one life and lose score
 			playerInstance.updateLives(-1);
 			System.out.println("You collected the Ring. You lost a life. Number of lives is " + playerInstance.getLives());
 			playerInstance.updateNegItem();
