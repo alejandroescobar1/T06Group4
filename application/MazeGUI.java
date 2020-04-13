@@ -50,6 +50,9 @@ public class MazeGUI extends Application {
 	private final ImageView bg = new ImageView("/images/sandBG.png");
 	private int characterSelected;
 	private Group pane = new Group();
+	final TextField Length = new TextField();
+	final TextField Width = new TextField();
+	final Canvas canvas = new Canvas(canvasWidth, canvasWidth);
 	
 	/*
 	 * Generating the screen that asks for user input for the maze dimentions and setting up the canvas length and width accordingly
@@ -63,91 +66,21 @@ public class MazeGUI extends Application {
 		grid.setPadding(new Insets(25,25,25,25));
 
 		Label LengthLabel = new Label("Length:");
-		final TextField Length = new TextField();
+		//final TextField Length = new TextField();
 		grid.add(LengthLabel, 0, 0);
 		grid.add(Length, 1, 0);
 		
 		Label WidthLabel = new Label("Width:");
-		final TextField Width = new TextField();
+		//final TextField Width = new TextField();
 		grid.add(WidthLabel, 0, 1);
 		grid.add(Width, 1, 1);
 		
-		final Canvas canvas = new Canvas(canvasWidth, canvasWidth);
+		//final Canvas canvas = new Canvas(canvasWidth, canvasWidth);
 		gc=canvas.getGraphicsContext2D();
 		
-		// Event handler for user input for the maze dimensions. It alters the character sizes accordingly. This event handler also generates the maze.
 
-	    EventHandler<KeyEvent> dimensionEntered = new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent change) {
-				if (Length.getText().isEmpty()==false && Width.getText().isEmpty()==false&&Integer.parseInt(Length.getText())==Integer.parseInt(Width.getText()))
-				{	
-				gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-				length=Integer.parseInt(Length.getText());
-				width=Integer.parseInt(Width.getText());
-				
-				newMaze = new Maze(Integer.parseInt(Length.getText()), Integer.parseInt(Width.getText()));
-				newMaze.GenerateWalls();
-				PrintMazeGUI(newMaze.CoordinateList);
-				
-				//determine player image size && create player
-				p1.setMaze(newMaze);
-				imgSize = canvasWidth / length;
-				p1.playerImg.setFitHeight(imgSize); //width/length - lineWidth pixel;
-				p1.playerImg.setFitWidth(imgSize);  //width/length - lineWidth pixel;
-				
-				
-				//determining the image size for the mummy
-				try {
-				mummy.setMaze(newMaze);
-				mummy.printLocation();
-				}
-				catch (Exception e){}
-				mummy.enemy.relocate(imgSize * mummy.getX(), imgSize * mummy.getY());
-				mummy.enemy.setFitHeight(imgSize);
-				mummy.enemy.setFitWidth(imgSize);
-				
-				//determining the image size for the items
-				items.setMaze(newMaze);
-				
-				items.setGemCoord();
-				items.gemImg.relocate(imgSize * items.getGemX(), imgSize * items.getGemY());
-				items.gemImg.setFitHeight(imgSize);
-				items.gemImg.setFitWidth(imgSize);
-				
-				items1.setMaze(newMaze);
-				items1.setGemCoord();
-				items1.gemImg.relocate(imgSize * items1.getGemX(), imgSize * items1.getGemY());
-				items1.gemImg.setFitHeight(imgSize);
-				items1.gemImg.setFitWidth(imgSize);
-				
-				items2.setMaze(newMaze);
-				items2.setGemCoord();
-				items2.gemImg.relocate(imgSize * items2.getGemX(), imgSize * items2.getGemY());
-				items2.gemImg.setFitHeight(imgSize);
-				items2.gemImg.setFitWidth(imgSize);
-				
-				items.setJewelCoord();
-				items.jewelImg.relocate(imgSize * items.getJewelX(), imgSize * items.getJewelY());
-				items.jewelImg.setFitHeight(imgSize);
-				items.jewelImg.setFitWidth(imgSize);
-				
-				items.setStaffCoord();
-				items.staffImg.relocate(imgSize * items.getStaffX(), imgSize * items.getStaffY());
-				items.staffImg.setFitHeight(imgSize);
-				items.staffImg.setFitWidth(imgSize);
-				
-				items.setRingCoord();
-				items.ringImg.relocate(imgSize * items.getRingX(), imgSize * items.getRingY());
-				items.ringImg.setFitHeight(imgSize);
-				items.ringImg.setFitWidth(imgSize);
-				}
-			}
-	    };
-		
-
-	    Length.setOnKeyTyped(dimensionEntered);
-	    Width.setOnKeyTyped(dimensionEntered);
+	    Length.setOnKeyTyped(e -> GenerateMaze());
+	    Width.setOnKeyTyped(e -> GenerateMaze());
 		//!!!
 		//PrintMazeGUI(newMaze.CoordinateList);
 		//!!!
@@ -174,96 +107,59 @@ public class MazeGUI extends Application {
 		ImageView character1 = new ImageView("/images/MSR.png");
 		character1.setFitHeight(125);
 		character1.setFitWidth(120);
-		character1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			// Here, if the user picks the first character, it uses the Minecraft Steve character as the avatar (MSR.png).
-			@Override
-			public void handle(MouseEvent arg0) {
-				characterSelected = 1;
-				p1.characterSelected(characterSelected);
-				mummy = new Mummies(newMaze, p1);
-				mummy.characterSelected(characterSelected);
-				items = new Items(newMaze, p1);
-				items1 = new Items(newMaze, p1);
-				items2 = new Items(newMaze, p1);
-				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy, items.gemImg, items.ringImg, items.jewelImg, items.staffImg, items1.gemImg, items2.gemImg, root);
-				stage.setScene(scene1);
-			}
+		character1.setOnMouseClicked(e -> { 
+			characterSelected = 1;
+			CharacterSelected(1);
+			pane.getChildren().add(root);
+			stage.setScene(scene1);
 		});
+		
+		
 		// Currently, characters 2-5 are the same character
 		ImageView character2 = new ImageView("/images/ugandaR.png");
 		character2.setFitHeight(125);
 		character2.setFitWidth(120);
-		character2.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				characterSelected = 2;
-				p1.characterSelected(characterSelected);
-				mummy = new Mummies(newMaze, p1);
-				mummy.characterSelected(characterSelected);
-				items = new Items(newMaze, p1);
-				items1 = new Items(newMaze, p1);
-				items2 = new Items(newMaze, p1);
-				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy, items.gemImg, items.ringImg, items.jewelImg, items.staffImg,items1.gemImg, items2.gemImg, root);
-				stage.setScene(scene1);
-			}
+		character2.setOnMouseClicked(e -> {
+			characterSelected = 2;
+			CharacterSelected(2);
+			pane.getChildren().add(root);
+			stage.setScene(scene1);
+			
 		});
+		
 		
 		ImageView character3 = new ImageView("/images/spongebobR.png");
 		character3.setFitHeight(125);
 		character3.setFitWidth(120);
-		character3.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				characterSelected = 3;
-				p1.characterSelected(characterSelected);
-				mummy = new Mummies(newMaze, p1);
-				mummy.characterSelected(characterSelected);
-				items = new Items(newMaze, p1);
-				items1 = new Items(newMaze, p1);
-				items2 = new Items(newMaze, p1);
-				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy, items.gemImg, items.ringImg, items.jewelImg, items.staffImg,items1.gemImg, items2.gemImg, root);
-				stage.setScene(scene1);
-			}
+		character3.setOnMouseClicked(e -> {
+			characterSelected = 3;
+			CharacterSelected(3);
+			pane.getChildren().add(root);
+			stage.setScene(scene1);
+			
 		});
+		
 		
 		ImageView character4 = new ImageView("/images/neeyanR.png");
 		character4.setFitHeight(125);
 		character4.setFitWidth(120);
-		character4.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				characterSelected = 4;
-				p1.characterSelected(characterSelected);
-				mummy = new Mummies(newMaze, p1);
-				mummy.characterSelected(characterSelected);
-				items = new Items(newMaze, p1);
-				items1 = new Items(newMaze, p1);
-				items2 = new Items(newMaze, p1);
-				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy, items.gemImg, items.ringImg, items.jewelImg, items.staffImg,items1.gemImg, items2.gemImg, root);
-				stage.setScene(scene1);
-			}
+		character4.setOnMouseClicked(e -> {
+			characterSelected = 4;
+			CharacterSelected(4);
+			pane.getChildren().add(root);
+			stage.setScene(scene1);
 		});
+		
+		
 		
 		ImageView character5 = new ImageView("/images/linkR.png");
 		character5.setFitHeight(125);
 		character5.setFitWidth(120);
-		character5.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				characterSelected = 5;
-				p1.characterSelected(characterSelected);
-				mummy = new Mummies(newMaze, p1);
-				mummy.characterSelected(characterSelected);
-				items = new Items(newMaze, p1);
-				items1 = new Items(newMaze, p1);
-				items2 = new Items(newMaze, p1);
-				pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy, items.gemImg, items.ringImg, items.jewelImg, items.staffImg, items1.gemImg, items2.gemImg, root);
-				stage.setScene(scene1);
-			}
+		character5.setOnMouseClicked(e-> {
+			characterSelected = 5;
+			CharacterSelected(5);
+			pane.getChildren().add(root);
+			stage.setScene(scene1);
 		});
 		
 		hbox.getChildren().addAll(character1, character2, character3, character4, character5);
@@ -280,151 +176,7 @@ public class MazeGUI extends Application {
 		//scene1
 	    scene1 = new Scene(grid, 702, 702, Color.ALICEBLUE);
 	    
-	    
-		scene2 = new Scene(pane, canvasWidth, canvasWidth + 50, Color.LIGHTYELLOW);
-		//scene.getStylesheets().add(MazeGUI.class.getResource("MazeGUI.css").toExternalForm());
-		
-		//KeyBoard Interaction. These event handlers take the user input and check if the player can appropriately do the requested motion, checks for collisions, and checks if the player has won or lost at every turn 
-		scene2.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent e) {
-				if (e.getCode().equals(KeyCode.W)) {
-					if (canUpdate == true) {
-						canUpdate = false;
-						p1.goUp();
-						mummy.checkCollision(p1.getStaffCollected());
-						items.checkCollisionGem();
-						items1.checkCollisionGem();
-						items2.checkCollisionGem();
-						items.checkCollisionJewel();
-						items.checkCollisionRing();
-						if(items.checkCollisionStaff()==true) {
-							pane.getChildren().remove(items.staffImg);
-							p1.setStaffCollectionStart(mummyTimer.getSecondPassed());
-						}
-						if (mummyTimer.getSecondPassed()-p1.getStaffCollectionStart()>10) {
-							p1.setStaffCollected(false);
-						}
-						if(p1.checkWin()) {
-							mummyTimer.stop();
-							p1.setTimeFinished(mummyTimer.getSecondPassed());
-							AlertBox.displayWin(characterSelected, p1);
-							System.exit(0);
-						}
-						
-						if (p1.checkLoss()){
-							mummyTimer.stop();
-							AlertBox.displayLoss(characterSelected);
-							System.exit(0);
-						}
-					}
-				}
-				else if (e.getCode().equals(KeyCode.S)) {
-					if (canUpdate == true) {
-						canUpdate = false;
-						p1.goDown();
-						mummy.checkCollision(p1.getStaffCollected());
-						items.checkCollisionGem();
-						items1.checkCollisionGem();
-						items2.checkCollisionGem();
-						items.checkCollisionJewel();
-						items.checkCollisionRing();
-						if(items.checkCollisionStaff()==true) {
-							pane.getChildren().remove(items.staffImg);
-							p1.setStaffCollectionStart(mummyTimer.getSecondPassed());
-						}
-						if (mummyTimer.getSecondPassed()-p1.getStaffCollectionStart()>10) {
-							p1.setStaffCollected(false);
-						}
-						if(p1.checkWin()) {
-							mummyTimer.stop();
-							p1.setTimeFinished(mummyTimer.getSecondPassed());
-							AlertBox.displayWin(characterSelected, p1);
-							System.exit(0);
-						}
-						if (p1.checkLoss()){
-							mummyTimer.stop();
-							AlertBox.displayLoss(characterSelected);
-							System.exit(0);
-						}
-					}
-				}
-				else if (e.getCode().equals(KeyCode.D)) {
-					if (canUpdate == true) {
-						canUpdate = false;
-						p1.goRight();
-						mummy.checkCollision(p1.getStaffCollected());
-						items.checkCollisionGem();
-						items1.checkCollisionGem();
-						items2.checkCollisionGem();
-						items.checkCollisionJewel();
-						items.checkCollisionRing();
-						if(items.checkCollisionStaff()==true) {
-							pane.getChildren().remove(items.staffImg);
-							p1.setStaffCollectionStart(mummyTimer.getSecondPassed());
-						}
-						if (mummyTimer.getSecondPassed()-p1.getStaffCollectionStart()>10) {
-							p1.setStaffCollected(false);
-						}
-						if(p1.checkWin()) {
-							mummyTimer.stop();
-							p1.setTimeFinished(mummyTimer.getSecondPassed());
-							AlertBox.displayWin(characterSelected, p1);
-							System.exit(0);
-						}
-						if (p1.checkLoss()){
-							mummyTimer.stop();
-							AlertBox.displayLoss(characterSelected);
-							System.exit(0);
-						}
-					}
-				}
-				else if (e.getCode().equals(KeyCode.A)) {
-					if (canUpdate == true) {
-						canUpdate = false;
-						p1.goLeft();
-						mummy.checkCollision(p1.getStaffCollected());
-						items.checkCollisionGem();
-						items1.checkCollisionGem();
-						items2.checkCollisionGem();
-						items.checkCollisionJewel();
-						items.checkCollisionRing();
-						if(items.checkCollisionStaff()==true) {
-							pane.getChildren().remove(items.staffImg);
-							p1.setStaffCollectionStart(mummyTimer.getSecondPassed());
-						}
-						if (mummyTimer.getSecondPassed()-p1.getStaffCollectionStart()>10) {
-							p1.setStaffCollected(false);
-						}
-						if(p1.checkWin()) {
-							mummyTimer.stop();
-							p1.setTimeFinished(mummyTimer.getSecondPassed());
-							AlertBox.displayWin(characterSelected, p1);
-							System.exit(0);
-						}
-						if (p1.checkLoss()){
-							mummyTimer.stop();
-							AlertBox.displayLoss(characterSelected);
-							System.exit(0);
-						}
-					}
-				}
-			}
-		});
-		
-		scene2.setOnKeyReleased(new EventHandler<KeyEvent>() {
-
-			@SuppressWarnings("incomplete-switch")
-			@Override
-			public void handle(KeyEvent e) {
-				switch(e.getCode()) {
-				case W: canUpdate = true; break;
-				case S: canUpdate = true; break;
-				case D: canUpdate = true; break;
-				case A: canUpdate = true; break;
-				}
-			}
-		});			
+	    PlayerMovements();			
 				
 		stage.setScene(sceneCharacter);
 		stage.setMaxHeight(canvasWidth + 38 + 50);
@@ -463,6 +215,231 @@ public class MazeGUI extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+	public void GenerateMaze()
+	{
+		if (Length.getText().isEmpty()==false && Width.getText().isEmpty()==false&&Integer.parseInt(Length.getText())==Integer.parseInt(Width.getText()))
+		{	
+		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		length=Integer.parseInt(Length.getText());
+		width=Integer.parseInt(Width.getText());
+		
+		newMaze = new Maze(Integer.parseInt(Length.getText()), Integer.parseInt(Width.getText()));
+		newMaze.GenerateWalls();
+		PrintMazeGUI(newMaze.CoordinateList);
+		
+		//determine player image size && create player
+		p1.setMaze(newMaze);
+		imgSize = canvasWidth / length;
+		p1.playerImg.setFitHeight(imgSize); //width/length - lineWidth pixel;
+		p1.playerImg.setFitWidth(imgSize);  //width/length - lineWidth pixel;
+		
+		
+		//determining the image size for the mummy
+		try {
+		mummy.setMaze(newMaze);
+		mummy.printLocation();
+		}
+		catch (Exception e){}
+		mummy.enemy.relocate(imgSize * mummy.getX(), imgSize * mummy.getY());
+		mummy.enemy.setFitHeight(imgSize);
+		mummy.enemy.setFitWidth(imgSize);
+		
+		//determining the image size for the items
+		items.setMaze(newMaze);
+		
+		items.setGemCoord();
+		items.gemImg.relocate(imgSize * items.getGemX(), imgSize * items.getGemY());
+		items.gemImg.setFitHeight(imgSize);
+		items.gemImg.setFitWidth(imgSize);
+		
+		items1.setMaze(newMaze);
+		items1.setGemCoord();
+		items1.gemImg.relocate(imgSize * items1.getGemX(), imgSize * items1.getGemY());
+		items1.gemImg.setFitHeight(imgSize);
+		items1.gemImg.setFitWidth(imgSize);
+		
+		items2.setMaze(newMaze);
+		items2.setGemCoord();
+		items2.gemImg.relocate(imgSize * items2.getGemX(), imgSize * items2.getGemY());
+		items2.gemImg.setFitHeight(imgSize);
+		items2.gemImg.setFitWidth(imgSize);
+		
+		items.setJewelCoord();
+		items.jewelImg.relocate(imgSize * items.getJewelX(), imgSize * items.getJewelY());
+		items.jewelImg.setFitHeight(imgSize);
+		items.jewelImg.setFitWidth(imgSize);
+		
+		items.setStaffCoord();
+		items.staffImg.relocate(imgSize * items.getStaffX(), imgSize * items.getStaffY());
+		items.staffImg.setFitHeight(imgSize);
+		items.staffImg.setFitWidth(imgSize);
+		
+		items.setRingCoord();
+		items.ringImg.relocate(imgSize * items.getRingX(), imgSize * items.getRingY());
+		items.ringImg.setFitHeight(imgSize);
+		items.ringImg.setFitWidth(imgSize);
+		}
+		
+	}
+	
+	
+	
+	public void CharacterSelected(int numberSelected)
+	{
+		int characterSelected = numberSelected;
+		p1.characterSelected(characterSelected);
+		mummy = new Mummies(newMaze, p1);
+		mummy.characterSelected(characterSelected);
+		items = new Items(newMaze, p1);
+		items1 = new Items(newMaze, p1);
+		items2 = new Items(newMaze, p1);
+		pane.getChildren().addAll(bg, p1.playerImg, canvas, mummy.enemy, items.gemImg, items.ringImg, items.jewelImg, items.staffImg,items1.gemImg, items2.gemImg);
+	}
+	
+	
+	public void PlayerMovements()
+	{
+		scene2 = new Scene(pane, canvasWidth, canvasWidth + 50, Color.LIGHTYELLOW);
+		//scene.getStylesheets().add(MazeGUI.class.getResource("MazeGUI.css").toExternalForm());
+		
+		//KeyBoard Interaction. These event handlers take the user input and check if the player can appropriately do the requested motion, checks for collisions, and checks if the player has won or lost at every turn 
+		scene2.setOnKeyPressed(e -> {
+			if (e.getCode().equals(KeyCode.W)) {
+				if (canUpdate == true) {
+					canUpdate = false;
+					p1.goUp();
+					mummy.checkCollision(p1.getStaffCollected());
+					items.checkCollisionGem();
+					items1.checkCollisionGem();
+					items2.checkCollisionGem();
+					items.checkCollisionJewel();
+					items.checkCollisionRing();
+					if(items.checkCollisionStaff()==true) {
+						pane.getChildren().remove(items.staffImg);
+						p1.setStaffCollectionStart(mummyTimer.getSecondPassed());
+					}
+					if (mummyTimer.getSecondPassed()-p1.getStaffCollectionStart()>10) {
+						p1.setStaffCollected(false);
+					}
+					if(p1.checkWin()) {
+						mummyTimer.stop();
+						p1.setTimeFinished(mummyTimer.getSecondPassed());
+						AlertBox.displayWin(characterSelected, p1);
+						System.exit(0);
+					}
+					
+					if (p1.checkLoss()){
+						mummyTimer.stop();
+						AlertBox.displayLoss(characterSelected);
+						System.exit(0);
+					}
+				}
+			}
+			else if (e.getCode().equals(KeyCode.S)) {
+				if (canUpdate == true) {
+					canUpdate = false;
+					p1.goDown();
+					mummy.checkCollision(p1.getStaffCollected());
+					items.checkCollisionGem();
+					items1.checkCollisionGem();
+					items2.checkCollisionGem();
+					items.checkCollisionJewel();
+					items.checkCollisionRing();
+					if(items.checkCollisionStaff()==true) {
+						pane.getChildren().remove(items.staffImg);
+						p1.setStaffCollectionStart(mummyTimer.getSecondPassed());
+					}
+					if (mummyTimer.getSecondPassed()-p1.getStaffCollectionStart()>10) {
+						p1.setStaffCollected(false);
+					}
+					if(p1.checkWin()) {
+						mummyTimer.stop();
+						p1.setTimeFinished(mummyTimer.getSecondPassed());
+						AlertBox.displayWin(characterSelected, p1);
+						System.exit(0);
+					}
+					if (p1.checkLoss()){
+						mummyTimer.stop();
+						AlertBox.displayLoss(characterSelected);
+						System.exit(0);
+					}
+				}
+			}
+			else if (e.getCode().equals(KeyCode.D)) {
+				if (canUpdate == true) {
+					canUpdate = false;
+					p1.goRight();
+					mummy.checkCollision(p1.getStaffCollected());
+					items.checkCollisionGem();
+					items1.checkCollisionGem();
+					items2.checkCollisionGem();
+					items.checkCollisionJewel();
+					items.checkCollisionRing();
+					if(items.checkCollisionStaff()==true) {
+						pane.getChildren().remove(items.staffImg);
+						p1.setStaffCollectionStart(mummyTimer.getSecondPassed());
+					}
+					if (mummyTimer.getSecondPassed()-p1.getStaffCollectionStart()>10) {
+						p1.setStaffCollected(false);
+					}
+					if(p1.checkWin()) {
+						mummyTimer.stop();
+						p1.setTimeFinished(mummyTimer.getSecondPassed());
+						AlertBox.displayWin(characterSelected, p1);
+						System.exit(0);
+					}
+					if (p1.checkLoss()){
+						mummyTimer.stop();
+						AlertBox.displayLoss(characterSelected);
+						System.exit(0);
+					}
+				}
+			}
+			else if (e.getCode().equals(KeyCode.A)) {
+				if (canUpdate == true) {
+					canUpdate = false;
+					p1.goLeft();
+					mummy.checkCollision(p1.getStaffCollected());
+					items.checkCollisionGem();
+					items1.checkCollisionGem();
+					items2.checkCollisionGem();
+					items.checkCollisionJewel();
+					items.checkCollisionRing();
+					if(items.checkCollisionStaff()==true) {
+						pane.getChildren().remove(items.staffImg);
+						p1.setStaffCollectionStart(mummyTimer.getSecondPassed());
+					}
+					if (mummyTimer.getSecondPassed()-p1.getStaffCollectionStart()>10) {
+						p1.setStaffCollected(false);
+					}
+					if(p1.checkWin()) {
+						mummyTimer.stop();
+						p1.setTimeFinished(mummyTimer.getSecondPassed());
+						AlertBox.displayWin(characterSelected, p1);
+						System.exit(0);
+					}
+					if (p1.checkLoss()){
+						mummyTimer.stop();
+						AlertBox.displayLoss(characterSelected);
+						System.exit(0);
+					}
+				}
+			}
+		});
+		
+		scene2.setOnKeyReleased(e -> {
+			switch(e.getCode()) {
+			case W: canUpdate = true; break;
+			case S: canUpdate = true; break;
+			case D: canUpdate = true; break;
+			case A: canUpdate = true; break;
+			}
+
+		});			
+	}
+	
+
 
 	
 	public void PrintMazeGUI(ArrayList<Coordinate> list) 
