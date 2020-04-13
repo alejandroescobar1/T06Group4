@@ -1,4 +1,4 @@
- /**
+/**
  * @author T06 Group 4
  * @version Demo 3 GUI-based game
  * @implNote The Coordinate class assigns a coordinate value to each block It also assigns to it the status of that block, 
@@ -15,6 +15,7 @@ public class Coordinate {
 	private boolean down;
 	private boolean left;
 	private boolean right;
+	public boolean visited = false;
 	
 	/**
 	 * Constructors
@@ -119,26 +120,23 @@ public class Coordinate {
 	 * This is used by MazeGUI while constructing the maze.
 	 */
 	public boolean getUp() {
-		Coordinate Copy = new Coordinate(this);
-		return Copy.up;
+		return this.up;
 	}
 	
 	
 	public boolean getDown() {
-		Coordinate Copy = new Coordinate(this);
-		return Copy.down;
+		
+		return this.down;
 	}
 	
 	
 	public boolean getLeft() {
-		Coordinate Copy = new Coordinate(this);
-		return Copy.left;
+		return this.left;
 	}
 	
 	
 	public boolean getRight() {
-		Coordinate Copy = new Coordinate(this);
-		return Copy.right;
+		return this.right;
 	}
 	
 	/**
