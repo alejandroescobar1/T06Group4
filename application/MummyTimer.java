@@ -54,7 +54,34 @@ public class MummyTimer {
 				{
 					mummy.goLeft();
 					mummy.checkCollision(p1.getStaffCollected());
-				}}
+				}
+				else {
+					//Do a random move
+					Random mummyDirection = new Random();
+					int move = mummyDirection.nextInt(4);
+					
+					if (move == 0)
+					{
+						mummy.goDown();
+						mummy.checkCollision(p1.getStaffCollected());
+					}
+					else if (move == 1)
+					{
+						mummy.goUp();
+						mummy.checkCollision(p1.getStaffCollected());
+					}
+					else if (move==2)
+					{
+						mummy.goRight();
+						mummy.checkCollision(p1.getStaffCollected());
+					}
+					else if (move == 3)
+					{
+						mummy.goLeft();
+						mummy.checkCollision(p1.getStaffCollected());
+					}
+				};
+				}
 				catch(StackOverflowError e){
 					//Do a random move
 					Random mummyDirection = new Random();
