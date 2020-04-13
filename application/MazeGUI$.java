@@ -47,7 +47,7 @@ public class MazeGUI extends Application {
 	final static double canvasWidth = 702;
 	private boolean canUpdate = true;
 	private double imgSize; 
-	private final ImageView bg = new ImageView("sandBG.png");
+	private final ImageView bg = new ImageView("/images/sandBG.png");
 	private int characterSelected;
 	private Group pane = new Group();
 	final TextField Length = new TextField();
@@ -104,7 +104,7 @@ public class MazeGUI extends Application {
 		root.setPadding(new Insets(710, 10, 10, 20));
 		root.getChildren().addAll(liveLbl, timeLbl);
 		
-		ImageView character1 = new ImageView("MSR.png");
+		ImageView character1 = new ImageView("/images/MSR.png");
 		character1.setFitHeight(125);
 		character1.setFitWidth(120);
 		character1.setOnMouseClicked(e -> { 
@@ -115,7 +115,7 @@ public class MazeGUI extends Application {
 		
 		
 		// Currently, characters 2-5 are the same character
-		ImageView character2 = new ImageView("ugandaR.png");
+		ImageView character2 = new ImageView("/images/ugandaR.png");
 		character2.setFitHeight(125);
 		character2.setFitWidth(120);
 		character2.setOnMouseClicked(e -> {
@@ -126,7 +126,7 @@ public class MazeGUI extends Application {
 		});
 		
 		
-		ImageView character3 = new ImageView("spongebobR.png");
+		ImageView character3 = new ImageView("/images/spongebobR.png");
 		character3.setFitHeight(125);
 		character3.setFitWidth(120);
 		character3.setOnMouseClicked(e -> {
@@ -137,7 +137,7 @@ public class MazeGUI extends Application {
 		});
 		
 		
-		ImageView character4 = new ImageView("neeyanR.png");
+		ImageView character4 = new ImageView("/images/neeyanR.png");
 		character4.setFitHeight(125);
 		character4.setFitWidth(120);
 		character4.setOnMouseClicked(e -> {
@@ -148,7 +148,7 @@ public class MazeGUI extends Application {
 		
 		
 		
-		ImageView character5 = new ImageView("linkR.png");
+		ImageView character5 = new ImageView("/images/linkR.png");
 		character5.setFitHeight(125);
 		character5.setFitWidth(120);
 		character5.setOnMouseClicked(e-> {
@@ -159,7 +159,7 @@ public class MazeGUI extends Application {
 		
 		hbox.getChildren().addAll(character1, character2, character3, character4, character5);
 		// gets background image
-		ImageView characterBG = new ImageView("characterBG.png");
+		ImageView characterBG = new ImageView("/images/characterBG.png");
 		Group group = new Group();
 		group.getChildren().addAll(characterBG, hbox);
 		
