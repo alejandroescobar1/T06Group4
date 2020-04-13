@@ -258,10 +258,10 @@ public class Mummies extends Character{
 			enemyDown = new Image("/images/mummyDOWN.png");
 		}
 		else if (characterselected == 5){
-			enemyRight = new Image("/images/mummyRIGHT.png");
-			enemyLeft = new Image("/images/mummyLEFT.png");
-			enemyUp = new Image("/images/mummyUP.png");
-			enemyDown = new Image("/images/mummyDOWN.png");
+			enemyRight = new Image("/images/guardianR.png");
+			enemyLeft = new Image("/images/guardianL.png");
+			enemyUp = new Image("/images/guardianU.png");
+			enemyDown = new Image("/images/guardianD.png");
 		}
 	}
 

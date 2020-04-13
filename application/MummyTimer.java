@@ -35,9 +35,6 @@ public class MummyTimer {
 	
 	TimerTask taskMummy = new TimerTask(){
 		public void run() {
-				Random mummyDirection = new Random();
-				int move = mummyDirection.nextInt(4);
-				
 				try{if (mummy.findPath(0, (int)mummy.getX(), (int)mummy.getY(),(int) p1.getX(),(int) p1.getY()))
 				{
 					mummy.goDown();
@@ -59,6 +56,30 @@ public class MummyTimer {
 					mummy.checkCollision();
 				}}
 				catch(StackOverflowError e){
+					//Do a random move
+					Random mummyDirection = new Random();
+					int move = mummyDirection.nextInt(4);
+					
+					if (move == 0)
+					{
+						mummy.goDown();
+						mummy.checkCollision();
+					}
+					else if (move == 1)
+					{
+						mummy.goUp();
+						mummy.checkCollision();
+					}
+					else if (move==2)
+					{
+						mummy.goRight();
+						mummy.checkCollision();
+					}
+					else if (move == 3)
+					{
+						mummy.goLeft();
+						mummy.checkCollision();
+					}
 					System.out.println("Oops!Something went wrong.");
 				}
 		}

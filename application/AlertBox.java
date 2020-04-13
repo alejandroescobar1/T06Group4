@@ -26,6 +26,9 @@ public class AlertBox {
 	static ImageView knucklesLoss = new ImageView("/images/knucklesloss.gif");
 	static ImageView MSWin = new ImageView("/images/MSwin.gif");
 	static ImageView MSLoss = new ImageView("/images/MSLoss.gif");
+	static ImageView neeyanLoss = new ImageView("/images/neeyanLoss.gif");
+	static ImageView spongebobLoss = new ImageView("/images/spongebobLoss.gif");
+	static ImageView linkLoss = new ImageView("/images/linkLoss.gif");
 	
 	/**
 	 * This creates a customized loss screen. It is called when the player looses all their lives. 
@@ -53,7 +56,7 @@ public class AlertBox {
 			Stage window = new Stage();
 			window.initModality(Modality.APPLICATION_MODAL);
 			Group layout = new Group();
-			layout.getChildren().add(knucklesLoss);
+			layout.getChildren().add(spongebobLoss);
 			Scene scene = new Scene(layout);
 			window.setScene(scene);
 			window.showAndWait();
@@ -62,7 +65,7 @@ public class AlertBox {
 			Stage window = new Stage();
 			window.initModality(Modality.APPLICATION_MODAL);
 			Group layout = new Group();
-			layout.getChildren().add(knucklesLoss);
+			layout.getChildren().add(neeyanLoss);
 			Scene scene = new Scene(layout);
 			window.setScene(scene);
 			window.showAndWait();
@@ -71,7 +74,7 @@ public class AlertBox {
 			Stage window = new Stage();
 			window.initModality(Modality.APPLICATION_MODAL);
 			Group layout = new Group();
-			layout.getChildren().add(knucklesLoss);
+			layout.getChildren().add(linkLoss);
 			Scene scene = new Scene(layout);
 			window.setScene(scene);
 			window.showAndWait();
@@ -127,7 +130,11 @@ public class AlertBox {
 			Stage window = new Stage();
 			window.initModality(Modality.APPLICATION_MODAL);
 			Group layout = new Group();
-			layout.getChildren().add(MSWin);
+			rec.setFill(Color.ALICEBLUE);
+			vbox.setPadding(new Insets(120, 10, 10, 400));
+			rec.setX(330);
+			rec.setY(100);
+			layout.getChildren().addAll(MSWin, rec, vbox);
 		
 			Scene scene = new Scene(layout);
 			window.setScene(scene);
