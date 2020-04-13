@@ -36,7 +36,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 
-public class MazeGUI$ extends Application {
+public class MazeGUI extends Application {
 	Maze newMaze = new Maze(2,2); MummyTimer mummyTimer;
 	private Player p1; private Mummies mummy; private Items items, items1, items2;
 	private GraphicsContext gc;
