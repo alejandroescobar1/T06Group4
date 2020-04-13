@@ -1,6 +1,6 @@
 /**
  * @author T06 Group 4
- * @version Demo 3 GUI based game
+ * @version Final Demo GUI based game
  * @implNote This class creates a timer for the mummy that is used to determine 
  * when the mummy should try a random direction and thus move if valid.
  */
@@ -17,9 +17,7 @@ public class MummyTimer {
 	private int secondPassed = 0;
 	
 	/**
-	 * Constructors 
-	 * @param p1 
-	 * @param mummy
+	 * Constructor,  it uses  @param p1 and @param mummy to initialize mummy and player instance
 	 */
 	public MummyTimer(Player p1, Mummies mummy) {
 		this.setP1(p1);
@@ -27,7 +25,7 @@ public class MummyTimer {
 		
 	}
 	
-	/* 
+	/** 
 	 * creates timer and sets what direction the random number means.
 	 */
 	Timer timer1 = new Timer();
@@ -129,7 +127,7 @@ public class MummyTimer {
 	}
 	
 	/**
-	 * Stop the timer.
+	 * Start the timer.
 	 */
 	public void start()
 	{

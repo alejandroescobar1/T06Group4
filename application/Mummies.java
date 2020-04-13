@@ -1,9 +1,9 @@
 /**
  * @author T06 Group 4
- * @version Demo 3 GUI based game
+ * @version Final Demo GUI based game
  * @implNote The mummy class is a subclass and it extends the abstract Character class. This class uses the 
- * 			constructor from its super class to create a mummy. This class also gives the mummy a random direction
- * 			and tests if that direction is valid. 
+ * 			constructor from its super class to create a mummy. This class also uses a recursion algorithm to find
+ * 			the closest path for mummy to get to the player 
  */
 package application;
 
@@ -26,10 +26,7 @@ public class Mummies extends Character{
 	private Player playerInstance;
 	Coordinate[][] ordered;
 	/**Constructor. The constructor uses the super constructor to make the mummy. However, it quickly overrides the default
-	 * start position by generating a valid, random location for the mummy to start at. This is done by calling the 
-	 * tryStartCoord() method followed by the use of the super setters to set the new X and Y coordinates to start. If you want
-	 * to start the mummy at a given location, comment out the tryStartCoord() line upto and including the super.setY(startY)
-	 * line.
+	 * start position by generating a valid, random location for the mummy to start at(see line 368 onwards). 
 	 */
 	public Mummies(Maze newMaze, Player playerInstance) {
 		super(newMaze, Maze.width - 1, Maze.length -1);
@@ -39,7 +36,7 @@ public class Mummies extends Character{
 	
 	/**
 	 * This method randomly generates possible coordinates for the mummy start point. It then checks if that randomly
-	 * generated position is the start of end position of the maze. If it is not either of those, and that coordinate 
+	 * generated position is the start or end position of the maze. If it is not either of those, and that coordinate 
 	 * has a status of 'e' (meaning empty), then it will both set that location at the start coordinates and set the 
 	 * status of the coordinate to 'm'. This is important as the Item class uses these statuses to determine where it 
 	 * can generate items in, and it is also an important functionality for the player when it is checking what it has
@@ -72,6 +69,13 @@ public class Mummies extends Character{
 		}
 	}
 	
+	
+	/**
+	 * This method uses recursion algorithm to generate the shortest path for mummy to get to the player. 
+	 * In each of the four directions below, it tries to see if it can goto that block, if it does, then it recursively calls
+	 * for every direction(minus the backward direction) in order to see if it reaches the player's coordinate. After every  
+	 * failed path, it loops through the coordinates and resets them to false for visited.
+	 */
 	public boolean findPath(int direction,int mummyX,int mummyY,int playerX,int playerY){
 		final int originalX = playerX;
 		final int originalY = playerY;
@@ -232,9 +236,8 @@ public class Mummies extends Character{
 }
 	
 	/** 
-	 * This method assigns the appropriate images to the mummy according to the character the user chose
-	 * in the beginning. Since there are only two unique characters made thus far, if the character picks
-	 * any character other than character 1, they will get the same enemy and the same avatar. 
+	 * This method assigns the appropriate images to the character according to the character the user chose
+	 * in the beginning.
 	 */
 	public void characterSelected(int characterselected){
 		if (characterselected == 1){
@@ -273,7 +276,7 @@ public class Mummies extends Character{
 	/**
 	 * This method checks of the player and mummy have collided and will update the player lives accordingly. 
 	 * It will also move the player to the beginning position as well as print a statement explaining what 
-	 * happened to the player into the counsel. 
+	 * happened to the player into the console. 
 	 */
 	public boolean checkCollision(boolean staffCollected) {
 		if (staffCollected == false) {
@@ -308,15 +311,14 @@ public class Mummies extends Character{
 	}
 	
 	/**
-	 * Print the location
+	 * Print the cuurent location of mummy
 	 */
 	public void printLocation(){
 		System.out.println("Mummy 1 is at "+ super.Location());
 	}
 	
-	/* 
-	 * Moves the mummy GUI location in the direction listed in the method name. It is called in MazeGUI 
-	 * when it is given a random direction. 
+	/** 
+	 * Moves the mummy GUI location in the direction listed in the method name.
 	 */
 	public void goDown() {
 		if (this.getY()+1 < Maze.length) {
@@ -363,6 +365,11 @@ public class Mummies extends Character{
 		}
 	}
 	
+	/**Here it overrides the default
+	** start position by generating a valid, random location for the mummy to start at. This is done by calling the 
+	** tryStartCoord() method followed by the use of the super setters to set the new X and Y coordinates to start. If you want
+	** to start the mummy at a given location, comment out the tryStartCoord() line upto and including the super.setY(startY) line.
+	*/
 	@Override
 	public void setMaze(Maze aMaze) {
 		this.maze = aMaze;
