@@ -24,6 +24,7 @@ public class MummyTimer {
 	public MummyTimer(Player p1, Mummies mummy) {
 		this.setP1(p1);
 		this.mummy = mummy;
+		
 	}
 	
 	/* 
@@ -37,31 +38,32 @@ public class MummyTimer {
 				Random mummyDirection = new Random();
 				int move = mummyDirection.nextInt(4);
 				
-				if (move == 0&&(int)mummy.getX()>(int)p1.getX())
-				{
-					mummy.goLeft();
-					mummy.checkCollision();
-				}
-				else if (move == 1&&(int)mummy.getX()<(int)p1.getX())
-				{
-					mummy.goRight();
-					mummy.checkCollision();
-				}
-				else if (move==2&&((int)mummy.getY()>(int)p1.getY()))
-				{
-					mummy.goUp();
-					mummy.checkCollision();
-				}
-				else if (move == 3&&((int)mummy.getY()<(int)p1.getY()))
+				try{if (mummy.findPath(0, (int)mummy.getX(), (int)mummy.getY(),(int) p1.getX(),(int) p1.getY()))
 				{
 					mummy.goDown();
 					mummy.checkCollision();
 				}
+				else if (mummy.findPath(1, (int)mummy.getX(), (int)mummy.getY(),(int) p1.getX(),(int) p1.getY()))
+				{
+					mummy.goUp();
+					mummy.checkCollision();
+				}
+				else if (mummy.findPath(2, (int)mummy.getX(), (int)mummy.getY(),(int) p1.getX(),(int) p1.getY()))
+				{
+					mummy.goRight();
+					mummy.checkCollision();
+				}
+				else if (mummy.findPath(3, (int)mummy.getX(), (int)mummy.getY(),(int) p1.getX(),(int) p1.getY()))
+				{
+					mummy.goLeft();
+					mummy.checkCollision();
+				}}
+				catch(StackOverflowError e){
+					System.out.println("Oops!Something went wrong.");
+				}
 		}
 		
 	};
-	
-
 	
 	TimerTask taskGameTime = new TimerTask() {
     	public void run() {
@@ -108,3 +110,4 @@ public class MummyTimer {
 		return this.secondPassed;
 	}
 }
+	

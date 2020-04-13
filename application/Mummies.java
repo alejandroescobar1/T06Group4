@@ -24,7 +24,7 @@ public class Mummies extends Character{
 	private int startY;
 	// Creates an instance of a player
 	private Player playerInstance;
-	
+	Coordinate[][] ordered;
 	/**Constructor. The constructor uses the super constructor to make the mummy. However, it quickly overrides the default
 	 * start position by generating a valid, random location for the mummy to start at. This is done by calling the 
 	 * tryStartCoord() method followed by the use of the super setters to set the new X and Y coordinates to start. If you want
@@ -34,6 +34,7 @@ public class Mummies extends Character{
 	public Mummies(Maze newMaze, Player playerInstance) {
 		super(newMaze, Maze.width - 1, Maze.length -1);
 		this.playerInstance = playerInstance;
+		this.ordered = Maze.order(newMaze.CoordinateList);
 	}
 	
 	/**
@@ -66,6 +67,164 @@ public class Mummies extends Character{
 			}
 		}
 	}
+	public boolean findPath(int direction,int mummyX,int mummyY,int playerX,int playerY){
+		final int originalX = playerX;
+		final int originalY = playerY;
+		if (direction == 0){
+		if (mummyY+1 < Maze.length) {
+			if(ordered[(int) mummyY][(int) mummyX].getDown() == false && ordered[(int) mummyY+1][(int) mummyX].visited == false) {
+				ordered[(int) mummyY+1][((int) mummyX)].visited = true; 
+				if (mummyY + 1 == playerY && mummyX == playerX){
+					return true;
+				}
+				else if(mummyY + 1 == originalY && mummyX == originalX){
+					for(Coordinate[] x:ordered){
+						for(Coordinate y:x){
+							y.visited = false;
+						}
+					}
+					return false;
+				}
+				else {
+					ordered[(int)mummyY+1][(int)mummyX].setStatus('V');
+					if (findPath(0,mummyX,mummyY+1,playerX,playerY) == true){return true;}
+					else if (findPath(2,mummyX,mummyY+1,playerX,playerY) == true){return true;}
+					else if (findPath(3,mummyX,mummyY+1,playerX,playerY) == true){return true;}
+					else{
+						for(Coordinate[] x:ordered){
+							for(Coordinate y:x){
+								y.visited = false;
+							}
+						}
+						return false;
+					}
+				}
+			}
+			else{
+				
+				return false;}
+		}
+		else{
+			
+			return false;}
+		}
+		else if (direction == 1){
+		if (mummyY - 1 >= 0) {
+			if(ordered[(int) mummyY][(int) mummyX].getUp() == false && ordered[(int) mummyY-1][(int) mummyX].visited == false) {
+				ordered[((int) mummyY)-1][(int) mummyX].visited = true;
+				if (mummyY -1 == playerY && mummyX == playerX){
+					return true;
+				}
+				else if(mummyY - 1 == originalY && mummyX == originalX){
+					for(Coordinate[] x:ordered){
+						for(Coordinate y:x){
+							y.visited = false;
+						}
+					}
+					return false;
+				}
+				else {
+					ordered[(int)mummyY-1][(int)mummyX].setStatus('V');
+					if (findPath(1,mummyX,mummyY-1,playerX,playerY) == true){return true;}
+					else if (findPath(2,mummyX,mummyY-1,playerX,playerY) == true){return true;}
+					else if (findPath(3,mummyX,mummyY-1,playerX,playerY) == true){return true;}
+					else{
+						for(Coordinate[] x:ordered){
+							for(Coordinate y:x){
+								y.visited = false;
+							}
+						}
+						return false;
+					}
+				}
+				}
+				else {
+					
+					return false;
+				}
+			}
+		 else{
+			
+			 return false;}
+		}
+		
+		else if (direction == 2){
+		if (mummyX + 1 < Maze.length){
+			if(ordered[(int) mummyY][(int) mummyX].getRight() == false && ordered[(int) mummyY][(int) mummyX+1].visited == false) {
+				ordered[((int) mummyY)][(int) mummyX+1].visited = true;
+				if (mummyY == playerY && mummyX + 1== playerX){
+					return true;
+				}
+				else if(mummyY == originalY && mummyX +1 == originalX){
+					for(Coordinate[] x:ordered){
+						for(Coordinate y:x){
+							y.visited = false;
+						}
+					}
+					return false;
+				}
+				else {
+					ordered[(int)mummyY][(int)mummyX+1].setStatus('V');
+					if (findPath(0,mummyX+1,mummyY,playerX,playerY) == true){return true;}
+					else if (findPath(1,mummyX+1,mummyY,playerX,playerY) == true){return true;}
+					else if (findPath(2,mummyX+1,mummyY,playerX,playerY) == true){return true;}
+					else{
+						for(Coordinate[] x:ordered){
+							for(Coordinate y:x){
+								y.visited = false;
+							}
+						}
+						return false;}
+				}
+			}
+			
+			else{
+				
+				return false;}
+
+		} else {
+			
+			return false;}
+		}
+		else if (direction == 3){
+		if (mummyX - 1 >= 0){
+			if(ordered[(int) mummyY][(int) mummyX].getLeft() == false && ordered[(int) mummyY][(int) mummyX-1].visited == false) {
+				ordered[(int) mummyY][(int) mummyX-1].visited = true;
+				if (mummyY == playerY && mummyX - 1== playerX){
+					return true;
+				}
+				else if(mummyY  == originalY && mummyX -1 == originalX){
+					for(Coordinate[] x:ordered){
+						for(Coordinate y:x){
+							y.visited = false;
+						}
+					}
+					return false;
+				}
+				else {
+					
+					ordered[(int)mummyY][(int)mummyX-1].setStatus('V');
+					if (findPath(0,mummyX-1,mummyY,playerX,playerY) == true){return true;}
+					else if (findPath(1,mummyX-1,mummyY,playerX,playerY) == true){return true;}
+					else if (findPath(3,mummyX-1,mummyY,playerX,playerY) == true){return true;}
+					else{
+						for(Coordinate[] x:ordered){
+							for(Coordinate y:x){
+								y.visited = false;
+							}
+						}	
+						return false;}
+				}
+			}else {
+				
+				return false;}
+		}
+		else {
+			
+			return false;}
+	}
+		else return false;
+}
 	
 	/** 
 	 * This method assigns the appropriate images to the mummy according to the character the user chose
@@ -186,5 +345,6 @@ public class Mummies extends Character{
 		tryStartCoord();
 		super.setX(startX);
 		super.setY(startY);
+		this.ordered = Maze.order(aMaze.CoordinateList);
 	}
 }
