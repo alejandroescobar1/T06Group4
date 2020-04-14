@@ -5,7 +5,7 @@ Repository address: https://github.com/alejandroescobar1/T06Group4
 
 This repository contains the code needed to play the Treasure Hunt game.
 
-The final demo version can be found under the "My-brand" Branch of the repository.
+The final demo version can be found under the "Interactive-Demo" Branch of the repository.
 
 To run this code, download all ten class flies and one .css file: AlertBox.java, Character.java,Coordinate.java,Items.java, Maze.java, MazeGUI.java, Mummies,MummiesTimer.java, Player.java,and Score.java and application.css. Import all theseclasses into the "application" package of src. 
 
