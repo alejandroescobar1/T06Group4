@@ -1,6 +1,6 @@
 /**
  * @author T06 Group 4
- * @version Final Demo GUI based game
+ * @version Demo 3 GUI based game
  * @implNote This class creates a timer for the mummy that is used to determine 
  * when the mummy should try a random direction and thus move if valid.
  */
@@ -17,7 +17,9 @@ public class MummyTimer {
 	private int secondPassed = 0;
 	
 	/**
-	 * Constructor,  it uses  @param p1 and @param mummy to initialize mummy and player instance
+	 * Constructors 
+	 * @param p1 
+	 * @param mummy
 	 */
 	public MummyTimer(Player p1, Mummies mummy) {
 		this.setP1(p1);
@@ -25,91 +27,58 @@ public class MummyTimer {
 		
 	}
 	
-	/** 
-	 * creates timers and sets what direction the random number means.
+	/* 
+	 * creates timer and sets what direction the random number means.
 	 */
 	Timer timer1 = new Timer();
 	Timer timer2 = new Timer();
 	
-	/**
-	 * creates a timertask taskmummy, which uses the find path algorithm to moves towards player. 
-	 * If findpath failed or stackoverflowed when mummy AI going into circle, then use the random movement for mummy instead
-	 */
 	TimerTask taskMummy = new TimerTask(){
 		public void run() {
 				try{if (mummy.findPath(0, (int)mummy.getX(), (int)mummy.getY(),(int) p1.getX(),(int) p1.getY()))
 				{
 					mummy.goDown();
-					mummy.checkCollision(p1.getStaffCollected());
+					mummy.checkCollision();
 				}
 				else if (mummy.findPath(1, (int)mummy.getX(), (int)mummy.getY(),(int) p1.getX(),(int) p1.getY()))
 				{
 					mummy.goUp();
-					mummy.checkCollision(p1.getStaffCollected());
+					mummy.checkCollision();
 				}
 				else if (mummy.findPath(2, (int)mummy.getX(), (int)mummy.getY(),(int) p1.getX(),(int) p1.getY()))
 				{
 					mummy.goRight();
-					mummy.checkCollision(p1.getStaffCollected());
+					mummy.checkCollision();
 				}
 				else if (mummy.findPath(3, (int)mummy.getX(), (int)mummy.getY(),(int) p1.getX(),(int) p1.getY()))
 				{
 					mummy.goLeft();
-					mummy.checkCollision(p1.getStaffCollected());
-				}
-				else {
-					//Do a random move
-					Random mummyDirection = new Random();
-					int move = mummyDirection.nextInt(4);
-					
-					if (move == 0)
-					{
-						mummy.goDown();
-						mummy.checkCollision(p1.getStaffCollected());
-					}
-					else if (move == 1)
-					{
-						mummy.goUp();
-						mummy.checkCollision(p1.getStaffCollected());
-					}
-					else if (move==2)
-					{
-						mummy.goRight();
-						mummy.checkCollision(p1.getStaffCollected());
-					}
-					else if (move == 3)
-					{
-						mummy.goLeft();
-						mummy.checkCollision(p1.getStaffCollected());
-					}
-				};
-				}
+					mummy.checkCollision();
+				}}
 				catch(StackOverflowError e){
-					//Do a random move
 					Random mummyDirection = new Random();
 					int move = mummyDirection.nextInt(4);
-					
-					if (move == 0)
-					{
-						mummy.goDown();
-						mummy.checkCollision(p1.getStaffCollected());
-					}
-					else if (move == 1)
-					{
-						mummy.goUp();
-						mummy.checkCollision(p1.getStaffCollected());
-					}
-					else if (move==2)
-					{
-						mummy.goRight();
-						mummy.checkCollision(p1.getStaffCollected());
-					}
-					else if (move == 3)
-					{
-						mummy.goLeft();
-						mummy.checkCollision(p1.getStaffCollected());
-					}
-					System.out.println("Oops!Something went wrong.");
+				
+				if (move == 0)
+				{
+					mummy.goDown();
+					mummy.checkCollision();
+				}
+				else if (move == 1)
+				{
+					mummy.goUp();
+					mummy.checkCollision();
+				}
+				else if (move==2)
+				{
+					mummy.goRight();
+					mummy.checkCollision();
+				}
+				else if (move == 3)
+				{
+					mummy.goLeft();
+					mummy.checkCollision();
+				}
 				}
 		}
 		
@@ -131,7 +100,7 @@ public class MummyTimer {
 	}
 	
 	/**
-	 * Start the timer. timer 1 do taskMummy every 500 millisecond, and timer2 do taskGmae every 1000 milliseconds
+	 * Stop the timer.
 	 */
 	public void start()
 	{
